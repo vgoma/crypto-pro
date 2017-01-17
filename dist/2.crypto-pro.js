@@ -1441,10 +1441,12 @@ webpackJsonpCryptoPro([2],[
 	 *
 	 * @param {String} hash -- fingerprint (thumbprint) сертификата
 	 * @param {String} dataBase64 -- строковые данные в формате base64
-	 * @param {String} signType -- тип подписи открепленная (true) / присоединенная (false) (default: false)
+	 * @param {Boolean} signType -- тип подписи открепленная (true) / присоединенная (false) (default: true)
 	 * @returns {Promise} -- обещание, которое зарезолвится с данными о подписи {String}
 	 * */
 	function signData(hash, dataBase64, signType) {
+	    signType = typeof signType === 'undefined' ? true : Boolean(signType);
+	
 	    return new Promise(function (resolve, reject) {
 	        getCadesCert(hash).then(function (cert) {
 	            var clientTime = new Date(),
@@ -1481,7 +1483,7 @@ webpackJsonpCryptoPro([2],[
 	                signature = oSignedData.SignCades(
 	                    oSigner,
 	                    cadesplugin.CADESCOM_CADES_BES,
-	                    Boolean(signType)
+	                    signType
 	                );
 	            } catch (err) {
 	                reject('Не удалось создать подпись: ' + err.message);
