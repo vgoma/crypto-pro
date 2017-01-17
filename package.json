@@ -1,0 +1,29 @@
+{
+  "name": "@vgoma/crypto-pro",
+  "version": "1.0.0",
+  "description": "API для взаимодействия с КриптоПро",
+  "main": "index.js",
+  "scripts": {
+    "start": "node_modules/.bin/webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "/home/vgoma/Dropbox/dev/crypto-pro.git"
+  },
+  "author": "vgoma",
+  "keywords": [
+    "crypto",
+    "cryptopro",
+    "crypto-pro",
+    "cades",
+    "КриптоПро"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "bowser": "^1.5.0"
+  },
+  "devDependencies": {
+    "webpack": "1.13.2"
+  }
+}

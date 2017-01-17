@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пример использования CryptoPro</title>
+    <script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+</head>
+<body>
+    <script>
+        window.CryptoProConfig = {
+            publicPath: '../dist/'
+        };
+    </script>
+
+    <pre id="certList"></pre>
+
+    <script src="../dist/crypto-pro.js"></script>
+
+    <script>
+        CryptoPro.call('getCertsList').then(function (list) {
+            document.querySelector('#certList').innerHTML = JSON.stringify(list, null, '  ');
+        }, function (error) {
+            console.error(error);
+        });
+    </script>
+</body>
+</html>
