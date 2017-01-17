@@ -6,22 +6,18 @@
     <script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
 </head>
 <body>
+    <select id="certList"></select>
+    <button id="createSign" type="button">Создать подпись</button>
+    <br>
+    <textarea id="createdSign" cols="90" rows="30"></textarea>
+
     <script>
         window.CryptoProConfig = {
             publicPath: '../dist/'
         };
     </script>
-
-    <pre id="certList"></pre>
-
     <script src="../dist/crypto-pro.js"></script>
-
-    <script>
-        CryptoPro.call('getCertsList').then(function (list) {
-            document.querySelector('#certList').innerHTML = JSON.stringify(list, null, '  ');
-        }, function (error) {
-            console.error(error);
-        });
-    </script>
+    <script src="cert-list.js"></script>
+    <script src="create-sign.js"></script>
 </body>
 </html>
