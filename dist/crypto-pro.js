@@ -164,8 +164,6 @@ var CryptoPro =
 	    // Получаем указанные конфиги
 	    if (CryptoProConfig && CryptoProConfig.publicPath) {
 	        __webpack_require__.p = CryptoProConfig.publicPath;
-	    } else {
-	        throw new Error('Не указан путь к компонентам CryptoPro');
 	    }
 	
 	    if (canPromise) {

@@ -66,8 +66,6 @@ if (cadesplugin) {
     // Получаем указанные конфиги
     if (CryptoProConfig && CryptoProConfig.publicPath) {
         __webpack_public_path__ = CryptoProConfig.publicPath;
-    } else {
-        throw new Error('Не указан путь к компонентам CryptoPro');
     }
 
     if (canPromise) {
