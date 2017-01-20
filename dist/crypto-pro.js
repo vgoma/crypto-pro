@@ -236,6 +236,10 @@ var CryptoPro =
 	    }
 	
 	    function cpcsp_console_log(level, msg) {
+	        if (typeof console === 'undefined') {
+	            return;
+	        }
+	
 	        if (level <= cadesplugin.current_log_level) {
 	            if (level == cadesplugin.LOG_LEVEL_DEBUG) {
 	                console.log('DEBUG: %s', msg);
@@ -294,6 +298,9 @@ var CryptoPro =
 	    function set_constantValues() {
 	        cadesplugin.CAPICOM_LOCAL_MACHINE_STORE = 1;
 	        cadesplugin.CAPICOM_CURRENT_USER_STORE = 2;
+	        cadesplugin.CADESCOM_LOCAL_MACHINE_STORE = 1;
+	        cadesplugin.CADESCOM_CURRENT_USER_STORE = 2;
+	        cadesplugin.CADESCOM_CONTAINER_STORE = 100;
 	        cadesplugin.CAPICOM_MY_STORE = 'My';
 	        cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED = 2;
 	        cadesplugin.CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME = 1;
@@ -481,6 +488,38 @@ var CryptoPro =
 	        return pluginObject.CreateObject(name);
 	    }
 	
+	    function decimalToHexString(number) {
+	        if (number < 0) {
+	            number = 0xFFFFFFFF + number + 1;
+	        }
+	
+	        return number.toString(16).toUpperCase();
+	    }
+	
+	    function GetMessageFromException(e) {
+	        var err = e.message;
+	
+	        if (!err) {
+	            err = e;
+	        } else if (e.number) {
+	            err += ' (0x' + decimalToHexString(e.number) + ')';
+	        }
+	
+	        return err;
+	    }
+	
+	    function getLastError(exception) {
+	        if (isChromiumBased() || isIE() || isIOS()) {
+	            return GetMessageFromException(exception);
+	        }
+	
+	        try {
+	            return pluginObject.getLastError();
+	        } catch (e) {
+	            return GetMessageFromException(exception);
+	        }
+	    }
+	
 	    // Функция активации асинхронных объектов КриптоПро ЭЦП Browser plug-in
 	    function CreateObjectAsync(name) {
 	        return pluginObject.CreateObjectAsync(name);
@@ -662,7 +701,7 @@ var CryptoPro =
 	
 	        elem.setAttribute('id', 'cadesplugin_object');
 	        elem.setAttribute('type', 'application/x-cades');
-	        elem.setAttribute('style', 'visibility=hidden');
+	        elem.setAttribute('style', 'visibility: hidden');
 	        document.getElementsByTagName('body')[0].appendChild(elem);
 	
 	        pluginObject = document.getElementById('cadesplugin_object');
@@ -672,13 +711,13 @@ var CryptoPro =
 	
 	            elem1.setAttribute('id', 'certEnrollClassFactory');
 	            elem1.setAttribute('classid', 'clsid:884e2049-217d-11da-b2a4-000e7bbb2b09');
-	            elem1.setAttribute('style', 'visibility=hidden');
+	            elem1.setAttribute('style', 'visibility: hidden');
 	            document.getElementsByTagName('body')[0].appendChild(elem1);
 	
 	            var elem2 = document.createElement('object');
 	            elem2.setAttribute('id', 'webClassFactory');
 	            elem2.setAttribute('classid', 'clsid:B04C8637-10BD-484E-B0DA-B8A039F60024');
-	            elem2.setAttribute('style', 'visibility=hidden');
+	            elem2.setAttribute('style', 'visibility: hidden');
 	
 	            document.getElementsByTagName('body')[0].appendChild(elem2);
 	        }
@@ -785,10 +824,11 @@ var CryptoPro =
 	    }
 	
 	    // Export
-	    cadesplugin.JSModuleVersion = '2.0.2';
+	    cadesplugin.JSModuleVersion = '2.0.3';
 	    cadesplugin.async_spawn = async_spawn;
 	    cadesplugin.set = set_pluginObject;
 	    cadesplugin.set_log_level = set_log_level;
+	    cadesplugin.getLastError = getLastError;
 	
 	    if (isChromiumBased()) {
 	        cadesplugin.CreateObjectAsync = CreateObjectAsync;
