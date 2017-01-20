@@ -15,7 +15,6 @@
         plugin_resolve,
         isOpera = 0,
         isYaBrowser = 0,
-        failed_extensions = 0,
         canPromise = Boolean(window.Promise),
         cadesplugin;
 
@@ -361,16 +360,15 @@
     // Если установленна переменная cadesplugin_skip_extension_install - не предлагаем установить расширение
     function install_opera_extension() {
         if (!window.cadesplugin_skip_extension_install) {
-            document.addEventListener('DOMContentLoaded', function () {
-                var ovr = document.createElement('div');
+            var ovr = document.createElement('div');
 
-                ovr.id = 'cadesplugin_ovr';
-                ovr.style = [
-                    'visibility: hidden; position: fixed; left: 0px; top: 0px;',
-                    'width:100%; height:100%; background-color: rgba(0,0,0,0.7)'
-                ].join(' ');
+            ovr.id = 'cadesplugin_ovr';
+            ovr.style = [
+                'visibility: hidden; position: fixed; left: 0px; top: 0px;',
+                'width:100%; height:100%; background-color: rgba(0,0,0,0.7)'
+            ].join(' ');
 
-                ovr.innerHTML = '\
+            ovr.innerHTML = '\
                     <div id="cadesplugin_ovr_item" style="\
                         position:relative;\
                         width:400px;\
@@ -394,35 +392,34 @@
                     </div>\
                 ';
 
-                document.getElementsByTagName('Body')[0].appendChild(ovr);
+            document.getElementsByTagName('Body')[0].appendChild(ovr);
 
-                var btn_install = document.getElementById('cadesplugin_install');
+            var btn_install = document.getElementById('cadesplugin_install');
 
-                btn_install.addEventListener('click', function (event) {
-                    opr.addons.installExtension('epebfcehmdedogndhlcacafjaacknbcm',
-                        function () {
-                            document.getElementById('cadesplugin_ovr').style.visibility = 'hidden';
-                            location.reload();
-                        },
-                        function () {}
-                    );
-                });
+            btn_install.addEventListener('click', function (event) {
+                opr.addons.installExtension('epebfcehmdedogndhlcacafjaacknbcm',
+                    function () {
+                        document.getElementById('cadesplugin_ovr').style.visibility = 'hidden';
+                        location.reload();
+                    },
+                    function () {}
+                );
+            });
 
-                document.getElementById('cadesplugin_close_install').addEventListener('click', function () {
-                    plugin_loaded_error('Плагин недоступен');
-                    document.getElementById('cadesplugin_ovr').style.visibility = 'hidden';
-                });
+            document.getElementById('cadesplugin_close_install').addEventListener('click', function () {
+                plugin_loaded_error('Плагин недоступен');
+                document.getElementById('cadesplugin_ovr').style.visibility = 'hidden';
+            });
 
-                ovr.addEventListener('click', function () {
-                    plugin_loaded_error('Плагин недоступен');
-                    document.getElementById('cadesplugin_ovr').style.visibility = 'hidden';
-                });
+            ovr.addEventListener('click', function () {
+                plugin_loaded_error('Плагин недоступен');
+                document.getElementById('cadesplugin_ovr').style.visibility = 'hidden';
+            });
 
-                ovr.style.visibility = 'visible';
+            ovr.style.visibility = 'visible';
 
-                document.getElementById('cadesplugin_ovr_item').addEventListener('click', function (e) {
-                    e.stopPropagation();
-                });
+            document.getElementById('cadesplugin_ovr_item').addEventListener('click', function (e) {
+                e.stopPropagation();
             });
         } else {
             plugin_loaded_error('Плагин недоступен');
@@ -443,21 +440,16 @@
 
     // Загружаем расширения для Chrome, Opera, YaBrowser
     function load_extension() {
-        var fileref = document.createElement('script');
+        var fileref = document.createElement('script'),
+            hash = isChromiumBased() && isOpera ? 'epebfcehmdedogndhlcacafjaacknbcm' : 'iifchhfnnmpdbibifmljnfjhpififfog';
 
-        fileref.setAttribute('type', 'text/javascript');
-        fileref.setAttribute('src', 'chrome-extension://iifchhfnnmpdbibifmljnfjhpififfog/nmcades_plugin_api.js');
-        fileref.onerror = plugin_loaded_error;
-        fileref.onload = extension_onload;
-
-        document.getElementsByTagName('head')[0].appendChild(fileref);
-
-        fileref = document.createElement('script');
-        fileref.setAttribute('type', 'text/javascript');
-        fileref.setAttribute('src', 'chrome-extension://epebfcehmdedogndhlcacafjaacknbcm/nmcades_plugin_api.js');
-        fileref.onerror = plugin_loaded_error;
-        fileref.onload = extension_onload;
-        document.getElementsByTagName('head')[0].appendChild(fileref);
+        if (hash) {
+            fileref.setAttribute('type', 'text/javascript');
+            fileref.setAttribute('src', 'chrome-extension://' + hash + '/nmcades_plugin_api.js');
+            fileref.onerror = plugin_loaded_error;
+            fileref.onload = extension_onload;
+            document.getElementsByTagName('head')[0].appendChild(fileref);
+        }
     }
 
     // Загружаем плагин для NPAPI
@@ -501,13 +493,6 @@
     // Отправляем событие что сломались.
     function plugin_loaded_error(msg) {
         if (isChromiumBased()) {
-            // в асинхронном варианте подключаем оба расширения, если сломались оба пробуем установить для Opera
-            failed_extensions++;
-
-            if (failed_extensions < 2) {
-                return;
-            }
-
             if (isOpera && (typeof(msg) == 'undefined' || typeof(msg) == 'object')) {
                 install_opera_extension();
                 return;
