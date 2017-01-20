@@ -729,12 +729,6 @@ var CryptoPro =
 	        } else {
 	            window.postMessage('cadesplugin_load_error', '*');
 	        }
-	
-	    }
-	
-	    // Вспомогательная функция для NPAPI
-	    function createPromise(arg) {
-	        return new Promise(arg);
 	    }
 	
 	    function check_npapi_plugin() {
