@@ -845,11 +845,11 @@ webpackJsonpCryptoPro([1],[
 	 * MIT License | (c) Dustin Diaz 2015
 	 */
 	
-	!function (root, name, definition) {
+	!function (name, definition) {
 	  if (typeof module != 'undefined' && module.exports) module.exports = definition()
 	  else if (true) __webpack_require__(5)(name, definition)
-	  else root[name] = definition()
-	}(this, 'bowser', function () {
+	  else this[name] = definition()
+	}('bowser', function () {
 	  /**
 	    * See useragents.js for examples of navigator.userAgent
 	    */
