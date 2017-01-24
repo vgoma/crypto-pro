@@ -2,7 +2,7 @@
   "name": "crypto-pro",
   "version": "1.0.4",
   "description": "API для взаимодействия с КриптоПро",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node_modules/.bin/webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "/home/vgoma/Dropbox/dev/crypto-pro.git"
   },
-  "author": "vgoma",
+  "author": "vgoma <vgoma@yandex.ru>",
   "keywords": [
     "crypto",
     "cryptopro",
