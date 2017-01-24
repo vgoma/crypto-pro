@@ -21,7 +21,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "bowser": "^1.5.0"
+    "bowser": "1.5.0"
   },
   "devDependencies": {
     "webpack": "1.13.2"
