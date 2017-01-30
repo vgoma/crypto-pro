@@ -442,7 +442,7 @@ webpackJsonpCryptoPro([1],[
 	
 	                resolve(signature);
 	            });
-	        });
+	        }, reject);
 	    });
 	}
 	
@@ -487,7 +487,7 @@ webpackJsonpCryptoPro([1],[
 	
 	                resolve(signature);
 	            });
-	        });
+	        }, reject);
 	    });
 	}
 	

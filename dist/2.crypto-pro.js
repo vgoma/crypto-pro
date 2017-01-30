@@ -1491,7 +1491,7 @@ webpackJsonpCryptoPro([2],[
 	            }
 	
 	            resolve(signature);
-	        });
+	        }, reject);
 	    });
 	}
 	
@@ -1534,7 +1534,7 @@ webpackJsonpCryptoPro([2],[
 	            }
 	
 	            resolve(signature);
-	        });
+	        }, reject);
 	    });
 	}
 	

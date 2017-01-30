@@ -436,7 +436,7 @@ function signData(hash, dataBase64, signType) {
 
                 resolve(signature);
             });
-        });
+        }, reject);
     });
 }
 
@@ -481,7 +481,7 @@ function signDataXML(hash, dataXML) {
 
                 resolve(signature);
             });
-        });
+        }, reject);
     });
 }
 
