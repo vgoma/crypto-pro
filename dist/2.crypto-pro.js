@@ -1288,7 +1288,7 @@ webpackJsonpCryptoPro([2],[
 	            if (certs.Count) {
 	                cert = certs.Item(1);
 	            } else {
-	                throw new Error('Нет доступных сертификатов');
+	                throw new Error(hash);
 	            }
 	        } catch (err) {
 	            reject('Не удалось получить сертификат по хэшу: ' + err.message);
