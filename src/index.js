@@ -1,14 +1,22 @@
-require('./cades');
-
-var global = Function('return this')(),
+var bowser = require('bowser/bowser'),
+    browserInfo = bowser._detect(navigator.userAgent),
+    global = Function('return this')(),
     canPromise = Boolean(global.Promise),
-    cadesplugin = global.cadesplugin,
-    canAsync = Boolean(cadesplugin.CreateObjectAsync),
     CryptoProConfig = global.CryptoProConfig,
+    canAsync,
+    cadesplugin,
     cryptoService,
     _errorMsg = '',
     _isLoaded = false,
     _onLoadCbQueue = [];
+
+global.allow_firefox_cadesplugin_async = browserInfo.firefox && browserInfo.version >= 52;
+
+require('./cades');
+
+cadesplugin = global.cadesplugin;
+
+canAsync = Boolean(cadesplugin.CreateObjectAsync);
 
 function execOnloadQueue() {
     _onLoadCbQueue.forEach(function (callback) {

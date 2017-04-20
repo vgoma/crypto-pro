@@ -213,7 +213,6 @@
         isYaBrowser = navigator.userAgent.match(/YaBrowser/i);
         isFireFox = navigator.userAgent.match(/Firefox/i);
 
-        window.allow_firefox_cadesplugin_async = 1;
         if (isFireFox && window.allow_firefox_cadesplugin_async) {
             return true;
         }
@@ -476,7 +475,6 @@
         window.postMessage('cadesplugin_echo_request', '*');
 
         window.addEventListener('message', function (event) {
-            console.log(event.data);
             if (typeof event.data !== 'string' || !event.data.match('cadesplugin_loaded')) {
                 return;
             }
