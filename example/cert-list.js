@@ -10,7 +10,12 @@
         list.forEach(function (cert) {
             var $certOption = document.createElement('option');
 
-            $certOption.textContent = cert.label;
+            if (typeof $certOption.textContent !== 'undefined') {
+                $certOption.textContent = cert.label;
+            } else {
+                $certOption.innerText = cert.label;
+            }
+
             $certOption.value = cert.thumbprint;
 
             $certs.appendChild($certOption);
