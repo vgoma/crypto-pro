@@ -459,26 +459,8 @@ var CryptoPro =
 	                return objWebClassFactory.CreateObject(name);
 	            }
 	            catch (e) {
-	                try {
-	                    // Для версий плагина ниже 2.0.12538
-	                    return new ActiveXObject(name);
-	                } catch (e) {
-	                    var mimetype = navigator.mimeTypes['application/x-cades'];
-	
-	                    if (mimetype) {
-	                        if (mimetype.enabledPlugin) {
-	                            console.log(
-	                                'EDS:',
-	                                'Плагин КриптоПРО ЭЦП browser plug-in загружен,',
-	                                'но не создаются обьекты'
-	                            );
-	                        } else {
-	                            console.log('EDS:', 'Ошибка при загрузке плагина КриптоПРО ЭЦП browser plug-in');
-	                        }
-	                    } else {
-	                        console.log('EDS:', 'Плагин КриптоПРО ЭЦП browser plug-in недоступен');
-	                    }
-	                }
+	                // Для версий плагина ниже 2.0.12538
+	                return new ActiveXObject(name);
 	            }
 	        }
 	        // В Firefox, Safari создаются объекты NPAPI
@@ -796,15 +778,10 @@ var CryptoPro =
 	                false);
 	        }else
 	        {
-	            if (window.addEventListener) {
-	                window.addEventListener("load", function (event) {
-	                    load_npapi_plugin();
-	                    check_npapi_plugin();
-	                }, false);
-	            } else {
+	            window.addEventListener("load", function (event) {
 	                load_npapi_plugin();
 	                check_npapi_plugin();
-	            }
+	            }, false);
 	        }
 	    }
 	
