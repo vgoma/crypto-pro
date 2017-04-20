@@ -74,7 +74,7 @@
         cadesplugin.CADESCOM_LOCAL_MACHINE_STORE = 1;
         cadesplugin.CADESCOM_CURRENT_USER_STORE = 2;
         cadesplugin.CADESCOM_CONTAINER_STORE = 100;
-
+        
         cadesplugin.CAPICOM_MY_STORE = "My";
 
         cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED = 2;
