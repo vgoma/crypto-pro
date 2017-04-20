@@ -15,6 +15,7 @@
         plugin_resolve,
         isOpera = 0,
         isYaBrowser = 0,
+        isFireFox = 0,
         canPromise = Boolean(window.Promise),
         cadesplugin;
 
@@ -32,6 +33,7 @@
     }
 
     function cpcsp_console_log(level, msg) {
+        //IE9 не может писать в консоль если не открыта вкладка developer tools
         if (typeof console === 'undefined') {
             return;
         }
@@ -76,7 +78,7 @@
             cpcsp_console_log(cadesplugin.LOG_LEVEL_INFO, 'cadesplugin_api.js: log_level = ERROR');
         }
 
-        if (isChromiumBased()) {
+        if (isNativeMessageSupported()) {
             if (cadesplugin.current_log_level == cadesplugin.LOG_LEVEL_DEBUG) {
                 window.postMessage('set_log_level=debug', '*');
             }
@@ -204,19 +206,20 @@
             || navigator.userAgent.match(/iphone/i);
     }
 
-    function isChromiumBased() {
-        var retVal_chrome = navigator.userAgent.match(/chrome/i),
-
-            // некоторых версиях IE8 с подключенным плагином chromeframe он определяется как
-            // Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; chromeframe/29.0.1547.67;
-            // и может попадать в ветку Chrome
-            retVal_chromeframe = navigator.userAgent.match(/chromeframe/i);
+    function isNativeMessageSupported() {
+        var retVal_chrome = navigator.userAgent.match(/chrome/i);
 
         isOpera = navigator.userAgent.match(/opr/i);
         isYaBrowser = navigator.userAgent.match(/YaBrowser/i);
+        isFireFox = navigator.userAgent.match(/Firefox/i);
+
+        window.allow_firefox_cadesplugin_async = 1;
+        if (isFireFox && window.allow_firefox_cadesplugin_async) {
+            return true;
+        }
 
         if (retVal_chrome == null) {
-            // В Firefox и IE работаем через NPAPI
+            // В IE работаем через NPAPI
             return false;
         } else {
             // В Chrome и Opera работаем через асинхронную версию
@@ -305,7 +308,7 @@
     }
 
     function getLastError(exception) {
-        if (isChromiumBased() || isIE() || isIOS()) {
+        if (isNativeMessageSupported() || isIE() || isIOS()) {
             return GetMessageFromException(exception);
         }
 
@@ -465,29 +468,52 @@
         }
     }
 
-    function extension_onload() {
+    function firefox_nmcades_onload() {
+        window.cpcsp_chrome_nmcades.check_chrome_plugin(plugin_loaded, plugin_loaded_error);
+    }
+
+    function nmcades_api_onload() {
         window.postMessage('cadesplugin_echo_request', '*');
 
         window.addEventListener('message', function (event) {
-            if (event.data != 'cadesplugin_loaded') {
+            console.log(event.data);
+            if (typeof event.data !== 'string' || !event.data.match('cadesplugin_loaded')) {
                 return;
             }
 
-            cpcsp_chrome_nmcades.check_chrome_plugin(plugin_loaded, plugin_loaded_error);
+            if (isFireFox) {
+                // Для Firefox вместе с сообщением cadesplugin_loaded прилетает url для загрузки nmcades_plugin_api.js
+                var url = event.data.substring(event.data.indexOf('url:') + 4);
+                var fileref = document.createElement('script');
+
+                fileref.setAttribute('type', 'text/javascript');
+                fileref.setAttribute('src', url);
+                fileref.onerror = plugin_loaded_error;
+                fileref.onload = firefox_nmcades_onload;
+                document.getElementsByTagName('head')[0].appendChild(fileref);
+            } else {
+                cpcsp_chrome_nmcades.check_chrome_plugin(plugin_loaded, plugin_loaded_error);
+            }
         }, false);
     }
 
-    // Загружаем расширения для Chrome, Opera, YaBrowser
+    //Загружаем расширения для Chrome, Opera, YaBrowser, FireFox, Edge
     function load_extension() {
-        var fileref = document.createElement('script'),
-            hash = isChromiumBased() && isOpera ? 'epebfcehmdedogndhlcacafjaacknbcm' : 'iifchhfnnmpdbibifmljnfjhpififfog';
+        if (isFireFox) {
+            // вызываем callback руками т.к. нам нужно узнать ID расширения. Он уникальный для браузера.
+            nmcades_api_onload();
+            return;
+        } else {
+            var fileref = document.createElement('script'),
+                hash = isNativeMessageSupported() && isOpera ? 'epebfcehmdedogndhlcacafjaacknbcm' : 'iifchhfnnmpdbibifmljnfjhpififfog';
 
-        if (hash) {
-            fileref.setAttribute('type', 'text/javascript');
-            fileref.setAttribute('src', 'chrome-extension://' + hash + '/nmcades_plugin_api.js');
-            fileref.onerror = plugin_loaded_error;
-            fileref.onload = extension_onload;
-            document.getElementsByTagName('head')[0].appendChild(fileref);
+            if (hash) {
+                fileref.setAttribute('type', 'text/javascript');
+                fileref.setAttribute('src', 'chrome-extension://' + hash + '/nmcades_plugin_api.js');
+                fileref.onerror = plugin_loaded_error;
+                fileref.onload = nmcades_api_onload;
+                document.getElementsByTagName('head')[0].appendChild(fileref);
+            }
         }
     }
 
@@ -531,7 +557,7 @@
 
     // Отправляем событие что сломались.
     function plugin_loaded_error(msg) {
-        if (isChromiumBased()) {
+        if (isNativeMessageSupported()) {
             if (isOpera && (typeof(msg) == 'undefined' || typeof(msg) == 'object')) {
                 install_opera_extension();
                 return;
@@ -591,7 +617,7 @@
 
     // Проверяем работает ли плагин
     function check_plugin_working() {
-        if (isChromiumBased()) {
+        if (isNativeMessageSupported()) {
             load_extension();
         } else if (!canPromise) {
             window.addEventListener('message', function (event) {
@@ -620,17 +646,17 @@
     }
 
     // Export
-    cadesplugin.JSModuleVersion = '2.0.3';
+    cadesplugin.JSModuleVersion = '2.1.0';
     cadesplugin.async_spawn = async_spawn;
     cadesplugin.set = set_pluginObject;
     cadesplugin.set_log_level = set_log_level;
     cadesplugin.getLastError = getLastError;
 
-    if (isChromiumBased()) {
+    if (isNativeMessageSupported()) {
         cadesplugin.CreateObjectAsync = CreateObjectAsync;
     }
 
-    if (!isChromiumBased()) {
+    if (!isNativeMessageSupported()) {
         cadesplugin.CreateObject = CreateObject;
     }
 
