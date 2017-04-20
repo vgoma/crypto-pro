@@ -553,6 +553,14 @@
     //Проверяем работает ли плагин
     function check_plugin_working()
     {
+        var div = document.createElement("div");
+        div.innerHTML = "<!--[if lt IE 9]><iecheck></iecheck><![endif]-->";
+        var isIeLessThan9 = (div.getElementsByTagName("iecheck").length == 1);
+        if (isIeLessThan9) {
+            plugin_loaded_error("Internet Explorer версии 8 и ниже не поддерживается");
+            return;
+        }
+
         if(isNativeMessageSupported())
         {
             load_extension();
