@@ -492,7 +492,7 @@ var CryptoPro =
 	
 	        return number.toString(16).toUpperCase();
 	    }
-	
+	    
 	    function GetMessageFromException(e) {
 	        var err = e.message;
 	        if (!err) {
