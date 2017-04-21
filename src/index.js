@@ -12,7 +12,7 @@ var bowser = require('bowser/bowser'),
 
 global.allow_firefox_cadesplugin_async = browserInfo.firefox && browserInfo.version >= 52;
 
-require('./cades');
+require('../vendor/cadesplugin_api');
 
 cadesplugin = global.cadesplugin;
 
