@@ -1,6 +1,6 @@
 {
   "name": "crypto-pro",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "dependencies": {
     "acorn": {
       "version": "3.3.0",
