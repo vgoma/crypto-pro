@@ -4,7 +4,7 @@
 ## Поддерживаемые браузеры
 - [Google Chrome](https://www.google.ru/chrome/browser/desktop/) (v45+) с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://chrome.google.com/webstore/detail/cryptopro-extension-for-c/iifchhfnnmpdbibifmljnfjhpififfog?utm_source=chrome-app-launcher-info-dialog)
 - [Opera](https://www.google.ru/chrome/browser/desktop/) (v40+) с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://addons.opera.com/en/extensions/details/cryptopro-extension-for-cades-browser-plug-in/)
-- [Mozilla Firefox](https://www.mozilla.org/ru/firefox/new/) (v43+).
+- [Mozilla Firefox](https://www.mozilla.org/ru/firefox/new/) (v43+). Начиная с версии 52, с [расширением](https://www.cryptopro.ru/sites/default/files/products/cades/extensions/cryptopro_extension_for_cades_browser_plug_in-1.1.1-an+fx-windows.xpi).
 - [Internet Explorer](http://windows.microsoft.com/ru-ru/internet-explorer/download-ie) (v8+).
 
 Полифиллы необходимо подключать самостоятельно.
@@ -82,11 +82,10 @@ ls -la /opt/cprocsp/lib/amd64 | grep libnpcades
     -rwxr-xr-x 1 root root 2727236 Июн  8 14:33 libnpcades.so.2.0.0
 ```
 
-#### Настройка плагина для Firefox:
+#### Настройка плагина для Firefox (до версии 52):
 > После настройки плагина на страницах, запрашивающих работу с ЭП в панели навигации, рядом с url будет кнопка,
   позволяющая "разрешить и запомнить" использование установленного плагина.
 
-##### В Firefox до версии 52
 ```bash
 cd /usr/lib/mozilla/plugins
 
@@ -97,9 +96,6 @@ cp /opt/cprocsp/lib/amd64/libnpcades.so.2.0.0 ./libnpcades.so
 ldd libnpcades.so
 ```
 Перезапустите Firefox, и убедитесь в наличии CryptoPRO Cades plugin (см. Menu -> Addons).
-
-##### В Firefox начиная с версии 52
-Используйте [расширение](https://www.cryptopro.ru/sites/default/files/products/cades/extensions/cryptopro_extension_for_cades_browser_plug_in-1.1.1-an+fx-windows.xpi).
 
 ### <a name="install_cert_linux"></a> Установка сертификатов в Linux
 > В OSX процесс схож с Linux.
@@ -168,7 +164,7 @@ ldd libnpcades.so
 Пример работы с API лежит в папке `example`.
 
 ``` js
-CryptoService.call('getCertsList').then(function (certList) {
+window.CryptoPro.call('getCertsList').then(function (certList) {
     console.log(certList);
 });
 ```
