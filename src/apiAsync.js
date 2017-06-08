@@ -1,162 +1,168 @@
 var cryptoCommon = require('./common'),
     cryptoConstants = require('./constants'),
-
-    _certProto = {
-        /**
-         * Проверяет, валиден ли сертификат
-         * */
-        isValid: function isValid() {
-            var cert = this._cert;
-
-            return new Promise(function (resolve, reject) {
-                cadesplugin.async_spawn(function* () {
-                    var result;
-
-                    try {
-                        result = yield cert.IsValid();
-                        result = yield result.Result;
-                    } catch (err) {
-                        reject('Ошибка при проверке сертификата: ', err.message);
-                        return;
-                    }
-
-                    resolve(result);
-                });
-            });
-        },
-
-        /**
-         * Достает указанное свойство у сертификата
-         * */
-        getProp: function (propName) {
-            var cert = this._cert;
-
-            return new Promise(function (resolve, reject) {
-                cadesplugin.async_spawn(function* () {
-                    var result;
-
-                    try {
-                        result = yield cert[propName];
-                    } catch (err) {
-                        reject('Ошибка при обращении к свойству сертификата: ', err.message);
-                        return;
-                    }
-
-                    resolve(result);
-                });
-            });
-        },
-
-        /**
-         * Экспорт base64 представления сертификата пользователя
-         * */
-        exportBase64: function exportBase64() {
-            var cert = this._cert;
-
-            return new Promise(function (resolve, reject) {
-                cadesplugin.async_spawn(function* () {
-                    var base64;
-
-                    try {
-                        base64 = yield cert.Export(0);
-                    } catch (err) {
-                        reject('Ошибка при экспорте сертификата: ', err.message);
-                        return;
-                    }
-
-                    resolve(base64);
-                });
-            });
-        },
-
-        /**
-         * Возвращает информацию об алгоритме
-         * */
-        getAlgorithm: function getAlgorithm() {
-            var cert = this._cert;
-
-            return new Promise(function (resolve, reject) {
-                cadesplugin.async_spawn(function* () {
-                    var result = {},
-                        algorithm;
-
-                    try {
-                        algorithm = yield cert.PublicKey();
-                        algorithm = yield algorithm.Algorithm;
-
-                        result.algorithm = yield algorithm.FriendlyName;
-                        result.oid = yield algorithm.Value;
-                    } catch (err) {
-                        reject('Ошибка при получении алгоритма: ', err.message);
-                        return;
-                    }
-
-                    resolve(result);
-                });
-            });
-        },
-
-        /**
-         * Разбирает SubjectName сертификата по тэгам
-         * */
-        getOwnerInfo: function getOwnerInfo() {
-            return getCertInfo.call(this, cryptoCommon.subjectNameTagsTranslations, 'SubjectName');
-        },
-
-        /**
-         * Разбирает IssuerName сертификата по тэгам
-         * */
-        getIssuerInfo: function getIssuerInfo() {
-            return getCertInfo.call(this, cryptoCommon.issuerNameTagsTranslations, 'IssuerName');
-        },
-
-        /**
-         * Получение OID сертификата
-         *
-         * @returns {Array} Возвращает массив OID (улучшенного ключа)
-         * */
-        getExtendedKeyUsage: function getExtendedKeyUsage() {
-            var cert = this._cert;
-
-            return new Promise(function (resolve, reject) {
-                cadesplugin.async_spawn(function* () {
-                    var OIDS = [],
-                        count,
-                        item;
-
-                    try {
-                        count = yield cert.ExtendedKeyUsage();
-                        count = yield count.EKUs;
-                        count = yield count.Count;
-
-                        if (count > 0) {
-                            while (count > 0) {
-                                item = yield cert.ExtendedKeyUsage();
-                                item = yield item.EKUs;
-                                item = yield item.Item(count);
-                                item = yield item.OID;
-
-                                OIDS.push(item);
-
-                                count--;
-                            }
-                        }
-                    } catch (err) {
-                        reject('Ошибка при получении ОИД\'ов: ', err.message);
-                        return;
-                    }
-
-                    resolve(OIDS);
-                });
-            });
-        },
-
-        getDecodedExtendedKeyUsage: cryptoCommon.getDecodedExtendedKeyUsage,
-
-        hasExtendedKeyUsage: cryptoCommon.hasExtendedKeyUsage
-    },
-
     _certListCache;
+
+function Certificate(item) {
+    this._cert = item._cert;
+    this.thumbprint = item.thumbprint;
+    this.subjectName = item.subjectName;
+    this.issuerName = item.issuerName;
+    this.validFrom = item.validFrom;
+    this.validTo = item.validTo;
+}
+
+/**
+ * Проверяет, валиден ли сертификат
+ * */
+Certificate.prototype.isValid = function isValid() {
+    var cert = this._cert;
+
+    return new Promise(function (resolve, reject) {
+        cadesplugin.async_spawn(function* () {
+            var result;
+
+            try {
+                result = yield cert.IsValid();
+                result = yield result.Result;
+            } catch (err) {
+                reject('Ошибка при проверке сертификата: ', err.message);
+                return;
+            }
+
+            resolve(result);
+        });
+    });
+};
+
+/**
+ * Достает указанное свойство у сертификата
+ * */
+Certificate.prototype.getProp = function (propName) {
+    var cert = this._cert;
+
+    return new Promise(function (resolve, reject) {
+        cadesplugin.async_spawn(function* () {
+            var result;
+
+            try {
+                result = yield cert[propName];
+            } catch (err) {
+                reject('Ошибка при обращении к свойству сертификата: ', err.message);
+                return;
+            }
+
+            resolve(result);
+        });
+    });
+};
+
+/**
+ * Экспорт base64 представления сертификата пользователя
+ * */
+Certificate.prototype.exportBase64 = function exportBase64() {
+    var cert = this._cert;
+
+    return new Promise(function (resolve, reject) {
+        cadesplugin.async_spawn(function* () {
+            var base64;
+
+            try {
+                base64 = yield cert.Export(0);
+            } catch (err) {
+                reject('Ошибка при экспорте сертификата: ', err.message);
+                return;
+            }
+
+            resolve(base64);
+        });
+    });
+};
+
+/**
+ * Возвращает информацию об алгоритме
+ * */
+Certificate.prototype.getAlgorithm = function getAlgorithm() {
+    var cert = this._cert;
+
+    return new Promise(function (resolve, reject) {
+        cadesplugin.async_spawn(function* () {
+            var result = {},
+                algorithm;
+
+            try {
+                algorithm = yield cert.PublicKey();
+                algorithm = yield algorithm.Algorithm;
+
+                result.algorithm = yield algorithm.FriendlyName;
+                result.oid = yield algorithm.Value;
+            } catch (err) {
+                reject('Ошибка при получении алгоритма: ', err.message);
+                return;
+            }
+
+            resolve(result);
+        });
+    });
+};
+
+/**
+ * Разбирает SubjectName сертификата по тэгам
+ * */
+Certificate.prototype.getOwnerInfo = function getOwnerInfo() {
+    return getCertInfo.call(this, cryptoCommon.subjectNameTagsTranslations, 'SubjectName');
+};
+
+/**
+ * Разбирает IssuerName сертификата по тэгам
+ * */
+Certificate.prototype.getIssuerInfo = function getIssuerInfo() {
+    return getCertInfo.call(this, cryptoCommon.issuerNameTagsTranslations, 'IssuerName');
+};
+
+/**
+ * Получение OID сертификата
+ *
+ * @returns {Array} Возвращает массив OID (улучшенного ключа)
+ * */
+Certificate.prototype.getExtendedKeyUsage = function getExtendedKeyUsage() {
+    var cert = this._cert;
+
+    return new Promise(function (resolve, reject) {
+        cadesplugin.async_spawn(function* () {
+            var OIDS = [],
+                count,
+                item;
+
+            try {
+                count = yield cert.ExtendedKeyUsage();
+                count = yield count.EKUs;
+                count = yield count.Count;
+
+                if (count > 0) {
+                    while (count > 0) {
+                        item = yield cert.ExtendedKeyUsage();
+                        item = yield item.EKUs;
+                        item = yield item.Item(count);
+                        item = yield item.OID;
+
+                        OIDS.push(item);
+
+                        count--;
+                    }
+                }
+            } catch (err) {
+                reject('Ошибка при получении ОИД\'ов: ', err.message);
+                return;
+            }
+
+            resolve(OIDS);
+        });
+    });
+};
+
+Certificate.prototype.getDecodedExtendedKeyUsage = cryptoCommon.getDecodedExtendedKeyUsage;
+
+Certificate.prototype.hasExtendedKeyUsage = cryptoCommon.hasExtendedKeyUsage;
 
 /**
  * Проверяет корректность настроек ЭП на машине
@@ -325,7 +331,7 @@ function getCertsList(resetCache) {
                 while (count) {
                     item = yield certs.Item(count);
 
-                    result.push(Object.assign(Object.create(_certProto), {
+                    result.push(new Certificate({
                         _cert: yield item,
                         thumbprint: yield item.Thumbprint,
                         subjectName: yield item.SubjectName,

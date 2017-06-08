@@ -96,7 +96,7 @@ var CryptoPro =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var bowser = __webpack_require__(4),
+	var bowser = __webpack_require__(1),
 	    browserInfo = bowser._detect(navigator.userAgent),
 	    global = Function('return this')(),
 	    canPromise = Boolean(global.Promise),
@@ -110,7 +110,7 @@ var CryptoPro =
 	
 	global.allow_firefox_cadesplugin_async = browserInfo.firefox && browserInfo.version >= 52;
 	
-	__webpack_require__(10);
+	__webpack_require__(3);
 	
 	cadesplugin = global.cadesplugin;
 	
@@ -179,7 +179,7 @@ var CryptoPro =
 	            function () {
 	                if (canAsync) {
 	                    __webpack_require__.e/* nsure */(1, function () {
-	                        cryptoService = __webpack_require__(2);
+	                        cryptoService = __webpack_require__(4);
 	                        finishLoading();
 	                    });
 	                } else {
@@ -207,10 +207,7 @@ var CryptoPro =
 	};
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -221,7 +218,7 @@ var CryptoPro =
 	
 	!function (name, definition) {
 	  if (typeof module != 'undefined' && module.exports) module.exports = definition()
-	  else if (true) __webpack_require__(5)(name, definition)
+	  else if (true) __webpack_require__(2)(name, definition)
 	  else this[name] = definition()
 	}('bowser', function () {
 	  /**
@@ -796,18 +793,14 @@ var CryptoPro =
 
 
 /***/ },
-/* 5 */
+/* 2 */
 /***/ function(module, exports) {
 
 	module.exports = function() { throw new Error("define cannot be used indirect"); };
 
 
 /***/ },
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
+/* 3 */
 /***/ function(module, exports) {
 
 	;(function () {

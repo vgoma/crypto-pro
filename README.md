@@ -7,7 +7,7 @@
 - [Mozilla Firefox](https://www.mozilla.org/ru/firefox/new/) (v43+). Начиная с версии 52, с [расширением](https://www.cryptopro.ru/sites/default/files/products/cades/extensions/cryptopro_extension_for_cades_browser_plug_in-1.1.1-an+fx-windows.xpi).
 - [Internet Explorer](http://windows.microsoft.com/ru-ru/internet-explorer/download-ie) (v8+).
 
-Полифиллы необходимо подключать самостоятельно.
+Полифилл для Promise необходимо подключать самостоятельно.
 
 ## Установка и настройка
 ```bash
