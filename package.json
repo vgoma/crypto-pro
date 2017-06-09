@@ -24,11 +24,11 @@
     "bowser": "1.5.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-preset-latest": "^6.24.1",
-    "webpack": "^2.6.1",
-    "uglify-js": "https://github.com/mishoo/UglifyJS2.git#harmony"
+    "babel-cli": "6.24.1",
+    "babel-core": "6.24.1",
+    "babel-loader": "7.0.0",
+    "babel-preset-latest": "6.24.1",
+    "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22",
+    "webpack": "2.6.1"
   }
 }
