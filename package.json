@@ -4,8 +4,8 @@
   "description": "API для взаимодействия с КриптоПро",
   "main": "src/index.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack --config webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack",
+    "build": "NODE_ENV=\"production\" webpack -p --progress"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,11 @@
     "bowser": "1.5.0"
   },
   "devDependencies": {
-    "webpack": "1.13.2"
+    "babel-cli": "6.24.1",
+    "babel-core": "6.24.1",
+    "babel-loader": "7.0.0",
+    "babel-preset-latest": "6.24.1",
+    "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22",
+    "webpack": "2.6.1"
   }
 }
