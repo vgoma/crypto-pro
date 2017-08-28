@@ -14,8 +14,14 @@
 - Array.prototype.map
 
 ## Установка и настройка
+### NPM
 ```bash
 npm install crypto-pro
+```
+
+### Bower
+```bash
+bower install crypto-pro
 ```
 
 Для корректной работы используйте:
