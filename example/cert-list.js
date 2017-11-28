@@ -3,6 +3,8 @@
 
     var $certs = document.querySelector('#certList');
 
+    window.CryptoPro.call('isValidEDSSettings');
+    
     /**
      * Пример получения списка сертификатов
      * */

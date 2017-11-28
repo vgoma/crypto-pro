@@ -169,11 +169,11 @@ Certificate.prototype.hasExtendedKeyUsage = cryptoCommon.hasExtendedKeyUsage;
  * */
 function isValidEDSSettings() {
     return new Promise(function (resolve, reject) {
-        cadesplugin.async_spawn(function* () {
+        cryptoCommon.execute(function () {
             var result;
 
             try {
-                result = yield cadesplugin.CreateObjectAsync('CAdESCOM.About');
+                result = cryptoCommon.createObj('CAdESCOM.About');
             } catch (error) {
                 reject('Настройки ЭП на данной машине не верны');
             }

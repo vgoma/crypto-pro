@@ -46,6 +46,28 @@ webpackJsonpCryptoPro([2],[
 	        {possibleNames: ['L'], translation: 'Город'}
 	    ];
 	
+	function execute(cb) {
+	    if (cadesplugin.CreateObjectAsync) {
+	        var GeneratorFunction = (new Function('', 'return Object.getPrototypeOf(function*(){}).constructor'))();
+	        
+	        cb = String(cb);
+	        
+	        var args = cb.match(/^function\s*?\((.*?)\)/);
+	        
+	        args = (args && args[1]) || ''; 
+	        
+	        cb = cb.replace(/^.*?{([\s\S]*?)}$/, '$1');
+	        
+	        cadesplugin.async_spawn(new GeneratorFunction(args, cb));
+	    }
+	}
+	
+	function createObj(type) {
+	    if (cadesplugin.CreateObjectAsync) {
+	        return (new Function('', 'return yield cadesplugin.CreateObjectAsync(' + type + ')'))();
+	    }
+	}
+	
 	/**
 	 * Парсит информацию из строки с информацией о сертификате
 	 * */
@@ -273,6 +295,8 @@ webpackJsonpCryptoPro([2],[
 	}
 	
 	module.exports = {
+	    execute: execute,
+	    createObj: createObj,
 	    subjectNameTagsTranslations: subjectNameTagsTranslations,
 	    issuerNameTagsTranslations: issuerNameTagsTranslations,
 	    parseCertInfo: parseCertInfo,

@@ -177,11 +177,11 @@ webpackJsonpCryptoPro([1],[
 	 * */
 	function isValidEDSSettings() {
 	    return new Promise(function (resolve, reject) {
-	        cadesplugin.async_spawn(function* () {
+	        cryptoCommon.execute(function () {
 	            var result;
 	
 	            try {
-	                result = yield cadesplugin.CreateObjectAsync('CAdESCOM.About');
+	                result = cryptoCommon.createObj('CAdESCOM.About');
 	            } catch (error) {
 	                reject('Настройки ЭП на данной машине не верны');
 	            }
@@ -603,6 +603,28 @@ webpackJsonpCryptoPro([1],[
 	        {possibleNames: ['L'], translation: 'Город'}
 	    ];
 	
+	function execute(cb) {
+	    if (cadesplugin.CreateObjectAsync) {
+	        var GeneratorFunction = (new Function('', 'return Object.getPrototypeOf(function*(){}).constructor'))();
+	        
+	        cb = String(cb);
+	        
+	        var args = cb.match(/^function\s*?\((.*?)\)/);
+	        
+	        args = (args && args[1]) || ''; 
+	        
+	        cb = cb.replace(/^.*?{([\s\S]*?)}$/, '$1');
+	        
+	        cadesplugin.async_spawn(new GeneratorFunction(args, cb));
+	    }
+	}
+	
+	function createObj(type) {
+	    if (cadesplugin.CreateObjectAsync) {
+	        return (new Function('', 'return yield cadesplugin.CreateObjectAsync(' + type + ')'))();
+	    }
+	}
+	
 	/**
 	 * Парсит информацию из строки с информацией о сертификате
 	 * */
@@ -830,6 +852,8 @@ webpackJsonpCryptoPro([1],[
 	}
 	
 	module.exports = {
+	    execute: execute,
+	    createObj: createObj,
 	    subjectNameTagsTranslations: subjectNameTagsTranslations,
 	    issuerNameTagsTranslations: issuerNameTagsTranslations,
 	    parseCertInfo: parseCertInfo,
