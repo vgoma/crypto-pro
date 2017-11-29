@@ -169,7 +169,7 @@ Certificate.prototype.hasExtendedKeyUsage = cryptoCommon.hasExtendedKeyUsage;
  * */
 function isValidEDSSettings() {
     return new Promise(function (resolve, reject) {
-        cryptoCommon.execute(function () {
+        eval(cryptoCommon.execute(function () {
             var result;
 
             try {
@@ -179,7 +179,7 @@ function isValidEDSSettings() {
             }
 
             resolve();
-        });
+        }));
     });
 }
 

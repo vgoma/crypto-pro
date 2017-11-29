@@ -57,14 +57,12 @@ webpackJsonpCryptoPro([2],[
 	        args = (args && args[1]) || ''; 
 	        
 	        cb = cb.replace(/^.*?{([\s\S]*?)}$/, '$1');
-	        
-	        cadesplugin.async_spawn(new GeneratorFunction(args, cb));
-	    }
-	}
 	
-	function createObj(type) {
-	    if (cadesplugin.CreateObjectAsync) {
-	        return (new Function('', 'return yield cadesplugin.CreateObjectAsync(' + type + ')'))();
+	        cb = String(new GeneratorFunction(args, cb));
+	
+	        cb = cb.replace(/cryptoCommon\.createObj(\([\s\S]*?\))/gm, 'yield cadesplugin.CreateObjectAsync$1');
+	
+	        return 'cadesplugin.async_spawn(' + cb + ');';
 	    }
 	}
 	
@@ -296,7 +294,6 @@ webpackJsonpCryptoPro([2],[
 	
 	module.exports = {
 	    execute: execute,
-	    createObj: createObj,
 	    subjectNameTagsTranslations: subjectNameTagsTranslations,
 	    issuerNameTagsTranslations: issuerNameTagsTranslations,
 	    parseCertInfo: parseCertInfo,

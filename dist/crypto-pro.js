@@ -178,7 +178,7 @@ var CryptoPro =
 	        cadesplugin.then(
 	            function () {
 	                if (canAsync) {
-	                    __webpack_require__.e/* nsure */(1/* empty */, function () {
+	                    __webpack_require__.e/* nsure */(1, function () {
 	                        cryptoService = __webpack_require__(4);
 	                        finishLoading();
 	                    });
