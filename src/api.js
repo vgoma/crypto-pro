@@ -18,7 +18,7 @@ Certificate.prototype.isValid = function isValid() {
     var cert = this._cert;
 
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var result;
 
             try {
@@ -41,7 +41,7 @@ Certificate.prototype.getProp = function (propName) {
     var cert = this._cert;
 
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var result;
 
             try {
@@ -63,7 +63,7 @@ Certificate.prototype.exportBase64 = function exportBase64() {
     var cert = this._cert;
 
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var base64;
 
             try {
@@ -85,7 +85,7 @@ Certificate.prototype.getAlgorithm = function getAlgorithm() {
     var cert = this._cert;
 
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var result = {},
                 algorithm;
 
@@ -128,7 +128,7 @@ Certificate.prototype.getExtendedKeyUsage = function getExtendedKeyUsage() {
     var cert = this._cert;
 
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var OIDS = [],
                 count,
                 item;
@@ -169,7 +169,7 @@ Certificate.prototype.hasExtendedKeyUsage = cryptoCommon.hasExtendedKeyUsage;
  * */
 function isValidEDSSettings() {
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var result;
 
             try {
@@ -188,7 +188,7 @@ function isValidEDSSettings() {
  * */
 function getCadesCert(hash) {
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store'),
                 certs,
                 certCnt,
@@ -253,7 +253,7 @@ function getCertInfo(tags, propName) {
     var cert = this._cert;
 
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var propInfo;
 
             try {
@@ -281,7 +281,7 @@ function getCertsList(resetCache) {
             return;
         }
 
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store'),
                 result = [],
                 certs,
@@ -398,7 +398,7 @@ function signData(hash, dataBase64, signType) {
 
     return new Promise(function (resolve, reject) {
         getCadesCert(hash).then(function (cert) {
-            eval(cryptoCommon.execute(function () {
+            eval(cryptoCommon.generateAsyncFn(function () {
                 var clientTime = new Date(),
                     oAttrs = 'yield' + cryptoCommon.createObj('CADESCOM.CPAttribute'),
                     oSignedData = 'yield' + cryptoCommon.createObj('CAdESCOM.CadesSignedData'),
@@ -456,7 +456,7 @@ function signData(hash, dataBase64, signType) {
 function signDataXML(hash, dataXML) {
     return new Promise(function (resolve, reject) {
         getCadesCert(hash).then(function (cert) {
-            eval(cryptoCommon.execute(function () {
+            eval(cryptoCommon.generateAsyncFn(function () {
                 var oSigner = 'yield' + cryptoCommon.createObj('CAdESCOM.CPSigner'),
                     signerXML = 'yield' + cryptoCommon.createObj('CAdESCOM.SignedXML'),
                     cnts = cryptoConstants,
@@ -498,7 +498,7 @@ function getSystemInfo() {
     var sysInfo = cryptoCommon.getEnvInfo();
 
     return new Promise(function (resolve, reject) {
-        eval(cryptoCommon.execute(function () {
+        eval(cryptoCommon.generateAsyncFn(function () {
             var e;
 
             try {

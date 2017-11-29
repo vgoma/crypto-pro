@@ -37,7 +37,7 @@ var subjectNameTagsTranslations = [
         {possibleNames: ['L'], translation: 'Город'}
     ];
 
-function execute(cb) {
+function generateAsyncFn(cb) {
     var canAsync = cadesplugin.CreateObjectAsync;
 
     cb = String(cb);
@@ -293,7 +293,7 @@ function isValidCadesVersion(version) {
 }
 
 module.exports = {
-    execute: execute,
+    generateAsyncFn: generateAsyncFn,
     subjectNameTagsTranslations: subjectNameTagsTranslations,
     issuerNameTagsTranslations: issuerNameTagsTranslations,
     parseCertInfo: parseCertInfo,
