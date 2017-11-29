@@ -167,7 +167,7 @@ function getDateObj(dateObj) {
  * */
 function prepareCertsInfo(items) {
     return items.map(function (c) {
-        c.name = c.subjectName.match(/CN=(.+?),/);
+        c.name = c.subjectName.match(/CN=(.+?)(?:,|$)/);
 
         // Удалось ли вытащить Common Name
         if (c.name && c.name[1]) {
