@@ -201,11 +201,11 @@ function getCadesCert(hash) {
 
             // Открываем хранилище
             try {
-                'yield' + oStore.Open(
+                void('yield' + oStore.Open(
                     cadesplugin.CAPICOM_CURRENT_USER_STORE,
                     cadesplugin.CAPICOM_MY_STORE,
                     cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED
-                );
+                ));
             } catch (err) {
                 reject('Ошибка при открытии хранилища: ' + err.message);
                 return;
@@ -290,11 +290,11 @@ function getCertsList(resetCache) {
 
             // Открываем хранилище
             try {
-                'yield' + oStore.Open(
+                void('yield' + oStore.Open(
                     cadesplugin.CAPICOM_CURRENT_USER_STORE,
                     cadesplugin.CAPICOM_MY_STORE,
                     cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED
-                );
+                ));
             } catch (err) {
                 reject('Ошибка при открытии хранилища: ' + err.message);
                 return;
@@ -409,8 +409,8 @@ function signData(hash, dataBase64, signType) {
                 clientTime = cryptoCommon.getDateObj(clientTime);
 
                 try {
-                    'yield' + oAttrs.propset_Name(cryptoConstants.Time.AUTHENTICATED_ATTRIBUTE_SIGNING_TIME);
-                    'yield' + oAttrs.propset_Value(clientTime);
+                    void('yield' + oAttrs.propset_Name(cryptoConstants.Time.AUTHENTICATED_ATTRIBUTE_SIGNING_TIME));
+                    void('yield' + oAttrs.propset_Value(clientTime));
                 } catch (err) {
                     reject('Ошибка при установке данных подписи: ' + err.message);
                     return;
@@ -418,12 +418,12 @@ function signData(hash, dataBase64, signType) {
 
                 // Задаем настройки для подписи
                 try {
-                    'yield' + oSigner.propset_Certificate(cert);
+                    void('yield' + oSigner.propset_Certificate(cert));
                     attrs = 'yield' + oSigner.AuthenticatedAttributes2;
-                    'yield' + attrs.Add(oAttrs);
-                    'yield' + oSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY);
-                    'yield' + oSignedData.propset_Content(dataBase64);
-                    'yield' + oSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY);
+                    void('yield' + attrs.Add(oAttrs));
+                    void('yield' + oSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
+                    void('yield' + oSignedData.propset_Content(dataBase64));
+                    void('yield' + oSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY));
                 } catch (err) {
                     reject('Не удалось установить настройки для подписи: ' + err.message);
                     return;
@@ -464,15 +464,15 @@ function signDataXML(hash, dataXML) {
 
                 // Задаем настройки для подписи
                 try {
-                    'yield' + oSigner.propset_Certificate(cert);
+                    void('yield' + oSigner.propset_Certificate(cert));
                     // Добавляем данные для подписи
-                    'yield' + signerXML.propset_Content(dataXML);
+                    void('yield' + signerXML.propset_Content(dataXML));
                     // Устанавливаем тип подписи
-                    'yield' + signerXML.propset_SignatureType(cnts.SignatureType.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED);
+                    void('yield' + signerXML.propset_SignatureType(cnts.SignatureType.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED));
                     // Устанавливаем алгоритм подписи
-                    'yield' + signerXML.propset_SignatureMethod(cnts.GostXmlDSigUrls.XmlDsigGost3410Url);
+                    void('yield' + signerXML.propset_SignatureMethod(cnts.GostXmlDSigUrls.XmlDsigGost3410Url));
                     // Устанавливаем алгоритм хэширования
-                    'yield' + signerXML.propset_DigestMethod(cnts.GostXmlDSigUrls.XmlDsigGost3411Url);
+                    void('yield' + signerXML.propset_DigestMethod(cnts.GostXmlDSigUrls.XmlDsigGost3411Url));
                 } catch (err) {
                     reject('Не удалось установить настройки для подписи: ' + err.message);
                     return;
