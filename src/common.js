@@ -39,10 +39,11 @@ var subjectNameTagsTranslations = [
 
 function generateAsyncFn(cb) {
     var canAsync = cadesplugin.CreateObjectAsync;
+    var dynamicScriptName = cb.name || 'asyncFn';
 
     cb = String(cb);
 
-    var args = cb.match(/^function\s*?\((.*?)\)/);
+    var args = cb.match(/^function[\s\w]*?\((.*?)\)/);
 
     args = (args && args[1]) || '';
 
@@ -61,9 +62,9 @@ function generateAsyncFn(cb) {
         cb = cb.replace(/propset_(.*?)\((.*?)\)/gm, '$1 = $2');
     }
 
-    return canAsync ?
+    return (canAsync ?
         'cadesplugin.async_spawn(' + cb + ');'
-        : '(' + cb + ')();';
+        : '(' + cb + ')();') + '//# sourceURL=evaled-' + dynamicScriptName + '.js';
 }
 
 /**
