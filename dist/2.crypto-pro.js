@@ -47,26 +47,32 @@ webpackJsonpCryptoPro([2],[
 	    ];
 	
 	function execute(cb) {
+	    var canAsync = cadesplugin.CreateObjectAsync;
+	
 	    cb = String(cb);
 	
 	    var args = cb.match(/^function\s*?\((.*?)\)/);
 	
 	    args = (args && args[1]) || '';
-	    
+	
+	    cb = cb.replace(/^.*?{([\s\S]*?)}$/, '$1');
+	
 	    function GeneratorFunction() {
 	        return (new Function('', 'return Object.getPrototypeOf(function*(){}).constructor'))();
 	    }
 	
-	    if (cadesplugin.CreateObjectAsync) {
-	        cb = cb.replace(/^.*?{([\s\S]*?)}$/, '$1');
+	    cb = String(new (canAsync ? GeneratorFunction() : Function)(args, cb));
 	
-	        cb = String(new (GeneratorFunction())(args, cb));
+	    cb = cb.replace(/cryptoCommon\.createObj(\([\s\S]*?\))/gm, 'cadesplugin.CreateObject' + (canAsync ? 'Async' : '') + '$1');
+	    cb = cb.replace(/("|')(yield)(\1)\s*?\+\s*?\b/gm, canAsync ? '$2 ' : '');
 	
-	        cb = cb.replace(/cryptoCommon\.createObj(\([\s\S]*?\))/gm, 'cadesplugin.CreateObjectAsync$1');
-	        cb = cb.replace(/("|')(yield)(\1)\s*?\+\s*?\b/gm, '$2 ');
-	
-	        return 'cadesplugin.async_spawn(' + cb + ');';
+	    if (!canAsync) {
+	        cb = cb.replace(/propset_(.*?)\((.*?)\)/gm, '.$1 = $2');
 	    }
+	
+	    return canAsync ?
+	        'cadesplugin.async_spawn(' + cb + ');'
+	        : '(' + cb + ')();';
 	}
 	
 	/**
