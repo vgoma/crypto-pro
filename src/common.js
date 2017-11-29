@@ -51,7 +51,8 @@ function execute(cb) {
 
         cb = String(new GeneratorFunction(args, cb));
 
-        cb = cb.replace(/cryptoCommon\.createObj(\([\s\S]*?\))/gm, 'yield cadesplugin.CreateObjectAsync$1');
+        cb = cb.replace(/cryptoCommon\.createObj(\([\s\S]*?\))/gm, 'cadesplugin.CreateObjectAsync$1');
+        cb = cb.replace(/("|')(yield)(\1)\s*?\+\s*?\b/gm, '$2 ');
 
         return 'cadesplugin.async_spawn(' + cb + ');';
     }

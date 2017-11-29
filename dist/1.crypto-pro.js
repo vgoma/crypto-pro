@@ -289,8 +289,8 @@ webpackJsonpCryptoPro([1],[
 	            return;
 	        }
 	
-	        cadesplugin.async_spawn(function* () {
-	            var oStore = yield cadesplugin.CreateObjectAsync('CAdESCOM.Store'),
+	        eval(cryptoCommon.execute(function () {
+	            var oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store'),
 	                result = [],
 	                certs,
 	                count,
@@ -298,7 +298,7 @@ webpackJsonpCryptoPro([1],[
 	
 	            // Открываем хранилище
 	            try {
-	                yield oStore.Open(
+	                'yield' + oStore.Open(
 	                    cadesplugin.CAPICOM_CURRENT_USER_STORE,
 	                    cadesplugin.CAPICOM_MY_STORE,
 	                    cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED
@@ -310,20 +310,20 @@ webpackJsonpCryptoPro([1],[
 	
 	            // Получаем доступ к сертификатам
 	            try {
-	                certs = yield oStore.Certificates;
+	                certs = 'yield' + oStore.Certificates;
 	
 	                if (certs) {
-	                    certs = yield certs.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_TIME_VALID);
+	                    certs = 'yield' + certs.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_TIME_VALID);
 	                    /**
 	                     * Не рассматриваются сертификаты, в которых отсутствует закрытый ключ
 	                     * или не действительны на данный момент
 	                     * */
-	                    certs = yield certs.Find(
+	                    certs = 'yield' + certs.Find(
 	                        cadesplugin.CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY,
 	                        cryptoConstants.PropId.CAPICOM_PROPID_KEY_PROV_INFO
 	                    );
 	
-	                    count = yield certs.Count;
+	                    count = 'yield' + certs.Count;
 	                }
 	            } catch (err) {
 	                reject('Ошибка получения списка сертификатов: ' + err.message);
@@ -337,15 +337,15 @@ webpackJsonpCryptoPro([1],[
 	
 	            try {
 	                while (count) {
-	                    item = yield certs.Item(count);
+	                    item = 'yield' + certs.Item(count);
 	
 	                    result.push(new Certificate({
-	                        _cert: yield item,
-	                        thumbprint: yield item.Thumbprint,
-	                        subjectName: yield item.SubjectName,
-	                        issuerName: yield item.IssuerName,
-	                        validFrom: yield item.ValidFromDate,
-	                        validTo: yield item.ValidToDate
+	                        _cert: 'yield' + item,
+	                        thumbprint: 'yield' + item.Thumbprint,
+	                        subjectName: 'yield' + item.SubjectName,
+	                        issuerName: 'yield' + item.IssuerName,
+	                        validFrom: 'yield' + item.ValidFromDate,
+	                        validTo: 'yield' + item.ValidToDate
 	                    }));
 	
 	                    count--;
@@ -360,7 +360,7 @@ webpackJsonpCryptoPro([1],[
 	            _certListCache = cryptoCommon.prepareCertsInfo(result);
 	
 	            resolve(_certListCache);
-	        });
+	        }));
 	    });
 	}
 	
@@ -617,7 +617,8 @@ webpackJsonpCryptoPro([1],[
 	
 	        cb = String(new GeneratorFunction(args, cb));
 	
-	        cb = cb.replace(/cryptoCommon\.createObj(\([\s\S]*?\))/gm, 'yield cadesplugin.CreateObjectAsync$1');
+	        cb = cb.replace(/cryptoCommon\.createObj(\([\s\S]*?\))/gm, 'cadesplugin.CreateObjectAsync$1');
+	        cb = cb.replace(/("|')(yield)(\1)\s*?\+\s*?\b/gm, '$2 ');
 	
 	        return 'cadesplugin.async_spawn(' + cb + ');';
 	    }
