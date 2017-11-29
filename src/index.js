@@ -18,6 +18,8 @@ cadesplugin = global.cadesplugin;
 
 canAsync = Boolean(cadesplugin.CreateObjectAsync);
 
+cryptoService = require('./api');
+
 function execOnloadQueue() {
     _onLoadCbQueue.forEach(function (callback) {
         callback();
@@ -66,37 +68,14 @@ function call() {
 }
 
 if (cadesplugin) {
-    canAsync = Boolean(cadesplugin.CreateObjectAsync);
-
     // Уровень отладки (LOG_LEVEL_DEBUG, LOG_LEVEL_INFO, LOG_LEVEL_ERROR)
     cadesplugin.set_log_level(cadesplugin.LOG_LEVEL_ERROR);
 
-    // Получаем указанные конфиги
-    if (CryptoProConfig && CryptoProConfig.publicPath) {
-        __webpack_public_path__ = CryptoProConfig.publicPath;
-    }
-
     if (canPromise) {
-        cadesplugin.then(
-            function () {
-                if (canAsync) {
-                    require.ensure([], function () {
-                        cryptoService = require('./apiAsync');
-                        finishLoading();
-                    });
-                } else {
-                    require.ensure([], function () {
-                        cryptoService = require('./apiSync');
-                        finishLoading();
-                    });
-                }
-            },
-
-            function () {
-                _errorMsg = 'КриптоПРО ЭЦП Browser Plug-In не доступен';
-                finishLoading();
-            }
-        );
+        cadesplugin.then(finishLoading, function () {
+            _errorMsg = 'КриптоПРО ЭЦП Browser Plug-In не доступен';
+            finishLoading();
+        });
     } else {
         throw new Error('Не поддерживаются промисы. Необходим полифилл.');
     }

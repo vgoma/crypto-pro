@@ -58,7 +58,7 @@ function execute(cb) {
     cb = cb.replace(/("|')(yield)(\1)\s*?\+\s*?\b/gm, canAsync ? '$2 ' : '');
 
     if (!canAsync) {
-        cb = cb.replace(/propset_(.*?)\((.*?)\)/gm, '.$1 = $2');
+        cb = cb.replace(/propset_(.*?)\((.*?)\)/gm, '$1 = $2');
     }
 
     return canAsync ?
