@@ -49,7 +49,6 @@ var CryptoPro =
 	    browserInfo = bowser._detect(navigator.userAgent),
 	    global = Function('return this')(),
 	    canPromise = Boolean(global.Promise),
-	    CryptoProConfig = global.CryptoProConfig,
 	    canAsync,
 	    cadesplugin,
 	    cryptoService,
