@@ -1397,7 +1397,7 @@ var CryptoPro =
 	        {possibleNames: ['L'], translation: 'Город'}
 	    ];
 	
-	function execute(cb) {
+	function generateAsyncFn(cb) {
 	    var canAsync = cadesplugin.CreateObjectAsync;
 	
 	    cb = String(cb);
@@ -1653,7 +1653,7 @@ var CryptoPro =
 	}
 	
 	module.exports = {
-	    execute: execute,
+	    generateAsyncFn: generateAsyncFn,
 	    subjectNameTagsTranslations: subjectNameTagsTranslations,
 	    issuerNameTagsTranslations: issuerNameTagsTranslations,
 	    parseCertInfo: parseCertInfo,
@@ -1885,7 +1885,7 @@ var CryptoPro =
 	    var cert = this._cert;
 	
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var result;
 	
 	            try {
@@ -1908,7 +1908,7 @@ var CryptoPro =
 	    var cert = this._cert;
 	
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var result;
 	
 	            try {
@@ -1930,7 +1930,7 @@ var CryptoPro =
 	    var cert = this._cert;
 	
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var base64;
 	
 	            try {
@@ -1952,7 +1952,7 @@ var CryptoPro =
 	    var cert = this._cert;
 	
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var result = {},
 	                algorithm;
 	
@@ -1995,7 +1995,7 @@ var CryptoPro =
 	    var cert = this._cert;
 	
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var OIDS = [],
 	                count,
 	                item;
@@ -2036,7 +2036,7 @@ var CryptoPro =
 	 * */
 	function isValidEDSSettings() {
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var result;
 	
 	            try {
@@ -2055,7 +2055,7 @@ var CryptoPro =
 	 * */
 	function getCadesCert(hash) {
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store'),
 	                certs,
 	                certCnt,
@@ -2120,7 +2120,7 @@ var CryptoPro =
 	    var cert = this._cert;
 	
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var propInfo;
 	
 	            try {
@@ -2148,7 +2148,7 @@ var CryptoPro =
 	            return;
 	        }
 	
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store'),
 	                result = [],
 	                certs,
@@ -2265,7 +2265,7 @@ var CryptoPro =
 	
 	    return new Promise(function (resolve, reject) {
 	        getCadesCert(hash).then(function (cert) {
-	            eval(cryptoCommon.execute(function () {
+	            eval(cryptoCommon.generateAsyncFn(function () {
 	                var clientTime = new Date(),
 	                    oAttrs = 'yield' + cryptoCommon.createObj('CADESCOM.CPAttribute'),
 	                    oSignedData = 'yield' + cryptoCommon.createObj('CAdESCOM.CadesSignedData'),
@@ -2323,7 +2323,7 @@ var CryptoPro =
 	function signDataXML(hash, dataXML) {
 	    return new Promise(function (resolve, reject) {
 	        getCadesCert(hash).then(function (cert) {
-	            eval(cryptoCommon.execute(function () {
+	            eval(cryptoCommon.generateAsyncFn(function () {
 	                var oSigner = 'yield' + cryptoCommon.createObj('CAdESCOM.CPSigner'),
 	                    signerXML = 'yield' + cryptoCommon.createObj('CAdESCOM.SignedXML'),
 	                    cnts = cryptoConstants,
@@ -2365,7 +2365,7 @@ var CryptoPro =
 	    var sysInfo = cryptoCommon.getEnvInfo();
 	
 	    return new Promise(function (resolve, reject) {
-	        eval(cryptoCommon.execute(function () {
+	        eval(cryptoCommon.generateAsyncFn(function () {
 	            var e;
 	
 	            try {
