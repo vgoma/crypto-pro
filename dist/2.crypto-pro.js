@@ -47,18 +47,20 @@ webpackJsonpCryptoPro([2],[
 	    ];
 	
 	function execute(cb) {
+	    cb = String(cb);
+	
+	    var args = cb.match(/^function\s*?\((.*?)\)/);
+	
+	    args = (args && args[1]) || '';
+	    
+	    function GeneratorFunction() {
+	        return (new Function('', 'return Object.getPrototypeOf(function*(){}).constructor'))();
+	    }
+	
 	    if (cadesplugin.CreateObjectAsync) {
-	        var GeneratorFunction = (new Function('', 'return Object.getPrototypeOf(function*(){}).constructor'))();
-	        
-	        cb = String(cb);
-	        
-	        var args = cb.match(/^function\s*?\((.*?)\)/);
-	        
-	        args = (args && args[1]) || ''; 
-	        
 	        cb = cb.replace(/^.*?{([\s\S]*?)}$/, '$1');
 	
-	        cb = String(new GeneratorFunction(args, cb));
+	        cb = String(new (GeneratorFunction())(args, cb));
 	
 	        cb = cb.replace(/cryptoCommon\.createObj(\([\s\S]*?\))/gm, 'cadesplugin.CreateObjectAsync$1');
 	        cb = cb.replace(/("|')(yield)(\1)\s*?\+\s*?\b/gm, '$2 ');
