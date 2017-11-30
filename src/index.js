@@ -1,4 +1,4 @@
-require('../vendor/cadesplugin_api');
+require('./vendor/cadesplugin_api');
 
 var global = Function('return this')(),
     canPromise = Boolean(global.Promise),
