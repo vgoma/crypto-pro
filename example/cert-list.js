@@ -2,7 +2,7 @@
     'use strict';
 
     var $certs = document.querySelector('#certList');
-    
+
     /**
      * Пример получения списка сертификатов
      * */
