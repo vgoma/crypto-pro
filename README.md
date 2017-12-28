@@ -180,7 +180,7 @@ window.CryptoPro.call('getCertsList').then(function (certList) {
 ```
 
 ### Доступные методы
-Список доступных методов можно посмотреть в файле `src/apiAsync.js`.
+Список доступных методов можно посмотреть в файле `src/api.js`.
 
 ### License
 Licensed as MIT. All rights not explicitly granted in the MIT license are reserved. See the included LICENSE file for more details.
