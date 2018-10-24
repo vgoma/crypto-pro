@@ -524,6 +524,72 @@ function getSystemInfo() {
 }
 
 /**
+ * Проверяет валидность подписи
+ * @param sSignedMessage
+ * @param dataToVerify
+ * @returns {Promise<any>}
+ */
+function validateSign(sSignedMessage, dataToVerify) {
+	return new Promise(function (resolve, reject) {
+		eval(cryptoCommon.generateAsyncFn(function validateSign() {
+			var oSignedData = 'yield' + cryptoCommon.createObj('CAdESCOM.CadesSignedData');
+
+			try {
+				void('yield' + oSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
+				void('yield' + oSignedData.propset_Content(dataToVerify));
+				void('yield' + oSignedData.VerifyCades(sSignedMessage, cadesplugin.CADESCOM_CADES_BES, true));
+			} catch (err) {
+				reject("Failed to verify signature. Error: " + cadesplugin.getLastError(err));
+			}
+
+			resolve('Signature is valid');
+		}));
+	});
+}
+
+/**
+ * Возвращает первого подписанта.
+ *
+ * @param sSignedMessage
+ * @param dataToVerify
+ * @returns {Promise<any>}
+ */
+function getSigners(sSignedMessage, dataToVerify) {
+	return new Promise(function (resolve, reject) {
+		eval(cryptoCommon.generateAsyncFn(function getSigners() {
+			let oSignedData = 'yield' + cryptoCommon.createObj('CAdESCOM.CadesSignedData');
+
+			try {
+				void('yield' + oSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
+				void('yield' + oSignedData.propset_Content(dataToVerify));
+				void('yield' + oSignedData.VerifyCades(sSignedMessage, cadesplugin.CADESCOM_CADES_BES, true));
+			} catch (err) {
+				reject("Failed to verify signature. Error: " + cadesplugin.getLastError(err));
+			}
+
+			signers = oSignedData.Signers;
+
+			signers
+                .then((signer) => {
+                    return signer.Item(1);
+                })
+                .then((item) => {
+                    return item.Certificate;
+                })
+                .then((certificate) => {
+                    return Promise.all([
+                        certificate.SubjectName,
+                        certificate.ValidToDate,
+                    ])
+                })
+                .then(values => {
+                    resolve(values);
+                });
+		}));
+	});
+}
+
+/**
  * Promise обертка для синхронного вызова проверки версии CSP
  * */
 function isValidCSPVersion(version) {
@@ -546,6 +612,8 @@ module.exports = {
     getCertsList: getCertsList,
     getCert: getCert,
     signData: signData,
+	validateSign: validateSign,
+	getSigners: getSigners,
     signDataXML: signDataXML,
     getSystemInfo: getSystemInfo,
     isValidCSPVersion: isValidCSPVersion,
