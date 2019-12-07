@@ -189,10 +189,18 @@ function isValidEDSSettings() {
 function getCadesCert(hash) {
     return new Promise(function (resolve, reject) {
         eval(cryptoCommon.generateAsyncFn(function getCadesCert() {
-            var oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store'),
+            var oStore,
                 certs,
                 certCnt,
                 cert;
+
+            // Получаем доступ к хранилищу
+            try {
+                oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store');
+            } catch (err) {
+                reject('Ошибка при попытке доступа к хранилищу: ' + err.message);
+                return;
+            }
 
             if (!oStore) {
                 reject('Не удалось получить доступ к хранилищу сертификатов');
@@ -282,11 +290,19 @@ function getCertsList(resetCache) {
         }
 
         eval(cryptoCommon.generateAsyncFn(function getCertsList() {
-            var oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store'),
-                result = [],
+            var result = [],
+                oStore,
                 certs,
                 count,
                 item;
+
+            // Получаем доступ к хранилищу
+            try {
+                oStore = 'yield' + cryptoCommon.createObj('CAdESCOM.Store');
+            } catch (err) {
+                reject('Ошибка при попытке доступа к хранилищу: ' + err.message);
+                return;
+            }
 
             // Открываем хранилище
             try {
@@ -400,11 +416,20 @@ function signData(hash, dataBase64, signType) {
         getCadesCert(hash).then(function (cert) {
             eval(cryptoCommon.generateAsyncFn(function signData() {
                 var clientTime = new Date(),
-                    oAttrs = 'yield' + cryptoCommon.createObj('CADESCOM.CPAttribute'),
-                    oSignedData = 'yield' + cryptoCommon.createObj('CAdESCOM.CadesSignedData'),
-                    oSigner = 'yield' + cryptoCommon.createObj('CAdESCOM.CPSigner'),
+                    oAttrs,
+                    oSignedData,
+                    oSigner,
                     attrs,
                     signature;
+
+                try {
+                    oAttrs = 'yield' + cryptoCommon.createObj('CADESCOM.CPAttribute');
+                    oSignedData = 'yield' + cryptoCommon.createObj('CAdESCOM.CadesSignedData');
+                    oSigner = 'yield' + cryptoCommon.createObj('CAdESCOM.CPSigner');
+                } catch (error) {
+                    reject('Ошибка при инициализации подписи: ' + err.message);
+                    return;
+                }
 
                 clientTime = cryptoCommon.getDateObj(clientTime);
 
@@ -457,10 +482,18 @@ function signDataXML(hash, dataXML) {
     return new Promise(function (resolve, reject) {
         getCadesCert(hash).then(function (cert) {
             eval(cryptoCommon.generateAsyncFn(function signDataXML() {
-                var oSigner = 'yield' + cryptoCommon.createObj('CAdESCOM.CPSigner'),
-                    signerXML = 'yield' + cryptoCommon.createObj('CAdESCOM.SignedXML'),
-                    cnts = cryptoConstants,
+                var cnts = cryptoConstants,
+                    oSigner,
+                    signerXML,
                     signature;
+
+                try {
+                    oSigner = 'yield' + cryptoCommon.createObj('CAdESCOM.CPSigner');
+                    signerXML = 'yield' + cryptoCommon.createObj('CAdESCOM.SignedXML');
+                } catch (err) {
+                    reject('Ошибка при инициализации подписи: ' + err.message);
+                    return;
+                }
 
                 // Задаем настройки для подписи
                 try {
