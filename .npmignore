@@ -1,0 +1,11 @@
+# see what'll be included with `npm pack --dry-run`
+
+/examples
+/src
+/types
+/package
+
+/tsconfig*
+/*.js
+/*.gif
+/.*

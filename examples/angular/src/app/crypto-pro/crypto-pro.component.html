@@ -1,0 +1,34 @@
+<select name="certificate"
+        [(ngModel)]="thumbprint">
+  <option value="null" disabled>Не выбран</option>
+
+  <option *ngFor="let cert of certificateList"
+          [value]="cert.thumbprint">
+    {{cert.name}}
+  </option>
+</select>
+
+<button type="button"
+        [disabled]="!thumbprint"
+        (click)="createSignature(thumbprint)">
+  Создать подпись
+</button>
+
+<button type="button"
+        [disabled]="!thumbprint"
+        (click)="showCertInfo(thumbprint)">
+  Информация о сертификате
+</button>
+
+<pre *ngIf="certInfo">{{certInfo | json}}</pre>
+
+<br>
+
+<textarea name="signature"
+          [(ngModel)]="signature"
+          cols="100"
+          rows="30"></textarea>
+
+<pre *ngIf="error">{{error}}</pre>
+
+<pre *ngIf="systemInfo">{{systemInfo | json}}</pre>

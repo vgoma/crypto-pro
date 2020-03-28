@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пример использования cryptoPro</title>
+</head>
+<body>
+    <select id="certList"></select>
+    <button id="createSign" type="button">Создать подпись</button>
+    <button id="showCertificate" type="button">Информация о сертификате</button>
+    <br>
+    <pre id="certificateInfo"></pre>
+    <textarea id="createdSign" cols="100" rows="30"></textarea>
+    <pre id="errorMessage"></pre>
+    <pre id="systemInfo"></pre>
+
+    <!-- Полифиллы для работы библиотеки -->
+    <script src="polyfills/promise.js"></script>
+    <script src="polyfills/find.js"></script>
+
+    <!-- Библиотека -->
+    <script src="dist/crypto-pro.js"></script>
+
+    <!-- Полифиллы для работы демо скриптов -->
+    <script src="polyfills/atob-btoa.js"></script>
+
+    <!-- Демо скрипты -->
+    <script src="cert-list.js"></script>
+    <script src="create-sign.js"></script>
+    <script src="get-env-info.js"></script>
+    <script src="show-cert.js"></script>
+</body>
+</html>

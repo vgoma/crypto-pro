@@ -1,29 +1,65 @@
 {
   "name": "crypto-pro",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "API для взаимодействия с КриптоПро",
-  "main": "src/index.js",
+  "main": "./lib/crypto-pro.js",
+  "types": "./lib/crypto-pro.d.ts",
   "scripts": {
-    "start": "node_modules/.bin/webpack --config webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist lib package coverage",
+    "start": "cross-env TS_CONFIG=tsconfig-es5.json webpack --watch",
+    "build:uncompressed:es5": "cross-env TS_CONFIG=tsconfig-es5.json webpack",
+    "build:compressed:es5": "cross-env TS_CONFIG=tsconfig-es5.json NODE_ENV=production webpack",
+    "build:definition-header:es5": "cross-env TS_CONFIG=tsconfig-es5.json node definition-header.js",
+    "build:es5": "npm run build:uncompressed:es5 && npm run build:compressed:es5 && npm run build:definition-header:es5",
+    "build:uncompressed:esm": "cross-env TS_CONFIG=tsconfig-esm.json webpack",
+    "build:definition-header:esm": "cross-env TS_CONFIG=tsconfig-esm.json node definition-header.js",
+    "build:esm": "npm run build:uncompressed:esm && npm run build:definition-header:esm",
+    "build": "npm run clean && npm run build:es5 && npm run build:esm",
+    "package:clean": "cross-env-shell rimraf $npm_package_name-$npm_package_version.tgz",
+    "package:uncompress": "cross-env-shell tar xopf $npm_package_name-$npm_package_version.tgz",
+    "package": "npm run build && npm pack && npm run package:uncompress && npm run package:clean",
+    "serve": "static -p 8080",
+    "test": "jest --collectCoverage",
+    "lint": "eslint --config .eslintrc.js './src/**/*'",
+    "lint:fix": "eslint --fix --config .eslintrc.js './src/**/*'"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/vgoma/crypto-pro"
   },
-  "author": "vgoma <vgoma@yandex.ru>",
+  "author": {
+    "name": "Vitalii Goma",
+    "email": "vgoma@yandex.ru",
+    "url": "https://github.com/vgoma"
+  },
   "keywords": [
     "crypto",
     "cryptopro",
     "crypto-pro",
     "cades",
-    "КриптоПро"
+    "КриптоПро",
+    "Крипто ПРО"
   ],
-  "license": "ISC",
-  "dependencies": {
-    "bowser": "1.5.0"
-  },
+  "license": "MIT",
   "devDependencies": {
-    "webpack": "1.13.2"
+    "@types/jest": "25.1.4",
+    "@types/lodash": "4.14.149",
+    "@types/node": "13.9.5",
+    "@typescript-eslint/eslint-plugin": "2.25.0",
+    "@typescript-eslint/parser": "2.25.0",
+    "cross-env": "7.0.2",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-plugin-prettier": "3.1.2",
+    "jest": "25.2.3",
+    "prettier": "2.0.2",
+    "rimraf": "3.0.2",
+    "sinon": "9.0.1",
+    "tar": "6.0.1",
+    "ts-jest": "25.2.1",
+    "ts-loader": "6.2.2",
+    "typescript": "3.8.3",
+    "webpack": "4.42.1",
+    "webpack-cli": "3.3.11"
   }
 }

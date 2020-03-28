@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "allowJs": true,
+    "sourceMap": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
+  },
+  "include": [
+    "./src/crypto-pro.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

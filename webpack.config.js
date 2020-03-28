@@ -1,11 +1,32 @@
+const path = require('path');
+const packageJson = require('./package.json');
+const tsConfig = require(`./${process.env.TS_CONFIG}`);
+
 module.exports = {
-    context: __dirname + '/src',
-    entry: './index.js',
-    output: {
-        path: 'dist',
-        filename: 'crypto-pro.js',
-        library: 'CryptoPro'
-    },
-    devtool: 'source-map',
-    watch: true
+  context: path.resolve(__dirname, 'src'),
+  entry: `./${packageJson.name}.ts`,
+  module: {
+    rules: [{
+      test: /\.ts$/,
+      use: [{
+        loader: 'ts-loader',
+        options: {
+          configFile: process.env.TS_CONFIG
+        },
+      }],
+      exclude: /node_modules/
+    }]
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
+  output: {
+    path: path.resolve(__dirname, tsConfig.compilerOptions.outDir),
+    filename: process.env.NODE_ENV === 'production' ? `${packageJson.name}.min.js` : `${packageJson.name}.js`,
+    libraryTarget: 'umd',
+    library: 'cryptoPro',
+    umdNamedDefine: true
+  },
+  mode: process.env.NODE_ENV || 'development',
+  devtool: 'source-map'
 };

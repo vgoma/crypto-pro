@@ -1,24 +1,30 @@
 {
   "name": "crypto-pro",
   "description": "API для взаимодействия с КриптоПро",
-  "main": "dist/crypto-pro.js",
+  "main": "./lib/crypto-pro.js",
   "authors": [
     "vgoma <vgoma@yandex.ru>"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
     "crypto",
     "cryptopro",
     "crypto-pro",
     "cades",
-    "КриптоПро"
+    "КриптоПро",
+    "Крипто ПРО"
   ],
   "homepage": "https://github.com/vgoma/crypto-pro",
   "ignore": [
     "**/.*",
+    "/*.js",
+    "/*.gif",
+    "/tsconfig*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "examples",
+    "src",
+    "types",
+    "package"
   ]
 }
