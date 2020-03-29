@@ -3,13 +3,16 @@
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
 
+[![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/62.2.25/src/chrome/chrome_48x48.png)](https://www.chromium.org/getting-involved/download-chromium#TOC-Downloading-old-builds-of-Chrome-Chromium)       | [![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/62.2.25/src/firefox/firefox_48x48.png)](https://ftp.mozilla.org/pub/firefox/releases/)                                     | [![IE](https://raw.githubusercontent.com/alrra/browser-logos/62.2.25/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png)](https://www.microsoft.com/ru-ru/download/details.aspx?id=43374)     | [![Opera](https://raw.githubusercontent.com/alrra/browser-logos/62.2.25/src/opera/opera_48x48.png)](http://get.opera.com/ftp/pub/opera/desktop/)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+__v45+__ с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://chrome.google.com/webstore/detail/cryptopro-extension-for-c/iifchhfnnmpdbibifmljnfjhpififfog?utm_source=chrome-app-launcher-info-dialog) | __v43+__. Начиная с версии 52, с [расширением](https://www.cryptopro.ru/sites/default/files/products/cades/extensions/cryptopro_extension_for_cades_browser_plug_in-1.1.1-an+fx-windows.xpi) | __v9+__                                                                                                                                                                                                        | __v40+__ с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://addons.opera.com/en/extensions/details/cryptopro-extension-for-cades-browser-plug-in/) |
+
 - [cryptoPro](#cryptopro)
     - [Зачем мне этот пакет?](#why)
     - [Установка](#install)
     - [API](#api)
         - [Методы объекта cryptoPro](#api-cryptopro)
         - [Методы объекта сертификата](#api-certificate)
-    - [Поддерживаемые браузеры](#browser-support)
     - [Поддерживаемые СКЗИ](#supported-cist)
     - [Примеры](#examples)
         - [Тэг script (UMD)](#example-script-tag)
@@ -64,6 +67,10 @@ yarn add crypto-pro
 bower install crypto-pro
 ```
 
+Список требуемых полифиллов для старых браузеров (если необходимы, подключаются самостоятельно):
+- Promise
+- Array.prototype.find
+
 <a name="api"></a>
 ## API
 При использовании пакета как UMD модуля из папки `dist/`:
@@ -112,17 +119,6 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 - [getExtendedKeyUsage](src/api/certificate/getExtendedKeyUsage.ts) - возвращает ОИД'ы сертификата
 - [getDecodedExtendedKeyUsage](src/api/certificate/getDecodedExtendedKeyUsage.ts) - возвращает расшифрованные ОИД'ы
 - [hasExtendedKeyUsage](src/api/certificate/hasExtendedKeyUsage.ts) - проверяет наличие ОИД'а (ОИД'ов) у сертификата
-
-<a name="browser-support"></a>
-## Поддерживаемые браузеры
-- [Google Chrome](https://www.chromium.org/getting-involved/download-chromium#TOC-Downloading-old-builds-of-Chrome-Chromium) (v45+) с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://chrome.google.com/webstore/detail/cryptopro-extension-for-c/iifchhfnnmpdbibifmljnfjhpififfog?utm_source=chrome-app-launcher-info-dialog)
-- [Opera](http://get.opera.com/ftp/pub/opera/desktop/) (v40+) с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://addons.opera.com/en/extensions/details/cryptopro-extension-for-cades-browser-plug-in/)
-- [Mozilla Firefox](https://ftp.mozilla.org/pub/firefox/releases/) (v43+). Начиная с версии 52, с [расширением](https://www.cryptopro.ru/sites/default/files/products/cades/extensions/cryptopro_extension_for_cades_browser_plug_in-1.1.1-an+fx-windows.xpi).
-- [Internet Explorer](https://www.microsoft.com/ru-ru/download/details.aspx?id=43374) (v9+).
-
-Список требуемых полифиллов для старых браузеров (если необходимы, подключаются самостоятельно):
-- Promise
-- Array.prototype.find
 
 <a name="supported-cist"></a>
 ## Поддерживаемые СКЗИ
