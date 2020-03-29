@@ -1,5 +1,6 @@
 [![NPM version][npm-version-image]][npm-url]
 [![NPM downloads][npm-downloads-image]][downloads-url]
+[![Build Status][travis-image]][travis-url]
 
 - [cryptoPro](#cryptopro)
     - [Зачем мне этот пакет?](#why)
@@ -466,3 +467,5 @@ MIT
 [npm-version-image]: http://img.shields.io/npm/v/crypto-pro.svg?style=flat
 [npm-downloads-image]: http://img.shields.io/npm/dm/crypto-pro.svg?style=flat
 [downloads-url]: https://npmcharts.com/compare/crypto-pro?minimal=true
+[travis-url]: https://travis-ci.org/vgoma/crypto-pro
+[travis-image]: http://img.shields.io/travis/vgoma/crypto-pro/master.svg?style=flat
