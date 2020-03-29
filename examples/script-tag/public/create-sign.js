@@ -17,6 +17,12 @@
 
       window.cryptoPro.createSignature(thumbprint, hashBase64).then(function (signature) {
         document.getElementById('createdSign').value = signature;
+
+        window.cryptoPro.validateSignature(hashBase64, signature).then(function (isValid) {
+          console.log(isValid);
+        }, function (error) {
+          $errorMsg.textContent = '\n' + error.message;
+        });
       }, function (error) {
         $errorMsg.textContent = '\n' + error.message;
       });
