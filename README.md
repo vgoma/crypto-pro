@@ -2,33 +2,35 @@
 [![NPM downloads][npm-downloads-image]][downloads-url]
 
 - [cryptoPro](#cryptopro)
-    - [Зачем мне этот пакет?](#зачем-мне-этот-пакет)
-    - [Установка](#установка)
+    - [Зачем мне этот пакет?](#why)
+    - [Установка](#install)
     - [API](#api)
-        - [Методы объекта cryptoPro](#методы-объекта-cryptopro)
-        - [Методы объекта сертификата](#методы-объекта-сертификата)
-    - [Поддерживаемые браузеры](#поддерживаемые-браузеры)
-    - [Поддерживаемые СКЗИ](#поддерживаемые-скзи)
-    - [Примеры](#примеры)
-        - [Тэг script (UMD)](#тэг-script-umd)
-        - [Angular (ES Modules + Typescript)](#angular-es-modules--typescript)
-        - [React (ES Modules + JavaScript)](#react-es-modules--javascript)
-    - [Миграция с версии 1 на 2](#миграция-с-версии-1-на-2)
-- [Тем, кто хочет помочь](#тем-кто-хочет-помочь)
-    - [Запуск режима разработки](#запуск-режима-разработки)
-    - [Запуск тестов](#запуск-тестов)
-    - [Проверка работы примеров с React и Angular](#проверка-работы-примеров-с-react-и-angular)
-    - [Проверка пакета перед публикацией в NPM](#проверка-пакета-перед-публикацией-в-npm)
-- [Полезная информация](#полезная-информация)
-    - [Установка КриптоПРО CSP в Linux / OSX](#установка-криптопро-эцп-browser-plugin-в-linux)
-    - [Установка КриптоПРО ЭЦП browser plug-in в Linux](#установка-криптопро-эцп-browser-plugin-в-linux)
-        - [Настройка плагина для Firefox (до версии 52)](#настройка-плагина-для-firefox-до-версии-52)
-    - [Установка сертификатов в Linux](#установка-сертификатов-в-linux)
-- [Лицензия](#лицензия)
+        - [Методы объекта cryptoPro](#api-cryptopro)
+        - [Методы объекта сертификата](#api-certificate)
+    - [Поддерживаемые браузеры](#browser-support)
+    - [Поддерживаемые СКЗИ](#supported-cist)
+    - [Примеры](#examples)
+        - [Тэг script (UMD)](#example-script-tag)
+        - [Angular (ES Modules + Typescript)](#example-angular)
+        - [React (ES Modules + JavaScript)](#example-react)
+    - [Миграция с версии 1 на 2](#upgrade-from-1-to-2)
+- [Тем, кто хочет помочь](#developers)
+    - [Запуск режима разработки](#dev-mode)
+    - [Запуск тестов](#tests-execution)
+    - [Проверка работы примеров с React и Angular](#examples-testing)
+    - [Проверка пакета перед публикацией в NPM](#final-check)
+- [Полезная информация](#helpful)
+    - [Установка КриптоПРО CSP в Linux / OSX](#csp-install-linux-osx)
+    - [Установка КриптоПРО ЭЦП browser plug-in в Linux](#plugin-install-linux)
+        - [Настройка плагина для Firefox (до версии 52)](#plugin-install-old-firefox)
+    - [Установка сертификатов в Linux](#certificates-install-linux)
+- [Лицензия](#lisense)
 
+<a name="cryptopro"></a>
 # cryptoPro
 Единое, асинхронное API для взаимодействия с КриптоПРО ЭЦП Browser Plug-In с поддержкой IE9+
 
+<a name="why"></a>
 ## Зачем мне этот пакет?
 КриптоПРО ЭЦП Browser Plug-In доступен в разных браузерах в двух версиях.
 Асинхронной (в современных браузерах) и синхронной (в браузерах постарше).
@@ -43,13 +45,14 @@
 
 ![crypto-pro-esm.gif](crypto-pro-esm.gif)
 
+<a name="install"></a>
 ## Установка
 Для NPM:
 ```bash
 npm install crypto-pro
 ```
 
-Для yarn:
+Для Yarn:
 ```bash
 yarn add crypto-pro
 ```
@@ -59,6 +62,7 @@ yarn add crypto-pro
 bower install crypto-pro
 ```
 
+<a name="api"></a>
 ## API
 При использовании пакета как UMD модуля из папки `dist/`:
 ```javascript
@@ -86,13 +90,15 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 })();
 ```
 
+<a name="api-cryptopro"></a>
 ### Методы объекта cryptoPro
-- [getUserCertificates](src/api/getUserCertificates.ts) - возвращает список [сертификатов](#методы-объекта-сертификата), доступных пользователю в системе
-- [getCertificate](src/api/getCertificate.ts) - возвращает [сертификат](#методы-объекта-сертификата) по отпечатку
+- [getUserCertificates](src/api/getUserCertificates.ts) - возвращает список [сертификатов](#api-certificate), доступных пользователю в системе
+- [getCertificate](src/api/getCertificate.ts) - возвращает [сертификат](#api-certificate) по отпечатку
 - [createSignature](src/api/createSignature.ts) - создает подпись данных
 - [getSystemInfo](src/api/getSystemInfo.ts) - возвращает информацию о CSP и плагине
 - [isValidSystemSetup](src/api/isValidSystemSetup.ts) - возвращает флаг корректности настроек ЭП на машине
 
+<a name="api-certificate"></a>
 ### Методы объекта сертификата
 [Сертификат](src/api/certificate/certificate.ts) предоставляет следущее API:
 - [isValid](src/api/certificate/isValid.ts) - возвращает флаг действительности сертификата
@@ -105,6 +111,7 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 - [getDecodedExtendedKeyUsage](src/api/certificate/getDecodedExtendedKeyUsage.ts) - возвращает расшифрованные ОИД'ы
 - [hasExtendedKeyUsage](src/api/certificate/hasExtendedKeyUsage.ts) - проверяет наличие ОИД'а (ОИД'ов) у сертификата
 
+<a name="browser-support"></a>
 ## Поддерживаемые браузеры
 - [Google Chrome](https://www.chromium.org/getting-involved/download-chromium#TOC-Downloading-old-builds-of-Chrome-Chromium) (v45+) с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://chrome.google.com/webstore/detail/cryptopro-extension-for-c/iifchhfnnmpdbibifmljnfjhpififfog?utm_source=chrome-app-launcher-info-dialog)
 - [Opera](http://get.opera.com/ftp/pub/opera/desktop/) (v40+) с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://addons.opera.com/en/extensions/details/cryptopro-extension-for-cades-browser-plug-in/)
@@ -115,20 +122,23 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 - Promise
 - Array.prototype.find
 
+<a name="supported-cist"></a>
 ## Поддерживаемые СКЗИ
 [КриптоПРО CSP](https://www.cryptopro.ru/products/csp/downloads) (v4.0+) *рекомендуется использование только сертифицированных версий*. Инструкция по установке:
-    - [Linux / OSX](#install_csp_linux)
+    - [Linux / OSX](#csp-install-linux-osx)
     - (в Windows следуйте указаниям программы-установщика)
 
 [КриптоПРО ЭЦП browser plug-in](https://www.cryptopro.ru/products/cades/plugin) (v2.0.12438+).
 
-[Инструкция](#install_plugin_linux) по установке плагина в Linux. В Windows и OSX следуйте указаниям программы-установщика.
+[Инструкция](#plugin-install-linux) по установке плагина в Linux. В Windows и OSX следуйте указаниям программы-установщика.
 
-[Инструкция](#install_cert_linux) по установке сертификатов в систему для Linux / OSX.
+[Инструкция](#certificates-install-linux) по установке сертификатов в систему для Linux / OSX.
 
+<a name="examples"></a>
 ## Примеры
 Для их запуска необходим NodeJS LTS.
 
+<a name="example-script-tag"></a>
 ### Тэг script (UMD)
 ```bash
 cd examples/script-tag
@@ -136,6 +146,7 @@ npm i
 npm start
 ```
 
+<a name="example-angular"></a>
 ### Angular (ES Modules + Typescript)
 ```bash
 cd examples/angular
@@ -153,6 +164,7 @@ npm run build
 npm run serve
 ```
 
+<a name="example-react"></a>
 ### React (ES Modules + JavaScript)
 ```bash
 cd examples/react
@@ -170,6 +182,7 @@ npm run build
 npm run serve
 ```
 
+<a name="upgrade-from-1-to-2"></a>
 ## Миграция с версии 1 на 2
 Внесены следующие изменения:
 - Пакет собран в форматах:
@@ -214,11 +227,13 @@ import { getSystemInfo } from 'crypto-pro';
 getSystemInfo();
 ```
 
+<a name="developers"></a>
 # Тем, кто хочет помочь
 Буду благодарен за расширение/улучшение/доработку API.
 Вам будут полезны [примеры](http://cpdn.cryptopro.ru/?url=/content/cades/plugin-samples-sign.html),
 предоставляемые Крипто ПРО.
 
+<a name="dev-mode"></a>
 ## Запуск режима разработки
 Устанавливаем зависимости:
 ```bash
@@ -243,12 +258,14 @@ npm start
 > После выполнения `npm link ../../` в директории `examples/script-tag/node_modules` папка `crypto-pro` станет ярлыком,
 > указывающим на папку содержащую локально собранный пакет.
 
+<a name="tests-execution"></a>
 ## Запуск тестов
 Тесты написаны с использованием [Jest](https://jestjs.io/docs/en/configuration#testpathignorepatterns-arraystring):
 ```bash
 npm test
 ```
 
+<a name="examples-testing"></a>
 ## Проверка работы примеров с React и Angular
 React и Angular используют версию сборки пакета в формате ES модулей из директории `lib/`.
 Для их запуска необходимо сначала собрать пакет выполнив:
@@ -274,6 +291,7 @@ npm run build
 npm run serve
 ```
 
+<a name="final-check"></a>
 ## Проверка пакета перед публикацией в NPM
 Необходимо протестировать работу в заявленных браузерах, сделав это на локально запакованной версии пакета.
 Для этого собираем пакет:
@@ -297,7 +315,10 @@ cd ../../../package
 npm unlink
 ```
 
+<a name="helpful"></a>
 # Полезная информация
+
+<a name="csp-install-linux-osx"></a>
 ## Установка КриптоПРО CSP в Linux / OSX 
 > Процесс установки в OSX незначительно отличается от Linux, поэтому описание приведено на примере дистрибутива семейства Debian (x64).  
 
@@ -327,6 +348,7 @@ dpkg -i linux-amd64_deb/cprocsp-rdr-gui-gtk-64_4.0.0-4_amd64.deb
 
 [Дополнительная информация по установке](https://www.cryptopro.ru/faq/gde-vzyat-dokumentatsiyu-po-ustanovke-kakie-pakety-stavit)
 
+<a name="plugin-install-linux"></a>
 ## Установка КриптоПРО ЭЦП browser plugin в Linux
 Загрузите [КриптоПРО ЭЦП browser plug-in](https://www.cryptopro.ru/products/cades/plugin) и распакуйте его:
 ```bash
@@ -356,6 +378,7 @@ ls -la /opt/cprocsp/lib/amd64 | grep libnpcades
     -rwxr-xr-x 1 root root 2727236 Июн  8 14:33 libnpcades.so.2.0.0
 ```
 
+<a name="plugin-install-old-firefox"></a>
 ### Настройка плагина для Firefox (до версии 52)
 > После настройки плагина на страницах, запрашивающих работу с ЭП в панели навигации, рядом с url будет кнопка,
   позволяющая "разрешить и запомнить" использование установленного плагина.
@@ -371,6 +394,7 @@ ldd libnpcades.so
 ```
 Перезапустите Firefox, и убедитесь в наличии CryptoPRO Cades plugin (см. Menu -> Addons).
 
+<a name="certificates-install-linux"></a>
 ## Установка сертификатов в Linux
 > В OSX процесс схож с Linux.
 
@@ -434,6 +458,7 @@ ldd libnpcades.so
 /opt/cprocsp/bin/amd64/certmgr -list -store uMy
 ```
 
+<a name="lisense"></a>
 # Лицензия
 MIT
 
