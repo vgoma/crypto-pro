@@ -19,7 +19,7 @@
     "package:uncompress": "cross-env-shell tar xopf $npm_package_name-$npm_package_version.tgz",
     "package": "npm run build && npm pack && npm run package:uncompress && npm run package:clean",
     "serve": "static -p 8080",
-    "test": "jest --collectCoverage",
+    "test": "jest --coverage && coveralls < coverage/lcov.info",
     "lint": "eslint --config .eslintrc.js './src/**/*'",
     "lint:fix": "eslint --fix --config .eslintrc.js './src/**/*'"
   },
@@ -47,6 +47,7 @@
     "@types/node": "13.9.5",
     "@typescript-eslint/eslint-plugin": "2.25.0",
     "@typescript-eslint/parser": "2.25.0",
+    "coveralls": "3.0.11",
     "cross-env": "7.0.2",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.1",
