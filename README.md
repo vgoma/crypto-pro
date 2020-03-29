@@ -67,14 +67,10 @@ yarn add crypto-pro
 bower install crypto-pro
 ```
 
-Список требуемых полифиллов для старых браузеров (если необходимы, подключаются самостоятельно):
-- Promise
-- Array.prototype.find
-
-<a name="api"></a>
-## API
-При использовании пакета как UMD модуля из папки `dist/`:
-```javascript
+Подключение пакета как UMD модуля через тэг script:
+```html
+<script src="crypto-pro/dist/crypto-pro.min.js"></script>
+<script>
 window.cryptoPro.getUserCertificates()
   .then(function (certificates) {
     //...
@@ -82,9 +78,10 @@ window.cryptoPro.getUserCertificates()
   .catch(function (error) {
     //...
   });
+</script>
 ```
 
-При использовании пакета в режиме ES модулей с typescript или javascript из папки `lib/`:
+Подключение пакета как ES модуля с Typescript или JavaScript:
 ```typescript
 import { getUserCertificates, Certificate } from 'crypto-pro';
 
@@ -98,6 +95,13 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
   }
 })();
 ```
+
+Список требуемых полифиллов (если необходимы, подключаются самостоятельно):
+- Promise
+- Array.prototype.find
+
+<a name="api"></a>
+## API
 
 <a name="api-cryptopro"></a>
 ### Методы объекта cryptoPro
