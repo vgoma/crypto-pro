@@ -2,7 +2,7 @@
 [![NPM downloads][npm-downloads-image]][downloads-url]
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
-[![Donate](https://img.shields.io/badge/%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE-%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81%20%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8-yellow)](https://money.yandex.ru/to/410011609769902)
+[![Donate](https://img.shields.io/badge/%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE-%E2%82%BD-yellow)](https://money.yandex.ru/to/410011609769902)
 
 <a name="cryptopro"></a>
 # cryptoPro
