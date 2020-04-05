@@ -692,7 +692,7 @@ exports.createSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function (th
                     return [4 /*yield*/, _getCadesCert_1._getCadesCert(thumbprint)];
                 case 1:
                     cadesCertificate = _a.sent();
-                    return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function signData() {
+                    return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function createSignature() {
                             var cadesAttrs;
                             var cadesSignedData;
                             var cadesSigner;
@@ -899,7 +899,7 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
     if (!resetCache && certificatesCache) {
         return certificatesCache;
     }
-    return eval(_generateCadesFn_1._generateCadesFn(function getCertsList() {
+    return eval(_generateCadesFn_1._generateCadesFn(function getUserCertificates() {
         var cadesStore;
         try {
             cadesStore = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.Store');

@@ -19,7 +19,7 @@ export const createSignature = _afterPluginsLoaded(
     const cadesCertificate = await _getCadesCert(thumbprint);
 
     return eval(
-      _generateCadesFn(function signData(): string {
+      _generateCadesFn(function createSignature(): string {
         let cadesAttrs;
         let cadesSignedData;
         let cadesSigner;
