@@ -2,7 +2,7 @@
 [![NPM downloads][npm-downloads-image]][downloads-url]
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
-[![Donate](https://img.shields.io/badge/%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE-%E2%82%BD-yellow)](https://money.yandex.ru/to/410011609769902)
+[![Donate][donate-image]][donate-url]
 
 <a name="cryptopro"></a>
 # cryptoPro
@@ -128,8 +128,8 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 <a name="supported-cist"></a>
 ## Поддерживаемые СКЗИ
 [КриптоПРО CSP](https://www.cryptopro.ru/products/csp/downloads) (v4.0+) *рекомендуется использование только сертифицированных версий*. Инструкция по установке:
-    - [Linux / OSX](#csp-install-linux-osx)
-    - (в Windows следуйте указаниям программы-установщика)
+- [Linux / OSX](#csp-install-linux-osx)
+- (в Windows следуйте указаниям программы-установщика)
 
 [КриптоПРО ЭЦП browser plug-in](https://www.cryptopro.ru/products/cades/plugin) (v2.0.12438+).
 
@@ -473,3 +473,5 @@ MIT
 [travis-image]: http://img.shields.io/travis/vgoma/crypto-pro/master.svg?style=flat
 [coveralls-image]: https://coveralls.io/repos/github/vgoma/crypto-pro/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/vgoma/crypto-pro?branch=master
+[donate-image]: https://img.shields.io/badge/%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE-%E2%82%BD-yellow
+[donate-url]: https://money.yandex.ru/to/410011609769902
