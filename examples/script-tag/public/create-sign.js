@@ -1,24 +1,52 @@
 /**
- * Пример создания подписи данных, сгенерированных по ГОСТ Р 34.11-94
- * https://ru.wikipedia.org/wiki/%D0%93%D0%9E%D0%A1%D0%A2_%D0%A0_34.11-94
+ * Пример создания подписи данных
  * */
 ;(function () {
   'use strict';
 
-  var $errorMsg = document.getElementById('errorMessage');
+  var $createSignature = document.forms.createSignature,
+    $certificate = document.getElementById('certificate'),
+    $message = document.getElementById('message'),
+    $hash = document.getElementById('hash'),
+    $hashError = document.getElementById('hashError'),
+    $signature = document.getElementById('signature'),
+    $signatureError = document.getElementById('signatureError');
 
-  document
-    .getElementById('createSign')
-    .addEventListener('click', function () {
-      // Вычислинный hash по ГОСТ Р 34.11-94 для строки: "abc"
-      var hash = 'b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c',
-        hashBase64 = window.btoa(hash),
-        thumbprint = document.getElementById('certList').value;
+  $createSignature.addEventListener('reset', function () {
+    window.location.reload();
+  });
 
-      window.cryptoPro.createSignature(thumbprint, hashBase64).then(function (signature) {
-        document.getElementById('createdSign').value = signature;
+  $createSignature.addEventListener('submit', function (event) {
+    var thumbprint = $certificate.value,
+      message = $message.value,
+      hashingAlgorithm = document.querySelector('input[name="hashingAlgorithm"]:checked').value;
+
+    event.preventDefault();
+
+    $hash.placeholder = 'Вычисляется...';
+    $hash.value = '';
+
+    window.cryptoPro.createHash(message, hashingAlgorithm).then(function (hash) {
+      var detachedSignature = document.querySelector('input[name="signatureType"]:checked').value;
+
+      detachedSignature = Boolean(Number(detachedSignature));
+
+      $hash.value = hash;
+
+      $signature.placeholder = 'Создается...';
+      $signature.value = '';
+
+      window.cryptoPro.createSignature(thumbprint, hash, detachedSignature).then(function (signature) {
+        $signature.value = signature;
       }, function (error) {
-        $errorMsg.textContent = '\n' + error.message;
+        $signature.placeholder = 'Не создана';
+
+        $signatureError.textContent = '\n' + error.message;
       });
+    }, function (error) {
+      $hash.placeholder = 'Не вычислен';
+
+      $hashError.textContent = '\n' + error.message;
     });
+  });
 })();

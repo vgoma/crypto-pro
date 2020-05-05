@@ -9,12 +9,12 @@ import { _getDateObj } from '../helpers/_getDateObj';
  * Создает подпись base64 строки по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param dataBase64 - строковые данные в формате base64
+ * @param messageHash - хэш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11
  * @param detachedSignature = true - тип подписи открепленная (true) / присоединенная (false)
  * @returns подпись
  */
 export const createSignature = _afterPluginsLoaded(
-  async (thumbprint: string, dataBase64: string, detachedSignature: boolean = true): Promise<string> => {
+  async (thumbprint: string, messageHash: string, detachedSignature: boolean = true): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = await _getCadesCert(thumbprint);
 
@@ -52,7 +52,7 @@ export const createSignature = _afterPluginsLoaded(
           cadesAuthAttrs = __cadesAsyncToken__ + cadesSigner.AuthenticatedAttributes2;
           void (__cadesAsyncToken__ + cadesAuthAttrs.Add(cadesAttrs));
           void (__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
-          void (__cadesAsyncToken__ + cadesSignedData.propset_Content(dataBase64));
+          void (__cadesAsyncToken__ + cadesSignedData.propset_Content(messageHash));
           void (
             __cadesAsyncToken__ + cadesSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY)
           );

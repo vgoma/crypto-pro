@@ -4,17 +4,18 @@
 ;(function () {
   'use strict';
 
-  var $errorMsg = document.getElementById('errorMessage');
+  var $systemInfo = document.getElementById('systemInfo'),
+    $systemInfoError = document.getElementById('systemInfoError');
 
   window.cryptoPro.getSystemInfo().then(function (systemInfo) {
     window.cryptoPro.isValidSystemSetup().then(function (isValidSystemSetup) {
       systemInfo.isValidSystemSetup = isValidSystemSetup;
 
-      document.getElementById('systemInfo').textContent = JSON.stringify(systemInfo, null, '  ');
-    }, function (error) {
-      $errorMsg.textContent = '\n' + error.message;
-    });
-  }, function (error) {
-    $errorMsg.textContent = '\n' + error.message;
-  });
+      $systemInfo.textContent = JSON.stringify(systemInfo, null, '  ');
+    }, handleError);
+  }, handleError);
+
+  function handleError(error) {
+    $systemInfoError.textContent = '\n' + error.message;
+  }
 })();
