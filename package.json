@@ -4,6 +4,11 @@
   "description": "API для взаимодействия с КриптоПро",
   "main": "./lib/crypto-pro.js",
   "types": "./lib/crypto-pro.d.ts",
+  "files": [
+    "lib/**/*",
+    "dist/**/*",
+    "bower.json"
+  ],
   "scripts": {
     "clean": "rimraf dist lib package coverage",
     "start": "cross-env TS_CONFIG=tsconfig-es5.json webpack --watch",
