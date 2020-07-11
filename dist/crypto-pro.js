@@ -1275,7 +1275,7 @@ exports.ISSUER_TAGS_TRANSLATIONS = [
     { possibleNames: ['ОГРН', 'OGRN'], translation: 'ОГРН' },
     { possibleNames: ['ОГРНИП', 'OGRNIP'], translation: 'ОГРНИП' },
     { possibleNames: ['СНИЛС', 'SNILS'], translation: 'СНИЛС' },
-    { possibleNames: ['ИНН', 'INN'], translation: 'ИНН' },
+    { possibleNames: ['ИНН', 'INN', 'ИНН организации'], translation: 'ИНН' },
     { possibleNames: ['E'], translation: 'Email' },
     { possibleNames: ['L'], translation: 'Город' },
 ];
@@ -1365,7 +1365,7 @@ exports.SUBJECT_TAGS_TRANSLATIONS = [
     { possibleNames: ['ОГРН', 'OGRN'], translation: 'ОГРН' },
     { possibleNames: ['ОГРНИП', 'OGRNIP'], translation: 'ОГРНИП' },
     { possibleNames: ['СНИЛС', 'SNILS'], translation: 'СНИЛС' },
-    { possibleNames: ['ИНН', 'INN'], translation: 'ИНН' },
+    { possibleNames: ['ИНН', 'INN', 'ИНН организации'], translation: 'ИНН' },
     { possibleNames: ['E'], translation: 'Email' },
     { possibleNames: ['L'], translation: 'Город' },
 ];
@@ -1749,11 +1749,11 @@ var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts"
  * @returns расшифрованная информация по отдельным тэгам
  */
 exports._parseCertInfo = function (tagsTranslations, rawInfo) {
-    var extractedEntities = rawInfo.match(/([а-яА-Яa-zA-Z0-9.]+)=(?:("[^"]+?")|(.+?))(?:,|$)/g);
+    var extractedEntities = rawInfo.match(/([а-яА-Яa-zA-Z0-9\s.]+)=(?:("[^"]+?")|(.+?))(?:,|$)/g);
     if (extractedEntities) {
         return extractedEntities.map(function (group) {
             var _a, _b, _c;
-            var segmentsMatch = group.match(/^([а-яА-Яa-zA-Z0-9.]+)=(.+?),?$/);
+            var segmentsMatch = group.trim().match(/^([а-яА-Яa-zA-Z0-9\s.]+)=(.+?),?$/);
             var title = segmentsMatch === null || segmentsMatch === void 0 ? void 0 : segmentsMatch[1];
             // Вырезаем лишние кавычки
             var description = (_b = (_a = segmentsMatch === null || segmentsMatch === void 0 ? void 0 : segmentsMatch[2]) === null || _a === void 0 ? void 0 : _a.replace(/^"(.*)"/, '$1')) === null || _b === void 0 ? void 0 : _b.replace(/"{2}/g, '"');

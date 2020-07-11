@@ -15,11 +15,11 @@ export interface TagTranslation {
  * @returns расшифрованная информация по отдельным тэгам
  */
 export const _parseCertInfo = (tagsTranslations: TagsTranslations[], rawInfo: string): TagTranslation[] => {
-  const extractedEntities: string[] = rawInfo.match(/([а-яА-Яa-zA-Z0-9.]+)=(?:("[^"]+?")|(.+?))(?:,|$)/g);
+  const extractedEntities: string[] = rawInfo.match(/([а-яА-Яa-zA-Z0-9\s.]+)=(?:("[^"]+?")|(.+?))(?:,|$)/g);
 
   if (extractedEntities) {
     return extractedEntities.map((group) => {
-      const segmentsMatch = group.match(/^([а-яА-Яa-zA-Z0-9.]+)=(.+?),?$/);
+      const segmentsMatch = group.trim().match(/^([а-яА-Яa-zA-Z0-9\s.]+)=(.+?),?$/);
       let title = segmentsMatch?.[1];
       // Вырезаем лишние кавычки
       const description = segmentsMatch?.[2]?.replace(/^"(.*)"/, '$1')?.replace(/"{2}/g, '"');
