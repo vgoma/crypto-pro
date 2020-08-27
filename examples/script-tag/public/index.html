@@ -8,9 +8,9 @@
     <form name="createSignature" novalidate>
         <fieldset>
             <legend>Создание подписи</legend>
-            <label for="message">Данные для подиси: *</label>
+            <label for="message">Подписываемое сообщение: *</label>
             <br>
-            <textarea id="message" cols="130" rows="5" placeholder="Введите сообщение" autofocus required>abc</textarea>
+            <textarea id="message" cols="80" rows="5" placeholder="Введите сообщение" autofocus required>Привет мир!</textarea>
             <br><br>
 
             <label for="certificate">Сертификат: *</label>
@@ -26,19 +26,9 @@
 
             <label>Тип подписи: *</label>
             <br>
-            <label><input type="radio" name="signatureType" value="0" checked>Совмещенная</label>
+            <label><input type="radio" name="signatureType" value="0">Совмещенная</label>
             <br>
-            <label><input type="radio" name="signatureType" value="1">Отделенная</label>
-            <br><br>
-
-            <label>Алгоритм хэширования: *</label>
-            <br>
-            <label><input type="radio" name="hashingAlgorithm" value="GOST_3411">ГОСТ Р 34.11-94</label><br>
-            <label><input type="radio" name="hashingAlgorithm" value="GOST_3411_2012_256">ГОСТ Р 34.11-2012 (256)</label><br>
-            <label><input type="radio" name="hashingAlgorithm" value="GOST_3411_2012_512" checked>ГОСТ Р 34.11-2012 (512)</label><br>
-            <label><input type="radio" name="hashingAlgorithm" value="GOST_3411_HMAC">ГОСТ Р 34.11-94 (HMAC)</label><br>
-            <label><input type="radio" name="hashingAlgorithm" value="GOST_3411_2012_256_HMAC">ГОСТ Р 34.11-2012 (HMAC 256)</label><br>
-            <label><input type="radio" name="hashingAlgorithm" value="GOST_3411_2012_512_HMAC">ГОСТ Р 34.11-2012 (HMAC 512)</label>
+            <label><input type="radio" name="signatureType" value="1" checked>Отделенная</label>
             <br><br>
 
             <hr>
@@ -48,24 +38,24 @@
 
         <fieldset>
             <legend>Результат</legend>
-            <label for="hash">Хэш:</label><br>
-            <textarea id="hash" cols="130" rows="5" placeholder="Не вычислен"></textarea>
+            <label for="hash">Хэш (ГОСТ Р 34.11-2012 256 бит):</label><br>
+            <textarea id="hash" cols="80" rows="5" placeholder="Не вычислен"></textarea>
             <br>
             <pre id="hashError"></pre>
 
             <label for="signature">Подпись:</label><br>
-            <textarea id="signature" cols="130" rows="30" placeholder="Не создана"></textarea>
+            <textarea id="signature" cols="80" rows="30" placeholder="Не создана"></textarea>
             <p>
-                Для проверки нужно создать файл со сгенерированной подписью в кодировке UTF-8 с расширением *.sig
+                Для
+                <a href="https://www.gosuslugi.ru/pgu/eds/"
+                   target="_blank"
+                   rel="nofollow noopener noreferrer"
+                   title="Перейти к проверке подписи">проверки</a>
+                нужно создать файл со сгенерированной подписью в кодировке UTF-8 с расширением *.sgn
                 <br>
-                для совмещенной подписи (или *.sgn для отделенной).
+                для отделенной подписи (или *.sig для совмещенной).
             </p>
-            <a href="https://www.gosuslugi.ru/pgu/eds/"
-               target="_blank"
-               rel="nofollow noopener noreferrer"
-               title="Перейти к проверке подписи">
-                Проверить подпись
-            </a>
+
             <pre id="signatureError"></pre>
         </fieldset>
 

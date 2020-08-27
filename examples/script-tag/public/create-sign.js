@@ -18,16 +18,16 @@
 
   $createSignature.addEventListener('submit', function (event) {
     var thumbprint = $certificate.value,
-      message = $message.value,
-      hashingAlgorithm = document.querySelector('input[name="hashingAlgorithm"]:checked').value;
+      message = $message.value;
 
     event.preventDefault();
 
     $hash.placeholder = 'Вычисляется...';
     $hash.value = '';
 
-    window.cryptoPro.createHash(message, hashingAlgorithm).then(function (hash) {
-      var detachedSignature = document.querySelector('input[name="signatureType"]:checked').value;
+    window.cryptoPro.createHash(message).then(function (hash) {
+      var detachedSignature = document.querySelector('input[name="signatureType"]:checked').value,
+        signaturePromise;
 
       detachedSignature = Boolean(Number(detachedSignature));
 
@@ -36,7 +36,13 @@
       $signature.placeholder = 'Создается...';
       $signature.value = '';
 
-      window.cryptoPro.createSignature(thumbprint, hash, detachedSignature).then(function (signature) {
+      if (detachedSignature) {
+        signaturePromise = window.cryptoPro.createDetachedSignature(thumbprint, hash);
+      } else {
+        signaturePromise = window.cryptoPro.createAttachedSignature(thumbprint, message);
+      }
+
+      signaturePromise.then(function (signature) {
         $signature.value = signature;
       }, function (error) {
         $signature.placeholder = 'Не создана';
