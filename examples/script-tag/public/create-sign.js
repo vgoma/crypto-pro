@@ -12,10 +12,6 @@
     $signature = document.getElementById('signature'),
     $signatureError = document.getElementById('signatureError');
 
-  $createSignature.addEventListener('reset', function () {
-    window.location.reload();
-  });
-
   $createSignature.addEventListener('submit', function (event) {
     var thumbprint = $certificate.value,
       message = $message.value;
