@@ -3,4 +3,8 @@ export * from './getUserCertificates';
 export * from './getSystemInfo';
 export * from './isValidSystemSetup';
 export * from './createSignature';
+export * from './getHashedData';
+export * from './createHashSignature';
+export * from './createCoSignature';
+export * from './verifyHashSignature';
 export * from './certificate';
