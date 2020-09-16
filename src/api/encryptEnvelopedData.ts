@@ -3,10 +3,15 @@ import { Certificate } from './certificate';
 import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
 
+/**
+ * Создаёт зашифрованное сообщение из base64 строки по списку сертификатов
+ * @param oCertificateList - массив объектов Certificate для добавления в список реципиентов сообщения
+ * @param dataBase64 - строковые данные в формате base64
+ * @returns строку с зашифрованным сообщением
+ */
 export const encryptEnvelopedData = _afterPluginsLoaded(
-  async (oCertificate: Certificate, dataBase64: string): Promise<string> => {
+  async (oCertificateList: Array<Certificate>, dataBase64: string): Promise<string> => {
     const { cadesplugin } = window;
-    const cadesCertificate = oCertificate._cadesCertificate;
 
     return eval(
       _generateCadesFn(function encryptEnvelopedData(): string {
@@ -26,7 +31,10 @@ export const encryptEnvelopedData = _afterPluginsLoaded(
             __cadesAsyncToken__ + cadesEnvelopedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY)
           );
           void (__cadesAsyncToken__ + cadesEnvelopedData.propset_Content(dataBase64));
-          void (__cadesAsyncToken__ + cadesReceipients.Add(cadesCertificate));
+
+          for (const oCertificate of oCertificateList) {
+            void (__cadesAsyncToken__ + cadesReceipients.Add(oCertificate._cadesCertificate));
+          }
         } catch (e) {
           console.error(e);
 

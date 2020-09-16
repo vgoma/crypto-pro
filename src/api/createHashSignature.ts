@@ -5,6 +5,13 @@ import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } fr
 import { _getDateObj } from '../helpers/_getDateObj';
 import { Certificate } from './certificate';
 
+/**
+ * Создаёт подпись для хешированного сообщения
+ *
+ * @param oCertificate - объект класса Certificate для подписания сообщения
+ * @param oHashedData - объект класса oHashedData содержащий в себе захэшированное сообщение
+ * @returns строку с подписанным хэшем
+ */
 export const createHashSignature = _afterPluginsLoaded(
   async (oCertificate: Certificate, oHashedData: any): Promise<string> => {
     const { cadesplugin } = window;

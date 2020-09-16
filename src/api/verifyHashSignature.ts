@@ -3,6 +3,13 @@ import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } fr
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
 import { CADESCOM_BASE64_TO_BINARY } from '../constants';
 
+/**
+ * Валидация подписи хэшированного сообщения
+ *
+ * @param oHashedData - объект oHashedData с установленным значением Value и Algorithm
+ * @param sSignedMessage - подписанное сообщение для валидации
+ * @returns true или ошибку
+ */
 export const verifyHashSignature = _afterPluginsLoaded(
   async (oHashedData: any, sSignedMessage: string): Promise<boolean> => {
     const algorithm = await oHashedData.Algorithm;

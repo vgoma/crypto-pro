@@ -4,6 +4,14 @@ import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } fr
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
 import { _getDateObj } from '../helpers/_getDateObj';
 
+/**
+ * Добавляет подписанта к уже существующим для данного подписанного сообщения
+ *
+ * @param oCertificate - объект класса Certificate, которым необходимо подписать сообщение
+ * @param oHashedData - объект oHashedData с установленным алгоритмом шифрования
+ * @param sSignedMessage - сообщение к которому необходимо добавить подписанта
+ * @returns строку с подписанным сообщением
+ */
 export const createCoSignature = _afterPluginsLoaded(
   async (oCertificate: Certificate, oHashedData: any, sSignedMessage: string): Promise<string> => {
     const { cadesplugin } = window;

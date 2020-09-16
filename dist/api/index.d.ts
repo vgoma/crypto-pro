@@ -7,6 +7,7 @@ export * from './getHashedData';
 export * from './createHashSignature';
 export * from './createCoSignature';
 export * from './verifyHashSignature';
+export * from './getEnvelopedData';
 export * from './encryptEnvelopedData';
 export * from './decryptEnvelopedData';
 export * from './certificate';

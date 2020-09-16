@@ -2,6 +2,12 @@ import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
 import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
 
+/**
+ * Расшифровывает сообщение полученное вызовом метода encryptEnvelopedData
+ *
+ * @param sSignedData - строка с зашифрованным сообщением
+ * @returns строку исходного сообщения
+ */
 export const decryptEvelopedData = _afterPluginsLoaded(
   async (sSignedData: string): Promise<string> => {
     const { cadesplugin } = window;
