@@ -111,6 +111,13 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 - [createSignature](src/api/createSignature.ts) - создает подпись данных
 - [getSystemInfo](src/api/getSystemInfo.ts) - возвращает информацию о CSP и плагине
 - [isValidSystemSetup](src/api/isValidSystemSetup.ts) - возвращает флаг корректности настроек ЭП на машине
+- [createHashSignature](src/api/createHashSignature.ts) - создаёт отделённую подпись хэш-значения данных
+- [createCoSignature](src/api/createCoSignature.ts) - создаёт цифровую подпись ранее подписанных данных
+- [verifyHashSignature](src/api/verifyHashSignature.ts) - верификация подписанного хэш-значения
+- [encryptEnvelopedData](src/api/encryptEnvelopedData.ts) - шифрование сообщения при помощи списка сертификатов
+- [decryptEnvelopedData](src/api/decryptEnvelopedData.ts) - расшифровка сообщения с автоматическим подбором нужного сертификата
+- [getHashedData](src/api/getHashedData.ts) - получить объект HashedData для последующего хэширования данных с указанным алгоримом
+- [getEnvelopedData](src/api/getEnvelopedData.ts) - получить объект CPEnvelopedData для последующего шифрования данных
 
 <a name="api-certificate"></a>
 ### Методы объекта сертификата
