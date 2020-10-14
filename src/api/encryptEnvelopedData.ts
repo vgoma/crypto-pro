@@ -22,7 +22,7 @@ export const encryptEnvelopedData = _afterPluginsLoaded(
         } catch (e) {
           console.error(e);
 
-          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации подписи');
+          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации объекта шифрования');
         }
 
         const cadesReceipients = __cadesAsyncToken__ + cadesEnvelopedData.Recipients;
@@ -38,7 +38,7 @@ export const encryptEnvelopedData = _afterPluginsLoaded(
         } catch (e) {
           console.error(e);
 
-          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для подписи');
+          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для шифрования');
         }
 
         let signature: string;

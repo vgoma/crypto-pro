@@ -1090,14 +1090,14 @@ exports.decryptEvelopedData = _afterPluginsLoaded_1._afterPluginsLoaded(function
                 }
                 catch (e) {
                     console.error(e);
-                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации подписи');
+                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации объекта шифрования');
                 }
                 try {
                     void (_generateCadesFn_1.__cadesAsyncToken__ + cadesEnvelopedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
                 }
                 catch (e) {
                     console.error(e);
-                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для проверки подписи');
+                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для проверки шифрования');
                 }
                 var encData;
                 try {
@@ -1106,7 +1106,7 @@ exports.decryptEvelopedData = _afterPluginsLoaded_1._afterPluginsLoaded(function
                 }
                 catch (e) {
                     console.log(e);
-                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка расшифровки подписанного сообщения');
+                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка расшифровки сообщения');
                 }
                 return encData;
             }))];
@@ -1182,7 +1182,7 @@ exports.encryptEnvelopedData = _afterPluginsLoaded_1._afterPluginsLoaded(functio
                 }
                 catch (e) {
                     console.error(e);
-                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации подписи');
+                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации объекта шифрования');
                 }
                 var cadesReceipients = _generateCadesFn_1.__cadesAsyncToken__ + cadesEnvelopedData.Recipients;
                 try {
@@ -1195,7 +1195,7 @@ exports.encryptEnvelopedData = _afterPluginsLoaded_1._afterPluginsLoaded(functio
                 }
                 catch (e) {
                     console.error(e);
-                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для подписи');
+                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для шифрования');
                 }
                 var signature;
                 try {
@@ -1520,10 +1520,12 @@ var certificatesCache;
  * Возвращает список сертификатов, доступных пользователю в системе
  *
  * @param resetCache = false - позволяет сбросить кэш ранее полученных сертификатов
+ * @param skipCheck = false - позволяет пропустить проверку наличия закрытых ключей
  * @returns список сертификатов
  */
-exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function (resetCache) {
+exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function (resetCache, skipCheck) {
     if (resetCache === void 0) { resetCache = false; }
+    if (skipCheck === void 0) { skipCheck = false; }
     var cadesplugin = window.cadesplugin;
     if (!resetCache && certificatesCache) {
         return certificatesCache;
@@ -1552,13 +1554,19 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
             if (cadesCertificates) {
                 cadesCertificates =
                     _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_TIME_VALID);
-                /**
-                 * Не рассматриваются сертификаты, в которых отсутствует закрытый ключ
-                 * или не действительны на данный момент
-                 */
-                cadesCertificates =
-                    _generateCadesFn_1.__cadesAsyncToken__ +
-                        cadesCertificates.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY, constants_1.CAPICOM_PROPID_KEY_PROV_INFO);
+                if (skipCheck) {
+                    cadesCertificates =
+                        _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY);
+                }
+                else {
+                    /**
+                     * Не рассматриваются сертификаты, в которых отсутствует закрытый ключ
+                     * или не действительны на данный момент
+                     */
+                    cadesCertificates =
+                        _generateCadesFn_1.__cadesAsyncToken__ +
+                            cadesCertificates.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY, constants_1.CAPICOM_PROPID_KEY_PROV_INFO);
+                }
                 cadesCertificatesCount = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Count;
             }
         }

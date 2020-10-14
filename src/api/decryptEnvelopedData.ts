@@ -21,7 +21,7 @@ export const decryptEvelopedData = _afterPluginsLoaded(
         } catch (e) {
           console.error(e);
 
-          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации подписи');
+          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации объекта шифрования');
         }
 
         try {
@@ -31,7 +31,7 @@ export const decryptEvelopedData = _afterPluginsLoaded(
         } catch (e) {
           console.error(e);
 
-          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для проверки подписи');
+          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для проверки шифрования');
         }
 
         let encData: string;
@@ -41,7 +41,7 @@ export const decryptEvelopedData = _afterPluginsLoaded(
         } catch (e) {
           console.log(e);
 
-          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка расшифровки подписанного сообщения');
+          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка расшифровки сообщения');
         }
 
         return encData;
