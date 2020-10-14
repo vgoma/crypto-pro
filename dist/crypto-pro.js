@@ -1554,11 +1554,7 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
             if (cadesCertificates) {
                 cadesCertificates =
                     _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_TIME_VALID);
-                if (skipCheck) {
-                    cadesCertificates =
-                        _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY);
-                }
-                else {
+                if (!skipCheck) {
                     /**
                      * Не рассматриваются сертификаты, в которых отсутствует закрытый ключ
                      * или не действительны на данный момент
