@@ -116,7 +116,7 @@ var getInfo_1 = __webpack_require__(/*! ./getInfo */ "./api/certificate/getInfo.
 var hasExtendedKeyUsage_1 = __webpack_require__(/*! ./hasExtendedKeyUsage */ "./api/certificate/hasExtendedKeyUsage.ts");
 var isValid_1 = __webpack_require__(/*! ./isValid */ "./api/certificate/isValid.ts");
 var Certificate = /** @class */ (function () {
-    function Certificate(_cadesCertificate, name, issuerName, subjectName, thumbprint, validFrom, validTo) {
+    function Certificate(_cadesCertificate, name, issuerName, subjectName, thumbprint, validFrom, validTo, hasPrivateKey) {
         this._cadesCertificate = _cadesCertificate;
         this.name = name;
         this.issuerName = issuerName;
@@ -124,6 +124,7 @@ var Certificate = /** @class */ (function () {
         this.thumbprint = thumbprint;
         this.validFrom = validFrom;
         this.validTo = validTo;
+        this.hasPrivateKey = hasPrivateKey;
     }
     Certificate.prototype.getOwnerInfo = function () {
         return getInfo_1.getInfo.call(this, constants_1.SUBJECT_TAGS_TRANSLATIONS, 'SubjectName');
@@ -1577,7 +1578,7 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
         try {
             while (cadesCertificatesCount) {
                 var cadesCertificate = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Item(cadesCertificatesCount);
-                certificateList.push(new certificate_1.Certificate(cadesCertificate, _extractCommonName_1._extractCommonName(_generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.SubjectName), _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.IssuerName, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.SubjectName, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.Thumbprint, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.ValidFromDate, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.ValidToDate));
+                certificateList.push(new certificate_1.Certificate(cadesCertificate, _extractCommonName_1._extractCommonName(_generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.SubjectName), _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.IssuerName, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.SubjectName, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.Thumbprint, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.ValidFromDate, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.ValidToDate, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.HasPrivateKey()));
                 cadesCertificatesCount--;
             }
         }

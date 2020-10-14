@@ -9,7 +9,8 @@ export declare class Certificate {
     thumbprint: string;
     validFrom: string;
     validTo: string;
-    constructor(_cadesCertificate: CadesCertificate, name: string, issuerName: string, subjectName: string, thumbprint: string, validFrom: string, validTo: string);
+    hasPrivateKey: boolean;
+    constructor(_cadesCertificate: CadesCertificate, name: string, issuerName: string, subjectName: string, thumbprint: string, validFrom: string, validTo: string, hasPrivateKey: boolean);
     getOwnerInfo(): Promise<TagTranslation[]>;
     getIssuerInfo(): Promise<TagTranslation[]>;
     getExtendedKeyUsage(): Promise<string[]>;

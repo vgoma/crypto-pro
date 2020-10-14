@@ -100,6 +100,7 @@ export const getUserCertificates = _afterPluginsLoaded(
                 __cadesAsyncToken__ + cadesCertificate.Thumbprint,
                 __cadesAsyncToken__ + cadesCertificate.ValidFromDate,
                 __cadesAsyncToken__ + cadesCertificate.ValidToDate,
+                __cadesAsyncToken__ + cadesCertificate.HasPrivateKey(),
               ),
             );
 
