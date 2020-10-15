@@ -12,17 +12,15 @@ import { CADESCOM_CADES_BES, CADESCOM_BASE64_TO_BINARY } from '../constants';
  */
 export const verifyHashSignature = _afterPluginsLoaded(
   async (oHashedData: any, sSignedMessage: string): Promise<boolean> => {
-    const algorithm = await oHashedData.Algorithm;
-    const hashValue = await oHashedData.Value;
+    await oHashedData.Algorithm;
+    await oHashedData.Value;
 
     return eval(
       _generateCadesFn(function verifyHashSignature(): boolean {
-        let cadesHashedData;
         let cadesSignedData;
 
         try {
           cadesSignedData = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.CadesSignedData');
-          cadesHashedData = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.HashedData');
         } catch (e) {
           console.error(e);
 
@@ -31,10 +29,6 @@ export const verifyHashSignature = _afterPluginsLoaded(
 
         try {
           void (__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(CADESCOM_BASE64_TO_BINARY));
-
-          void (__cadesAsyncToken__ + cadesHashedData.propset_Algorithm(algorithm));
-          void (__cadesAsyncToken__ + cadesHashedData.propset_DataEncoding(CADESCOM_BASE64_TO_BINARY));
-          void (__cadesAsyncToken__ + cadesHashedData.SetHashValue(hashValue));
         } catch (e) {
           console.error(e);
 
@@ -42,7 +36,7 @@ export const verifyHashSignature = _afterPluginsLoaded(
         }
 
         try {
-          void (__cadesAsyncToken__ + cadesSignedData.VerifyHash(cadesHashedData, sSignedMessage, CADESCOM_CADES_BES));
+          void (__cadesAsyncToken__ + cadesSignedData.VerifyHash(oHashedData, sSignedMessage, CADESCOM_CADES_BES));
         } catch (e) {
           console.error(e);
 

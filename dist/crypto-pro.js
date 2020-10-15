@@ -829,7 +829,7 @@ var _getDateObj_1 = __webpack_require__(/*! ../helpers/_getDateObj */ "./helpers
  * @returns строку с подписанным хэшем
  */
 exports.createHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function (oCertificate, oHashedData) { return __awaiter(void 0, void 0, void 0, function () {
-    var cadesplugin, cadesCertificate, algorithm, hashValue;
+    var cadesplugin, cadesCertificate;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -837,20 +837,18 @@ exports.createHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function
                 cadesCertificate = oCertificate._cadesCertificate;
                 return [4 /*yield*/, oHashedData.Algorithm];
             case 1:
-                algorithm = _a.sent();
+                _a.sent();
                 return [4 /*yield*/, oHashedData.Value];
             case 2:
-                hashValue = _a.sent();
+                _a.sent();
                 return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function createHashSignature() {
                         var cadesAttrs;
                         var cadesSignedData;
                         var cadesSigner;
-                        var cadesHashedData;
                         try {
                             cadesAttrs = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CADESCOM.CPAttribute');
                             cadesSignedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.CadesSignedData');
                             cadesSigner = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.CPSigner');
-                            cadesHashedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.HashedData');
                         }
                         catch (e) {
                             console.error(e);
@@ -872,9 +870,6 @@ exports.createHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesAuthAttrs.Add(cadesAttrs));
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(constants_1.CADESCOM_BASE64_TO_BINARY));
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN));
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.propset_Algorithm(algorithm));
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.propset_DataEncoding(constants_1.CADESCOM_BASE64_TO_BINARY));
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.SetHashValue(hashValue));
                         }
                         catch (e) {
                             console.error(e);
@@ -883,8 +878,7 @@ exports.createHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function
                         var signature;
                         try {
                             signature =
-                                _generateCadesFn_1.__cadesAsyncToken__ +
-                                    cadesSignedData.SignHash(cadesHashedData, cadesSigner, cadesplugin.CADESCOM_CADES_BES);
+                                _generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.SignHash(oHashedData, cadesSigner, cadesplugin.CADESCOM_CADES_BES);
                         }
                         catch (e) {
                             console.error(e);
@@ -1771,21 +1765,18 @@ var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts"
  * @returns true или ошибку
  */
 exports.verifyHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function (oHashedData, sSignedMessage) { return __awaiter(void 0, void 0, void 0, function () {
-    var algorithm, hashValue;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, oHashedData.Algorithm];
             case 1:
-                algorithm = _a.sent();
+                _a.sent();
                 return [4 /*yield*/, oHashedData.Value];
             case 2:
-                hashValue = _a.sent();
+                _a.sent();
                 return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function verifyHashSignature() {
-                        var cadesHashedData;
                         var cadesSignedData;
                         try {
                             cadesSignedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.CadesSignedData');
-                            cadesHashedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.HashedData');
                         }
                         catch (e) {
                             console.error(e);
@@ -1793,16 +1784,13 @@ exports.verifyHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function
                         }
                         try {
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(constants_1.CADESCOM_BASE64_TO_BINARY));
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.propset_Algorithm(algorithm));
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.propset_DataEncoding(constants_1.CADESCOM_BASE64_TO_BINARY));
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.SetHashValue(hashValue));
                         }
                         catch (e) {
                             console.error(e);
                             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для верификации');
                         }
                         try {
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.VerifyHash(cadesHashedData, sSignedMessage, constants_1.CADESCOM_CADES_BES));
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.VerifyHash(oHashedData, sSignedMessage, constants_1.CADESCOM_CADES_BES));
                         }
                         catch (e) {
                             console.error(e);

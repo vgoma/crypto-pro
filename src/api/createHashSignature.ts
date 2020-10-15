@@ -16,21 +16,19 @@ export const createHashSignature = _afterPluginsLoaded(
   async (oCertificate: Certificate, oHashedData: any): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = oCertificate._cadesCertificate;
-    const algorithm = await oHashedData.Algorithm;
-    const hashValue = await oHashedData.Value;
+    await oHashedData.Algorithm;
+    await oHashedData.Value;
 
     return eval(
       _generateCadesFn(function createHashSignature(): string {
         let cadesAttrs;
         let cadesSignedData;
         let cadesSigner;
-        let cadesHashedData;
 
         try {
           cadesAttrs = __cadesAsyncToken__ + __createCadesPluginObject__('CADESCOM.CPAttribute');
           cadesSignedData = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.CadesSignedData');
           cadesSigner = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.CPSigner');
-          cadesHashedData = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.HashedData');
         } catch (e) {
           console.error(e);
 
@@ -56,10 +54,6 @@ export const createHashSignature = _afterPluginsLoaded(
           void (__cadesAsyncToken__ + cadesAuthAttrs.Add(cadesAttrs));
           void (__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(CADESCOM_BASE64_TO_BINARY));
           void (__cadesAsyncToken__ + cadesSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN));
-
-          void (__cadesAsyncToken__ + cadesHashedData.propset_Algorithm(algorithm));
-          void (__cadesAsyncToken__ + cadesHashedData.propset_DataEncoding(CADESCOM_BASE64_TO_BINARY));
-          void (__cadesAsyncToken__ + cadesHashedData.SetHashValue(hashValue));
         } catch (e) {
           console.error(e);
 
@@ -69,8 +63,7 @@ export const createHashSignature = _afterPluginsLoaded(
         let signature: string;
         try {
           signature =
-            __cadesAsyncToken__ +
-            cadesSignedData.SignHash(cadesHashedData, cadesSigner, cadesplugin.CADESCOM_CADES_BES);
+            __cadesAsyncToken__ + cadesSignedData.SignHash(oHashedData, cadesSigner, cadesplugin.CADESCOM_CADES_BES);
         } catch (e) {
           console.error(e);
 
