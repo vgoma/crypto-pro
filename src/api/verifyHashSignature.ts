@@ -1,7 +1,7 @@
 import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
 import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
-import { CADESCOM_CADES_BES } from '../constants';
+import { CADESCOM_CADES_BES, CADESCOM_BASE64_TO_BINARY } from '../constants';
 
 /**
  * Валидация подписи хэшированного сообщения
@@ -28,7 +28,7 @@ export const verifyHashSignature = _afterPluginsLoaded(
         }
 
         try {
-          void (__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
+          void (__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(CADESCOM_BASE64_TO_BINARY));
         } catch (e) {
           console.error(e);
 

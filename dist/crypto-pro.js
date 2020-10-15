@@ -1777,7 +1777,7 @@ exports.verifyHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function
                             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при инициализации подписи');
                         }
                         try {
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(constants_1.CADESCOM_BASE64_TO_BINARY));
                         }
                         catch (e) {
                             console.error(e);
