@@ -6,7 +6,7 @@ import { CADESCOM_BASE64_TO_BINARY, CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_25
 /**
  * Создаёт объект oHashedData с заданным алгоритмом шифрования
  *
- * @param hashAlg = 101 - код алгоритма шифрования из списка констант
+ * @param hashAlg = 101 - код алгоритма хеширования из списка констант(/src/constants/cades-constants.ts)
  * @returns объект oHashedData
  */
 export const getHashedData = _afterPluginsLoaded(
@@ -20,7 +20,7 @@ export const getHashedData = _afterPluginsLoaded(
         } catch (error) {
           console.error(error);
 
-          throw new Error(_extractMeaningfulErrorMessage(error) || 'не удалось получить хэш функцию');
+          throw new Error(_extractMeaningfulErrorMessage(error) || 'Не удалось получить хэш функцию');
         }
 
         try {
@@ -29,7 +29,7 @@ export const getHashedData = _afterPluginsLoaded(
         } catch (error) {
           console.error(error);
 
-          throw new Error(_extractMeaningfulErrorMessage(error) || error);
+          throw new Error(_extractMeaningfulErrorMessage(error) || 'Не удалось установить настройки хеширования');
         }
 
         return oHashedData;

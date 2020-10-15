@@ -19,7 +19,6 @@ const executionSteps = [
   Symbol('step 10'),
   Symbol('step 11'),
 ];
-console.log(rawCertificateMock.HasPrivateKey);
 
 const executionFlow = {
   [executionSteps[0]]: {
