@@ -44,6 +44,7 @@ const certificate = new Certificate(
   parsedCertificateMock.thumbprint,
   parsedCertificateMock.validFrom,
   parsedCertificateMock.validTo,
+  parsedCertificateMock.hasPrivateKey,
 );
 
 describe('getInfo', () => {

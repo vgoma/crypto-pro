@@ -57,6 +57,7 @@ describe('createCoSignature', () => {
       parsedCertificateMock.thumbprint,
       parsedCertificateMock.validFrom,
       parsedCertificateMock.validTo,
+      parsedCertificateMock.hasPrivateKey,
     );
     const oHashedData = {};
     const data = btoa('b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c');

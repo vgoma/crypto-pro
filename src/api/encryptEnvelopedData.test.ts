@@ -35,6 +35,7 @@ describe('encryptEnvelopedData', () => {
       parsedCertificateMock.thumbprint,
       parsedCertificateMock.validFrom,
       parsedCertificateMock.validTo,
+      parsedCertificateMock.hasPrivateKey,
     );
 
     const result = await encryptEnvelopedData([cert], btoa('message'));

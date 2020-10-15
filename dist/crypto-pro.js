@@ -1424,32 +1424,35 @@ var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts"
 /**
  * Создаёт объект oHashedData с заданным алгоритмом шифрования
  *
- * @param hashAlg - код алгоритма шифрования из списка констант
+ * @param hashAlg = 101 - код алгоритма шифрования из списка констант
  * @returns объект oHashedData
  */
-exports.getHashedData = _afterPluginsLoaded_1._afterPluginsLoaded(function (hashAlg) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function createHashedData() {
-                var oHashedData;
-                try {
-                    oHashedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.HashedData');
-                }
-                catch (error) {
-                    console.error(error);
-                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'не удалось получить хэш функцию');
-                }
-                try {
-                    void (_generateCadesFn_1.__cadesAsyncToken__ + oHashedData.propset_Algorithm(hashAlg));
-                    void (_generateCadesFn_1.__cadesAsyncToken__ + oHashedData.propset_DataEncoding(constants_1.CADESCOM_BASE64_TO_BINARY));
-                }
-                catch (error) {
-                    console.error(error);
-                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || error);
-                }
-                return oHashedData;
-            }))];
+exports.getHashedData = _afterPluginsLoaded_1._afterPluginsLoaded(function (hashAlg) {
+    if (hashAlg === void 0) { hashAlg = constants_1.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function createHashedData() {
+                    var oHashedData;
+                    try {
+                        oHashedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.HashedData');
+                    }
+                    catch (error) {
+                        console.error(error);
+                        throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'не удалось получить хэш функцию');
+                    }
+                    try {
+                        void (_generateCadesFn_1.__cadesAsyncToken__ + oHashedData.propset_Algorithm(hashAlg));
+                        void (_generateCadesFn_1.__cadesAsyncToken__ + oHashedData.propset_DataEncoding(constants_1.CADESCOM_BASE64_TO_BINARY));
+                    }
+                    catch (error) {
+                        console.error(error);
+                        throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || error);
+                    }
+                    return oHashedData;
+                }))];
+        });
     });
-}); });
+});
 
 
 /***/ }),

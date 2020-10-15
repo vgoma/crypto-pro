@@ -1,16 +1,16 @@
 import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
 import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
-import { CADESCOM_BASE64_TO_BINARY } from '../constants';
+import { CADESCOM_BASE64_TO_BINARY, CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256 } from '../constants';
 
 /**
  * Создаёт объект oHashedData с заданным алгоритмом шифрования
  *
- * @param hashAlg - код алгоритма шифрования из списка констант
+ * @param hashAlg = 101 - код алгоритма шифрования из списка констант
  * @returns объект oHashedData
  */
 export const getHashedData = _afterPluginsLoaded(
-  async (hashAlg: number): Promise<any> => {
+  async (hashAlg: number = CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256): Promise<any> => {
     return eval(
       _generateCadesFn(function createHashedData(): any {
         let oHashedData;

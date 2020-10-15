@@ -63,6 +63,7 @@ describe('createHashSignature', () => {
       parsedCertificateMock.thumbprint,
       parsedCertificateMock.validFrom,
       parsedCertificateMock.validTo,
+      parsedCertificateMock.hasPrivateKey,
     );
     const oHashedData = {};
     const signature = await createHashSignature(cert, oHashedData);
