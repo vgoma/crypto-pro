@@ -108,7 +108,12 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 ### Методы объекта cryptoPro
 - [getUserCertificates](src/api/getUserCertificates.ts) - возвращает список [сертификатов](#api-certificate), доступных пользователю в системе
 - [getCertificate](src/api/getCertificate.ts) - возвращает [сертификат](#api-certificate) по отпечатку
-- [createSignature](src/api/createSignature.ts) - создает подпись данных
+- [createAttachedSignature](src/api/createAttachedSignature.ts) - создает совмещенную (присоединенную) подпись сообщения
+- [createDetachedSignature](src/api/createDetachedSignature.ts) - создает отсоединенную (открепленную) подпись сообщения
+- [createHash](src/api/createHash.ts) - создает хеш сообщения по ГОСТ Р 34.11-2012 256 бит
+- [createSignature](src/api/createSignature.ts) - создает подпись сообщения
+    > Является устаревшим и будет убран из будущих версий.
+    Используйте "createAttachedSignature" и "createDetachedSignature".
 - [getSystemInfo](src/api/getSystemInfo.ts) - возвращает информацию о CSP и плагине
 - [isValidSystemSetup](src/api/isValidSystemSetup.ts) - возвращает флаг корректности настроек ЭП на машине
 

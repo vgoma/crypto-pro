@@ -2904,10 +2904,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
 var _getCadesCert_1 = __webpack_require__(/*! ../helpers/_getCadesCert */ "./helpers/_getCadesCert.ts");
+var _getDateObj_1 = __webpack_require__(/*! ../helpers/_getDateObj */ "./helpers/_getDateObj.ts");
 /**
  * Создает отсоединенную подпись хеша по отпечатку сертификата
  *
@@ -2925,10 +2927,12 @@ exports.createDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(func
             case 1:
                 cadesCertificate = _a.sent();
                 return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function createDetachedSignature() {
+                        var cadesAttrs;
                         var cadesHashedData;
                         var cadesSignedData;
                         var cadesSigner;
                         try {
+                            cadesAttrs = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CADESCOM.CPAttribute');
                             cadesHashedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.HashedData');
                             cadesSignedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.CadesSignedData');
                             cadesSigner = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.CPSigner');
@@ -2937,8 +2941,20 @@ exports.createDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(func
                             console.error(error);
                             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при инициализации подписи');
                         }
+                        var currentTime = _getDateObj_1._getDateObj(new Date());
+                        try {
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesAttrs.propset_Name(constants_1.CADESCOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME));
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesAttrs.propset_Value(currentTime));
+                        }
+                        catch (error) {
+                            console.error(error);
+                            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при установке времени подписи');
+                        }
+                        var cadesAuthAttrs;
                         try {
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSigner.propset_Certificate(cadesCertificate));
+                            cadesAuthAttrs = _generateCadesFn_1.__cadesAsyncToken__ + cadesSigner.AuthenticatedAttributes2;
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesAuthAttrs.Add(cadesAttrs));
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN));
                         }
                         catch (error) {
@@ -3023,12 +3039,12 @@ var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoad
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
 /**
- * Создает хэш сообщения по ГОСТ Р 34.11-2012 256 бит
+ * Создает хеш сообщения по ГОСТ Р 34.11-2012 256 бит
  * https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%80%D0%B8%D0%B1%D0%BE%D0%B3_(%D1%85%D0%B5%D1%88-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F)
  *
  * @param unencryptedMessage - сообщение для хеширования
  *
- * @returns хэш
+ * @returns хеш
  */
 exports.createHash = _afterPluginsLoaded_1._afterPluginsLoaded(function (unencryptedMessage) { return __awaiter(void 0, void 0, void 0, function () {
     var cadesplugin;
@@ -3127,7 +3143,7 @@ var _getDateObj_1 = __webpack_require__(/*! ../helpers/_getDateObj */ "./helpers
  * Создает подпись base64 строки по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param messageHash - хэш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11
+ * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11
  * @param detachedSignature = true - тип подписи открепленная (true) / присоединенная (false)
  * @returns подпись
  */
