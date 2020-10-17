@@ -1,7 +1,6 @@
 import 'cadesplugin';
-import 'console-mock';
 import { rawCertificates, parsedCertificates } from '../__mocks__/certificates';
-import { createSignature } from './createSignature';
+import { createAttachedSignature } from './createAttachedSignature';
 import { _getCadesCert } from '../helpers/_getCadesCert';
 
 const [rawCertificateMock] = rawCertificates;
@@ -48,12 +47,30 @@ window.cadesplugin.CreateObjectAsync.mockImplementation((object) => {
   }
 });
 
-describe('createSignature', () => {
-  test('goes through whole execution flow to create signature', async () => {
-    const data = btoa('b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c');
-    const signature = await createSignature(parsedCertificateMock.thumbprint, data);
+describe('createAttachedSignature', () => {
+  test('uses Buffer to encrypt the message', async () => {
+    const originalBufferFrom = (window as any).Buffer.from;
 
-    expect(_getCadesCert).toHaveBeenCalledTimes(1);
+    (window as any).Buffer.from = jest.fn(() => ({
+      toString: jest.fn(),
+    }));
+
+    await createAttachedSignature(parsedCertificateMock.thumbprint, 'message');
+
+    expect((window as any).Buffer.from).toHaveBeenCalledTimes(1);
+
+    (window as any).Buffer.from = originalBufferFrom;
+  });
+
+  test('uses specified certificate', async () => {
+    await createAttachedSignature(parsedCertificateMock.thumbprint, 'message');
+
+    expect(_getCadesCert).toHaveBeenCalledWith(parsedCertificateMock.thumbprint);
+  });
+
+  test('returns signature', async () => {
+    const signature = await createAttachedSignature(parsedCertificateMock.thumbprint, 'message');
+
     expect(signature).toEqual('signature');
   });
 });

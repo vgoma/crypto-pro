@@ -1,5 +1,5 @@
 import 'cadesplugin';
-import 'console-error';
+import 'console-mock';
 import { isValidSystemSetup } from './isValidSystemSetup';
 import { getSystemInfo } from './getSystemInfo';
 import { _isSupportedCadesVersion } from '../helpers/_isSupportedCadesVersion';

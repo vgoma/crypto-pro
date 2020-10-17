@@ -1,5 +1,5 @@
 import 'cadesplugin';
-import 'console-error';
+import 'console-mock';
 import { _afterPluginsLoaded } from './_afterPluginsLoaded';
 
 const cadesPluginMock = window.cadesplugin;
