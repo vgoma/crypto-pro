@@ -7,7 +7,7 @@
   var $certificate = document.getElementById('certificate'),
     $certificateDetails = document.getElementById('certificateDetails'),
     $certificateInfo = document.getElementById('certificateInfo'),
-    $certificatesError = document.getElementById('certificatesError');
+    $certificatesError = document.getElementById('certificateInfoError');
 
   $certificateDetails.style.display = 'none';
 

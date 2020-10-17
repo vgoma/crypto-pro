@@ -18,11 +18,13 @@
             <select id="certificate" tabindex="-1" required>
                 <option disabled selected>Не выбран</option>
             </select>
+            <pre id="certificateListError"></pre>
+
             <details id="certificateDetails">
                 <summary>Информация о сертификате</summary>
                 <pre id="certificateInfo"></pre>
             </details>
-            <pre id="certificateError"></pre>
+            <pre id="certificateInfoError"></pre>
 
             <label>Тип подписи: *</label>
             <br>
@@ -44,6 +46,8 @@
 
             <label for="signature">Подпись (PKCS7):</label><br>
             <textarea id="signature" cols="80" rows="30" placeholder="Не создана"></textarea>
+            <pre id="signatureError"></pre>
+
             <p>
                 Для
                 <a href="https://www.gosuslugi.ru/pgu/eds/"
@@ -54,8 +58,6 @@
                 <br>
                 для отделенной подписи (или *.sig для совмещенной).
             </p>
-
-            <pre id="signatureError"></pre>
         </fieldset>
 
         <fieldset>

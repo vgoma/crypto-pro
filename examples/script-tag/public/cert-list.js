@@ -7,7 +7,7 @@
   var $certificate = document.getElementById('certificate'),
     $createSignature = document.getElementById('createSignature'),
     $certificateDetails = document.getElementById('certificateDetails'),
-    $certificateError = document.getElementById('certificateError');
+    $certificateError = document.getElementById('certificateListError');
 
   $certificate.addEventListener('change', function handleCertSelection() {
     var thumbprint = $certificate.value;
@@ -26,6 +26,6 @@
       $certificate.appendChild($certOption);
     });
   }, function (error) {
-    $certificateError.textContent = '\n' + error.message;
+    $certificateError.textContent = error.message;
   });
 })();

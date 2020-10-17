@@ -18,10 +18,6 @@ function SystemInfo() {
     })();
   });
 
-  if (!systemInfo) {
-    return null;
-  }
-
   return (
     <>
       <legend>Информация о системе</legend>

@@ -16,6 +16,6 @@
   }, handleError);
 
   function handleError(error) {
-    $systemInfoError.textContent = '\n' + error.message;
+    $systemInfoError.textContent = error.message;
   }
 })();

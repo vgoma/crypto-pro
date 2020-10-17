@@ -43,12 +43,12 @@
       }, function (error) {
         $signature.placeholder = 'Не создана';
 
-        $signatureError.textContent = '\n' + error.message;
+        $signatureError.textContent = error.message;
       });
     }, function (error) {
       $hash.placeholder = 'Не вычислен';
 
-      $hashError.textContent = '\n' + error.message;
+      $hashError.textContent = error.message;
     });
   });
 })();
