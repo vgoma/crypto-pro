@@ -49,17 +49,17 @@ window.cadesplugin.CreateObjectAsync.mockImplementation((object) => {
 
 describe('createAttachedSignature', () => {
   test('uses Buffer to encrypt the message', async () => {
-    const originalBufferFrom = (window as any).Buffer.from;
+    const originalBufferFrom = global.Buffer.from;
 
-    (window as any).Buffer.from = jest.fn(() => ({
+    (global.Buffer.from as jest.Mock) = jest.fn(() => ({
       toString: jest.fn(),
     }));
 
     await createAttachedSignature(parsedCertificateMock.thumbprint, 'message');
 
-    expect((window as any).Buffer.from).toHaveBeenCalledTimes(1);
+    expect(global.Buffer.from).toHaveBeenCalledTimes(1);
 
-    (window as any).Buffer.from = originalBufferFrom;
+    global.Buffer.from = originalBufferFrom;
   });
 
   test('uses specified certificate', async () => {
