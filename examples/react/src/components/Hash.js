@@ -5,7 +5,7 @@ function Hash({hash, hashStatus, hashError}) {
     <>
       <legend>Результат</legend>
 
-      <label htmlFor="hash">Хэш (ГОСТ Р 34.11-2012 256 бит):</label>
+      <label htmlFor="hash">Хеш (ГОСТ Р 34.11-2012 256 бит):</label>
 
       <br/>
 

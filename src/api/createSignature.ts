@@ -9,7 +9,7 @@ import { _getDateObj } from '../helpers/_getDateObj';
  * Создает подпись base64 строки по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param messageHash - хэш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11
+ * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11
  * @param detachedSignature = true - тип подписи открепленная (true) / присоединенная (false)
  * @returns подпись
  */
