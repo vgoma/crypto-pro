@@ -1789,14 +1789,15 @@ exports.verifyHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function
                             console.error(e);
                             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для верификации');
                         }
+                        var result = true;
                         try {
-                            cadesSignedData.VerifyHash(oHashedData, sSignedMessage, constants_1.CADESCOM_CADES_BES);
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.VerifyHash(oHashedData, sSignedMessage, constants_1.CADESCOM_CADES_BES));
                         }
                         catch (e) {
                             console.error(e);
-                            return false;
+                            result = false;
                         }
-                        return true;
+                        return result;
                     }))];
         }
     });
