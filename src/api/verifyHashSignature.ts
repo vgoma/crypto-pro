@@ -35,17 +35,15 @@ export const verifyHashSignature = _afterPluginsLoaded(
           throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при указании данных для верификации');
         }
 
-        let result;
         try {
-          void (__cadesAsyncToken__ + cadesSignedData.VerifyHash(oHashedData, sSignedMessage, CADESCOM_CADES_BES));
-          result = true;
+          cadesSignedData.VerifyHash(oHashedData, sSignedMessage, CADESCOM_CADES_BES);
         } catch (e) {
           console.error(e);
 
-          result = false;
+          return false;
         }
 
-        return result;
+        return true;
       }),
     );
   },
