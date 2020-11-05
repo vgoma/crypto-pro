@@ -40,7 +40,7 @@ export const verifyHashSignature = _afterPluginsLoaded(
         } catch (e) {
           console.error(e);
 
-          throw new Error(_extractMeaningfulErrorMessage(e) || 'Ошибка при верификации данных');
+          return false;
         }
 
         return true;

@@ -1794,7 +1794,7 @@ exports.verifyHashSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function
                         }
                         catch (e) {
                             console.error(e);
-                            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(e) || 'Ошибка при верификации данных');
+                            return false;
                         }
                         return true;
                     }))];
