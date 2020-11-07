@@ -13,6 +13,14 @@
             <textarea id="message" cols="80" rows="5" placeholder="Введите сообщение" autofocus required>Привет мир!</textarea>
             <br><br>
 
+            <!--[if gte IE 10]><!-->
+            <label for="messageFile">Или файл для подписи:</label>
+            <br/>
+            <input id="messageFile" type="file">
+            <pre id="messageFileError"></pre>
+            <!--<![endif]-->
+            <hr>
+
             <label for="certificate">Сертификат: *</label>
             <br>
             <select id="certificate" tabindex="-1" required>
