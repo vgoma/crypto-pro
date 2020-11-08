@@ -4,7 +4,9 @@ import {
   getUserCertificates,
   getSystemInfo,
   isValidSystemSetup,
-  createSignature,
+  createHash,
+  createDetachedSignature,
+  createAttachedSignature,
   SystemInfo,
   Certificate
 } from 'crypto-pro';
@@ -15,14 +17,23 @@ import {
   styleUrls: ['./crypto-pro.component.css']
 })
 export class CryptoProComponent implements OnInit {
+  public message = 'Привет мир!';
   public certificateList: Certificate[] = [];
+  public hash: string = null;
+  public hashStatus = 'Не вычислен';
+  public detachedSignature = true;
   public thumbprint: string = null;
-  public signature: string;
+  public signature: string = null;
+  public signatureStatus = 'Не создана';
   public systemInfo: SystemInfo & {
     isValidSystemSetup: boolean;
   };
-  public error: string;
-  public certInfo;
+  public certificateListError: string = null;
+  public certificateInfoError: string = null;
+  public hashError: string = null;
+  public signatureError: string = null;
+  public systemInfoError: string = null;
+  public certInfo = null;
 
   constructor() { }
 
@@ -32,18 +43,48 @@ export class CryptoProComponent implements OnInit {
   }
 
   public async createSignature(thumbprint) {
-    // Вычислинный hash по ГОСТ Р 34.11-94 для строки: "abc"
-    const hash = 'b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c';
-    const hashBase64 = window.btoa(hash);
+    this.hash = null;
+    this.hashError = null;
+    this.signature = null;
+    this.signatureError = null;
+    this.hashStatus = 'Вычисляется...';
 
     try {
-      this.signature = await createSignature(thumbprint, hashBase64);
+      this.hash = await createHash(this.message);
     } catch (error) {
-      this.error = error.message;
+      this.hashError = error.message;
+
+      return;
     }
+
+    this.hashStatus = 'Не вычислен';
+    this.signatureStatus = 'Создается...';
+
+    if (this.detachedSignature) {
+      try {
+        this.signature = await createDetachedSignature(thumbprint, this.hash);
+      } catch (error) {
+        this.signatureError = error.message;
+      }
+
+      this.signatureStatus = 'Не создана';
+
+      return;
+    }
+
+    try {
+      this.signature = await createAttachedSignature(thumbprint, this.message);
+    } catch (error) {
+      this.signatureError = error.message;
+    }
+
+    this.signatureStatus = 'Не создана';
   }
 
   public async showCertInfo(thumbprint) {
+    this.certInfo = null;
+    this.certificateInfoError = null;
+
     try {
       const certificate = await getCertificate(thumbprint);
 
@@ -74,26 +115,30 @@ export class CryptoProComponent implements OnInit {
         ]),
       };
     } catch (error) {
-      this.error = error.message;
+      this.certificateInfoError = error.message;
     }
   }
 
   private async displayCertificates() {
+    this.certificateListError = null;
+
     try {
       this.certificateList = await getUserCertificates();
     } catch (error) {
-      this.error = error.message;
+      this.certificateListError = error.message;
     }
   }
 
   private async displaySystemInfo() {
+    this.systemInfoError = null;
+
     try {
       this.systemInfo = {
         ...await getSystemInfo(),
         isValidSystemSetup: await isValidSystemSetup()
       };
     } catch (error) {
-      this.error = error.message;
+      this.systemInfoError = error.message;
     }
   }
 }

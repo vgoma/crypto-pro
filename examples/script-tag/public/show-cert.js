@@ -4,10 +4,18 @@
 ;(function () {
   'use strict';
 
-  document
-    .getElementById('showCertificate')
-    .addEventListener('click', function () {
-      var thumbprint = document.getElementById('certList').value;
+  var $certificate = document.getElementById('certificate'),
+    $certificateDetails = document.getElementById('certificateDetails'),
+    $certificateInfo = document.getElementById('certificateInfo'),
+    $certificatesError = document.getElementById('certificateInfoError');
+
+  $certificateDetails.style.display = 'none';
+
+  $certificateDetails.addEventListener('toggle', function () {
+    if ($certificateDetails.open) {
+      var thumbprint = $certificate.value;
+
+      $certificateInfo.textContent = 'Запрашивается...';
 
       window.cryptoPro.getCertificate(thumbprint).then(function (certificate) {
         Promise.all([
@@ -24,7 +32,7 @@
           certificate.hasExtendedKeyUsage('1.3.6.1.4.1.311.80.2'),
           certificate.hasExtendedKeyUsage(['1.3.6.1.5.5.7.3.3', '1.3.6.1.4.1.311.10.3.12']),
         ]).then(function (results) {
-          document.getElementById('certificateInfo').textContent = JSON.stringify({
+          $certificateInfo.textContent = JSON.stringify({
             name: certificate.name,
             issuerName: certificate.issuerName,
             subjectName: certificate.subjectName,
@@ -44,7 +52,16 @@
             '1.3.6.1.4.1.311.80.2': results[10],
             "'1.3.6.1.5.5.7.3.3', '1.3.6.1.4.1.311.10.3.12'": results[11],
           }, null, '  ');
-        });
-      });
-    });
+        }, handleError);
+      }, handleError);
+
+      return;
+    }
+
+    $certificateInfo.textContent = '';
+  });
+
+  function handleError(error) {
+    $certificatesError.textContent = '\n' + error.message;
+  }
 })();

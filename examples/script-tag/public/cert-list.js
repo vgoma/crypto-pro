@@ -4,21 +4,28 @@
 ;(function () {
   'use strict';
 
-  var $certs = document.getElementById('certList'),
-    $errorMsg = document.getElementById('errorMessage');
+  var $certificate = document.getElementById('certificate'),
+    $createSignature = document.getElementById('createSignature'),
+    $certificateDetails = document.getElementById('certificateDetails'),
+    $certificateError = document.getElementById('certificateListError');
 
-  window.cryptoPro.getUserCertificates()
-    .then(function (certificateList) {
-      certificateList.forEach(function (certificate) {
-        var $certOption = document.createElement('option');
+  $certificate.addEventListener('change', function handleCertSelection() {
+    var thumbprint = $certificate.value;
 
-        $certOption.textContent = certificate.name + ' (действителен до: ' + certificate.validTo + ')';
+    $createSignature.disabled = !thumbprint;
+    $certificateDetails.style.display = thumbprint ? 'block' : 'none';
+  });
 
-        $certOption.value = certificate.thumbprint;
+  window.cryptoPro.getUserCertificates().then(function (certificateList) {
+    certificateList.forEach(function (certificate) {
+      var $certOption = document.createElement('option');
 
-        $certs.appendChild($certOption);
-      });
-    }, function (error) {
-      $errorMsg.textContent = '\n' + error.message;
+      $certOption.textContent = certificate.name + ' (действителен до: ' + certificate.validTo + ')';
+      $certOption.value = certificate.thumbprint;
+
+      $certificate.appendChild($certOption);
     });
+  }, function (error) {
+    $certificateError.textContent = error.message;
+  });
 })();

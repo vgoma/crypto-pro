@@ -1,34 +1,106 @@
-<select name="certificate"
-        [(ngModel)]="thumbprint">
-  <option value="null" disabled>Не выбран</option>
+<form
+  #signatureForm="ngForm"
+  novalidate
+  (ngSubmit)="createSignature(thumbprint)">
+  <fieldset>
+    <legend>Создание подписи</legend>
+    <label for="message">Подписываемое сообщение: *</label>
+    <br>
+    <textarea
+      id="message"
+      name="message"
+      cols="80"
+      rows="5"
+      placeholder="Введите сообщение"
+      autofocus
+      required
+      [(ngModel)]="message">Привет мир!</textarea>
+    <br><br>
 
-  <option *ngFor="let cert of certificateList"
-          [value]="cert.thumbprint">
-    {{cert.name}}
-  </option>
-</select>
+    <label for="certificate">Сертификат: *</label>
+    <br>
+    <select
+      id="certificate"
+      name="certificate"
+      required
+      [(ngModel)]="thumbprint">
+      <option value="null" disabled>Не выбран</option>
+      <option *ngFor="let cert of certificateList" [value]="cert.thumbprint">
+        {{cert.name + ' (действителен до: ' + cert.validTo + ')'}}
+      </option>
+    </select>
+    <pre>{{certificateListError}}</pre>
 
-<button type="button"
-        [disabled]="!thumbprint"
-        (click)="createSignature(thumbprint)">
-  Создать подпись
-</button>
+    <details
+      *ngIf="thumbprint"
+      (click)="showCertInfo(thumbprint)">
+      <summary>Информация о сертификате</summary>
+      <pre *ngIf="certInfo">{{certInfo | json}}</pre>
+      <pre *ngIf="!certInfo">Запрашивается...</pre>
+    </details>
+    <pre>{{certificateInfoError}}</pre>
 
-<button type="button"
-        [disabled]="!thumbprint"
-        (click)="showCertInfo(thumbprint)">
-  Информация о сертификате
-</button>
+    <label>Тип подписи: *</label>
+    <br>
+    <label>
+      <input
+        type="radio"
+        name="detachedSignature"
+        [value]="false"
+        [(ngModel)]="detachedSignature">Совмещенная</label>
+    <br>
+    <label>
+      <input
+        type="radio"
+        name="detachedSignature"
+        [value]="true"
+        [(ngModel)]="detachedSignature">Отделенная</label>
+    <br><br>
 
-<pre *ngIf="certInfo">{{certInfo | json}}</pre>
+    <hr>
+    <button
+      type="submit"
+      [disabled]="!signatureForm.valid">Создать подпись</button>
+  </fieldset>
+</form>
 
-<br>
+<fieldset>
+  <legend>Результат</legend>
+  <label for="hash">Хеш (ГОСТ Р 34.11-2012 256 бит):</label><br>
+  <textarea
+    id="hash"
+    cols="80"
+    rows="5"
+    [(ngModel)]="hash"
+    [placeholder]="hashStatus"
+  ></textarea>
+  <pre>{{hashError}}</pre>
 
-<textarea name="signature"
-          [(ngModel)]="signature"
-          cols="100"
-          rows="30"></textarea>
+  <label for="signature">Подпись (PKCS7):</label><br>
+  <textarea
+    id="signature"
+    name="signature"
+    cols="80"
+    rows="30"
+    [placeholder]="signatureStatus"
+    [(ngModel)]="signature"
+  ></textarea>
+  <pre>{{signatureError}}</pre>
 
-<pre *ngIf="error">{{error}}</pre>
+  <p>
+    Для
+    <a href="https://www.gosuslugi.ru/pgu/eds/"
+       target="_blank"
+       rel="nofollow noopener noreferrer"
+       title="Перейти к проверке подписи">проверки</a>
+    нужно создать файл со сгенерированной подписью в кодировке UTF-8 с расширением *.sgn
+    <br>
+    для отделенной подписи (или *.sig для совмещенной).
+  </p>
+</fieldset>
 
-<pre *ngIf="systemInfo">{{systemInfo | json}}</pre>
+<fieldset>
+  <legend>Информация о системе</legend>
+  <pre *ngIf="systemInfo">{{systemInfo | json}}</pre>
+  <pre>{{systemInfoError}}</pre>
+</fieldset>

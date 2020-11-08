@@ -1,24 +1,97 @@
 /**
- * Пример создания подписи данных, сгенерированных по ГОСТ Р 34.11-94
- * https://ru.wikipedia.org/wiki/%D0%93%D0%9E%D0%A1%D0%A2_%D0%A0_34.11-94
+ * Пример создания подписи данных
  * */
 ;(function () {
   'use strict';
 
-  var $errorMsg = document.getElementById('errorMessage');
+  var $createSignature = document.forms.createSignature,
+    $certificate = document.getElementById('certificate'),
+    $message = document.getElementById('message'),
+    $messageFile = document.getElementById('messageFile'),
+    $messageFileError = document.getElementById('messageFileError'),
+    $hash = document.getElementById('hash'),
+    $hashError = document.getElementById('hashError'),
+    $signature = document.getElementById('signature'),
+    $signatureError = document.getElementById('signatureError'),
 
-  document
-    .getElementById('createSign')
-    .addEventListener('click', function () {
-      // Вычислинный hash по ГОСТ Р 34.11-94 для строки: "abc"
-      var hash = 'b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c',
-        hashBase64 = window.btoa(hash),
-        thumbprint = document.getElementById('certList').value;
+    // https://support.cryptopro.ru/index.php?/Knowledgebase/Article/View/213/12/ogrnichenie-n-rzmer-podpisyvemogo-fjjl-v-bruzere
+    MAX_FILE_SIZE = 25000000;
 
-      window.cryptoPro.createSignature(thumbprint, hashBase64).then(function (signature) {
-        document.getElementById('createdSign').value = signature;
-      }, function (error) {
-        $errorMsg.textContent = '\n' + error.message;
-      });
+  function readFile(messageFile) {
+    return new Promise(function (resolve, reject) {
+      var fileReader = new FileReader();
+
+      fileReader.onload = function () {
+        resolve(this.result);
+      };
+
+      if (messageFile.size > MAX_FILE_SIZE) {
+        reject('Файл для подписи не должен превышать ' + MAX_FILE_SIZE / 1000000 + 'МБ');
+
+        return;
+      }
+
+      fileReader.readAsArrayBuffer(messageFile);
     });
+  }
+
+  function createSignature(message, hash) {
+    var thumbprint = $certificate.value,
+      detachedSignature = document.querySelector('input[name="signatureType"]:checked').value,
+      signaturePromise;
+
+    detachedSignature = Boolean(Number(detachedSignature));
+
+    $hash.value = hash;
+
+    $signature.placeholder = 'Создается...';
+    $signature.value = '';
+
+    if (detachedSignature) {
+      signaturePromise = window.cryptoPro.createDetachedSignature(thumbprint, hash);
+    } else {
+      signaturePromise = window.cryptoPro.createAttachedSignature(thumbprint, message);
+    }
+
+    signaturePromise.then(function (signature) {
+      $signature.value = signature;
+      $signatureError.textContent = '';
+    }, function (error) {
+      $signature.placeholder = 'Не создана';
+      $signatureError.textContent = error.message;
+    });
+  }
+
+  $message.addEventListener('keydown', function() {
+    $messageFile.value = null;
+  });
+
+  if ($messageFile) {
+    $messageFile.addEventListener('change', function() {
+      $message.value = '';
+    });
+  }
+
+  $createSignature.addEventListener('submit', function (event) {
+    var messageFile = $messageFile && $messageFile.files.length && $messageFile.files[0],
+      messagePromise = Promise.resolve($message.value);
+
+    if (messageFile) {
+      messagePromise = readFile(messageFile);
+    }
+
+    event.preventDefault();
+
+    messagePromise.then(function (message) {
+      $hash.placeholder = 'Вычисляется...';
+      $hash.value = '';
+
+      window.cryptoPro.createHash(message).then(createSignature.bind(null, message), function (hashError) {
+        $hash.placeholder = 'Не вычислен';
+        $hashError.textContent = hashError.message;
+      });
+    }, function (fileError) {
+      $messageFileError.textContent = fileError;
+    })
+  });
 })();

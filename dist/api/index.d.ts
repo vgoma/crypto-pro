@@ -10,4 +10,7 @@ export * from './verifyHashSignature';
 export * from './getEnvelopedData';
 export * from './encryptEnvelopedData';
 export * from './decryptEnvelopedData';
+export * from './createDetachedSignature';
+export * from './createAttachedSignature';
+export * from './createHash';
 export * from './certificate';

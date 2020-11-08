@@ -5,14 +5,75 @@
     <title>Пример использования cryptoPro</title>
 </head>
 <body>
-    <select id="certList"></select>
-    <button id="createSign" type="button">Создать подпись</button>
-    <button id="showCertificate" type="button">Информация о сертификате</button>
-    <br>
-    <pre id="certificateInfo"></pre>
-    <textarea id="createdSign" cols="100" rows="30"></textarea>
-    <pre id="errorMessage"></pre>
-    <pre id="systemInfo"></pre>
+    <form name="createSignature" novalidate>
+        <fieldset>
+            <legend>Создание подписи</legend>
+            <label for="message">Подписываемое сообщение: *</label>
+            <br>
+            <textarea id="message" cols="80" rows="5" placeholder="Введите сообщение" autofocus required>Привет мир!</textarea>
+            <br><br>
+
+            <!--[if gte IE 10]><!-->
+            <label for="messageFile">Или файл для подписи:</label>
+            <br/>
+            <input id="messageFile" type="file">
+            <pre id="messageFileError"></pre>
+            <!--<![endif]-->
+            <hr>
+
+            <label for="certificate">Сертификат: *</label>
+            <br>
+            <select id="certificate" tabindex="-1" required>
+                <option disabled selected>Не выбран</option>
+            </select>
+            <pre id="certificateListError"></pre>
+
+            <details id="certificateDetails">
+                <summary>Информация о сертификате</summary>
+                <pre id="certificateInfo"></pre>
+            </details>
+            <pre id="certificateInfoError"></pre>
+
+            <label>Тип подписи: *</label>
+            <br>
+            <label><input type="radio" name="signatureType" value="0">Совмещенная</label>
+            <br>
+            <label><input type="radio" name="signatureType" value="1" checked>Отделенная</label>
+            <br><br>
+
+            <hr>
+            <button id="createSignature" type="submit" disabled>Создать подпись</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Результат</legend>
+            <label for="hash">Хеш (ГОСТ Р 34.11-2012 256 бит):</label><br>
+            <textarea id="hash" cols="80" rows="5" placeholder="Не вычислен"></textarea>
+            <br>
+            <pre id="hashError"></pre>
+
+            <label for="signature">Подпись (PKCS7):</label><br>
+            <textarea id="signature" cols="80" rows="30" placeholder="Не создана"></textarea>
+            <pre id="signatureError"></pre>
+
+            <p>
+                Для
+                <a href="https://www.gosuslugi.ru/pgu/eds/"
+                   target="_blank"
+                   rel="nofollow noopener noreferrer"
+                   title="Перейти к проверке подписи">проверки</a>
+                нужно создать файл со сгенерированной подписью в кодировке UTF-8 с расширением *.sgn
+                <br>
+                для отделенной подписи (или *.sig для совмещенной).
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Информация о системе</legend>
+            <pre id="systemInfo"></pre>
+            <pre id="systemInfoError"></pre>
+        </fieldset>
+    </form>
 
     <!-- Полифиллы для работы библиотеки -->
     <script src="polyfills/promise.js"></script>
@@ -23,6 +84,7 @@
 
     <!-- Полифиллы для работы демо скриптов -->
     <script src="polyfills/atob-btoa.js"></script>
+    <script src="polyfills/details-element-polyfill.js"></script>
 
     <!-- Демо скрипты -->
     <script src="cert-list.js"></script>

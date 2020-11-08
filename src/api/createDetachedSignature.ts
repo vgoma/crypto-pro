@@ -6,33 +6,27 @@ import { _getCadesCert } from '../helpers/_getCadesCert';
 import { _getDateObj } from '../helpers/_getDateObj';
 
 /**
- * Создает подпись base64 строки по отпечатку сертификата
+ * Создает отсоединенную подпись хеша по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11
- * @param detachedSignature = true - тип подписи открепленная (true) / присоединенная (false)
- * @returns подпись
+ * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
+ * @returns подпись в формате PKCS#7
  */
-export const createSignature = _afterPluginsLoaded(
-  async (thumbprint: string, messageHash: string, detachedSignature: boolean = true): Promise<string> => {
-    console.warn(
-      [
-        'cryptoPro: Метод "createSignature" является устаревшим и будет убран из будущих версий.',
-        'Используйте "createAttachedSignature" и "createDetachedSignature".',
-      ].join('\n'),
-    );
-
+export const createDetachedSignature = _afterPluginsLoaded(
+  async (thumbprint: string, messageHash: string): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = await _getCadesCert(thumbprint);
 
     return eval(
-      _generateCadesFn(function createSignature(): string {
+      _generateCadesFn(function createDetachedSignature(): string {
         let cadesAttrs;
+        let cadesHashedData;
         let cadesSignedData;
         let cadesSigner;
 
         try {
           cadesAttrs = __cadesAsyncToken__ + __createCadesPluginObject__('CADESCOM.CPAttribute');
+          cadesHashedData = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.HashedData');
           cadesSignedData = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.CadesSignedData');
           cadesSigner = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.CPSigner');
         } catch (error) {
@@ -58,15 +52,23 @@ export const createSignature = _afterPluginsLoaded(
           void (__cadesAsyncToken__ + cadesSigner.propset_Certificate(cadesCertificate));
           cadesAuthAttrs = __cadesAsyncToken__ + cadesSigner.AuthenticatedAttributes2;
           void (__cadesAsyncToken__ + cadesAuthAttrs.Add(cadesAttrs));
-          void (__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
-          void (__cadesAsyncToken__ + cadesSignedData.propset_Content(messageHash));
-          void (
-            __cadesAsyncToken__ + cadesSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY)
-          );
+          void (__cadesAsyncToken__ + cadesSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN));
         } catch (error) {
           console.error(error);
 
-          throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при указании данных для подписи');
+          throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при установке сертификата');
+        }
+
+        try {
+          void (
+            __cadesAsyncToken__ +
+            cadesHashedData.propset_Algorithm(cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256)
+          );
+          void (__cadesAsyncToken__ + cadesHashedData.SetHashValue(messageHash));
+        } catch (error) {
+          console.error(error);
+
+          throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при установке хеша');
         }
 
         let signature: string;
@@ -74,7 +76,7 @@ export const createSignature = _afterPluginsLoaded(
         try {
           signature =
             __cadesAsyncToken__ +
-            cadesSignedData.SignCades(cadesSigner, cadesplugin.CADESCOM_CADES_BES, detachedSignature);
+            cadesSignedData.SignHash(cadesHashedData, cadesSigner, cadesplugin.CADESCOM_PKCS7_TYPE);
         } catch (error) {
           console.error(error);
 

@@ -1,7 +1,6 @@
 import 'cadesplugin';
-import 'console-mock';
 import { rawCertificates, parsedCertificates } from '../__mocks__/certificates';
-import { createSignature } from './createSignature';
+import { createDetachedSignature } from './createDetachedSignature';
 import { _getCadesCert } from '../helpers/_getCadesCert';
 
 const [rawCertificateMock] = rawCertificates;
@@ -13,7 +12,14 @@ beforeEach(() => {
   (_getCadesCert as jest.Mock).mockClear();
 });
 
-const executionSteps = [Symbol('step 0'), Symbol('step 1'), Symbol('step 2'), Symbol('step 3'), Symbol('step 4')];
+const executionSteps = [
+  Symbol('step 0'),
+  Symbol('step 1'),
+  Symbol('step 2'),
+  Symbol('step 3'),
+  Symbol('step 4'),
+  Symbol('step 5'),
+];
 
 const executionFlow = {
   [executionSteps[0]]: {
@@ -23,7 +29,7 @@ const executionFlow = {
   [executionSteps[1]]: {
     propset_ContentEncoding: jest.fn(),
     propset_Content: jest.fn(),
-    SignCades: jest.fn(() => executionSteps[4]),
+    SignHash: jest.fn(() => executionSteps[4]),
   },
   [executionSteps[2]]: {
     propset_Certificate: jest.fn(),
@@ -34,6 +40,10 @@ const executionFlow = {
     Add: jest.fn(),
   },
   [executionSteps[4]]: 'signature',
+  [executionSteps[5]]: {
+    propset_Algorithm: jest.fn(),
+    SetHashValue: jest.fn(),
+  },
 };
 
 window.cadesplugin.__defineExecutionFlow(executionFlow);
@@ -45,15 +55,21 @@ window.cadesplugin.CreateObjectAsync.mockImplementation((object) => {
       return executionSteps[1];
     case 'CAdESCOM.CPSigner':
       return executionSteps[2];
+    case 'CAdESCOM.HashedData':
+      return executionSteps[5];
   }
 });
 
-describe('createSignature', () => {
-  test('goes through whole execution flow to create signature', async () => {
-    const data = btoa('b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c');
-    const signature = await createSignature(parsedCertificateMock.thumbprint, data);
+describe('createDetachedSignature', () => {
+  test('uses specified certificate', async () => {
+    await createDetachedSignature(parsedCertificateMock.thumbprint, 'message');
 
-    expect(_getCadesCert).toHaveBeenCalledTimes(1);
+    expect(_getCadesCert).toHaveBeenCalledWith(parsedCertificateMock.thumbprint);
+  });
+
+  test('returns signature', async () => {
+    const signature = await createDetachedSignature(parsedCertificateMock.thumbprint, 'message');
+
     expect(signature).toEqual('signature');
   });
 });

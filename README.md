@@ -12,6 +12,10 @@
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | __v45+__ с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://chrome.google.com/webstore/detail/cryptopro-extension-for-c/iifchhfnnmpdbibifmljnfjhpififfog?utm_source=chrome-app-launcher-info-dialog) | __v43+__. Начиная с версии 52, с [расширением](https://www.cryptopro.ru/sites/default/files/products/cades/extensions/cryptopro_extension_for_cades_browser_plug_in-1.1.1-an+fx-windows.xpi) | __v9+__ с установленным [КриптоПро ЭЦП Browser plug-in](https://www.cryptopro.ru/products/cades/plugin)                                                                                                        | __v40+__ с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://addons.opera.com/en/extensions/details/cryptopro-extension-for-cades-browser-plug-in/) |
 
+![demo.gif](resources/demo.gif)
+![gosuslugi-demo-result.png](resources/gosuslugi-demo-result.png)
+![gosuslugi-signature-types.png](resources/gosuslugi-signature-types.png)
+
 - [cryptoPro](#cryptopro)
     - [Зачем мне этот пакет?](#why)
     - [Установка](#install)
@@ -45,11 +49,11 @@
 и [этого](http://cpdn.cryptopro.ru/content/cades/plugin-samples-sign-cades-bes-async.html)
 написать это (UMD):
 
-![crypto-pro-umd.gif](crypto-pro-umd.gif)
+![example-umd.gif](resources/example-umd-js.gif)
 
-или это (ES Modules):
+или это (ES Modules + Typescript):
 
-![crypto-pro-esm.gif](crypto-pro-esm.gif)
+![example-esm.gif](resources/example-esm-ts.gif)
 
 <a name="install"></a>
 ## Установка
@@ -108,7 +112,12 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 ### Методы объекта cryptoPro
 - [getUserCertificates](src/api/getUserCertificates.ts) - возвращает список [сертификатов](#api-certificate), доступных пользователю в системе
 - [getCertificate](src/api/getCertificate.ts) - возвращает [сертификат](#api-certificate) по отпечатку
-- [createSignature](src/api/createSignature.ts) - создает подпись данных
+- [createAttachedSignature](src/api/createAttachedSignature.ts) - создает совмещенную (присоединенную) подпись сообщения
+- [createDetachedSignature](src/api/createDetachedSignature.ts) - создает отсоединенную (открепленную) подпись сообщения
+- [createHash](src/api/createHash.ts) - создает хеш сообщения по ГОСТ Р 34.11-2012 256 бит
+- [createSignature](src/api/createSignature.ts) - создает подпись сообщения
+    > Является устаревшим и будет убран из будущих версий.
+    Используйте "createAttachedSignature" и "createDetachedSignature".
 - [getSystemInfo](src/api/getSystemInfo.ts) - возвращает информацию о CSP и плагине
 - [isValidSystemSetup](src/api/isValidSystemSetup.ts) - возвращает флаг корректности настроек ЭП на машине
 - [createHashSignature](src/api/createHashSignature.ts) - создаёт отделённую подпись хэш-значения данных
