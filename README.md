@@ -12,9 +12,9 @@
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | __v45+__ с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://chrome.google.com/webstore/detail/cryptopro-extension-for-c/iifchhfnnmpdbibifmljnfjhpififfog?utm_source=chrome-app-launcher-info-dialog) | __v43+__. Начиная с версии 52, с [расширением](https://www.cryptopro.ru/sites/default/files/products/cades/extensions/cryptopro_extension_for_cades_browser_plug_in-1.1.1-an+fx-windows.xpi) | __v9+__ с установленным [КриптоПро ЭЦП Browser plug-in](https://www.cryptopro.ru/products/cades/plugin)                                                                                                        | __v40+__ с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://addons.opera.com/en/extensions/details/cryptopro-extension-for-cades-browser-plug-in/) |
 
-![demo.gif](resources/demo.gif)
-![gosuslugi-demo-result.png](resources/gosuslugi-demo-result.png)
-![gosuslugi-signature-types.png](resources/gosuslugi-signature-types.png)
+[![demo.gif](resources/demo.gif)](#example-script-tag)
+[![gosuslugi-demo-result.png](resources/gosuslugi-demo-result.png)](#example-script-tag)
+[![gosuslugi-signature-types.png](resources/gosuslugi-signature-types.png)](#example-script-tag)
 
 - [cryptoPro](#cryptopro)
     - [Зачем мне этот пакет?](#why)
