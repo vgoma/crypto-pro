@@ -17,7 +17,7 @@
 		<select id='clb'></select>
 		<input type='button' disabled id='signbutton' value="Подписать" />
 	</div>
-	<div id="signedarea">
+	<div id="signedarea" style="display: none;">
 		<hr>
 
 		<textarea disabled id='SignatureTxtBox' placeholder="Ожидается подписанный документ..."></textarea>
@@ -92,12 +92,21 @@
 	});
 
 	$('#signbutton').click(function (e) {
-		console.debug(e.target);
 		signaturePromise = window.cryptoPro.createSignatureCadesXML($('#clb').val(), $('#xmlcontent').val());
 		signaturePromise.then(function (signature) {
-			console.debug(signature);
 			$('#SignatureTxtBox').val(signature);
-			$('#signedarea').show();
+			window.cryptoPro.verifyXML(signature).then(function(vr)
+			{
+				console.log(vr);
+				
+				$('#signedarea').toggle(vr);
+			
+			}
+
+			)
+			
+
+			
 		});
 	})
 </script>

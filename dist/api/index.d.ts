@@ -8,3 +8,4 @@ export * from './createAttachedSignature';
 export * from './createHash';
 export * from './certificate';
 export * from './createSignatureCadesXML';
+export * from './verifyXML';
