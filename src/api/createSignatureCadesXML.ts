@@ -14,7 +14,7 @@ import { _getCadesCert } from '../helpers/_getCadesCert';
  * @returns подписанный XML
  */
 export const createSignatureCadesXML = _afterPluginsLoaded(
-	async (thumbprint: string, xml: string): Promise<string> => {
+	async (thumbprint: string, xml: string, st: Number): Promise<string> => {
 		const { cadesplugin } = window;
 		const Certificate = await _getCadesCert(thumbprint);
 
@@ -62,7 +62,7 @@ export const createSignatureCadesXML = _afterPluginsLoaded(
 				let Signature: string;
 				if (xml) {
 					void (__cadesAsyncToken__ + cadesSignedXML.propset_Content(xml));
-					void (__cadesAsyncToken__ + cadesSignedXML.propset_SignatureType(CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED));
+					void (__cadesAsyncToken__ + cadesSignedXML.propset_SignatureType(st));
 					void (__cadesAsyncToken__ + cadesSignedXML.propset_SignatureMethod(signMethod));
 					void (__cadesAsyncToken__ + cadesSignedXML.propset_DigestMethod(digestMethod));
 

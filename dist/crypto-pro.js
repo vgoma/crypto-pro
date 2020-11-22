@@ -3263,7 +3263,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -3275,7 +3274,7 @@ var _getCadesCert_1 = __webpack_require__(/*! ../helpers/_getCadesCert */ "./hel
  * @param xml - XML сообщение
  * @returns подписанный XML
  */
-exports.createSignatureCadesXML = _afterPluginsLoaded_1._afterPluginsLoaded(function (thumbprint, xml) { return __awaiter(void 0, void 0, void 0, function () {
+exports.createSignatureCadesXML = _afterPluginsLoaded_1._afterPluginsLoaded(function (thumbprint, xml, st) { return __awaiter(void 0, void 0, void 0, function () {
     var cadesplugin, Certificate;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -3321,7 +3320,7 @@ exports.createSignatureCadesXML = _afterPluginsLoaded_1._afterPluginsLoaded(func
                         var Signature;
                         if (xml) {
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedXML.propset_Content(xml));
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedXML.propset_SignatureType(constants_1.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED));
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedXML.propset_SignatureType(st));
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedXML.propset_SignatureMethod(signMethod));
                             void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedXML.propset_DigestMethod(digestMethod));
                             try {
