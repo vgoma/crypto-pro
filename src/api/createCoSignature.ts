@@ -83,7 +83,7 @@ export const createCoSignature = _afterPluginsLoaded(
           void (__cadesAsyncToken__ + cadesSigner.propset_Certificate(cadesCertificate));
           cadesAuthAttrs = __cadesAsyncToken__ + cadesSigner.AuthenticatedAttributes2;
           void (__cadesAsyncToken__ + cadesAuthAttrs.Add(cadesAttrs));
-          void (__cadesAsyncToken__ + cadesSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN));
+//          void (__cadesAsyncToken__ + cadesSigner.propset_Options(cadesplugin.CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN));
         } catch (e) {
           console.error(e);
 
