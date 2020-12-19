@@ -3,6 +3,7 @@
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
 [![Donate][donate-image]][donate-url]
+<a href="https://www.jetbrains.com/?from=crypto-pro" title="При поддержке Jetbrains"><img src="resources/logo-webstorm.svg" height="20"></a>
 
 <a name="cryptopro"></a>
 # cryptoPro
