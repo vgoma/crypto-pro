@@ -2,6 +2,7 @@
 [![NPM downloads][npm-downloads-image]][downloads-url]
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
+[![Examples][examples-image]][examples-url]
 [![Donate][donate-image]][donate-url]
 <a href="https://www.jetbrains.com/?from=crypto-pro" title="При поддержке Jetbrains"><img src="resources/logo-webstorm.svg" height="20"></a>
 
@@ -485,3 +486,5 @@ MIT
 [coveralls-url]: https://coveralls.io/github/vgoma/crypto-pro?branch=master
 [donate-image]: https://img.shields.io/badge/%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE-%E2%82%BD-yellow
 [donate-url]: https://money.yandex.ru/to/410011609769902
+[examples-image]: https://img.shields.io/badge/examples-folder-pink
+[examples-url]: examples
