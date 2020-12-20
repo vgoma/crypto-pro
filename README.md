@@ -123,6 +123,9 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 - [getSystemInfo](src/api/getSystemInfo.ts) - возвращает информацию о CSP и плагине
 - [isValidSystemSetup](src/api/isValidSystemSetup.ts) - возвращает флаг корректности настроек ЭП на машине
 
+- [createSignatureCadesXML](src/api/createSignatureCadesXML.ts) - создает Cades-BES подпись XML содержимого
+- [verifyXML](src/api/verifyXML.ts) - проверяет Cades-BES подпись в XML содержимом
+
 <a name="api-certificate"></a>
 ### Методы объекта сертификата
 [Сертификат](src/api/certificate/certificate.ts) предоставляет следущее API:
