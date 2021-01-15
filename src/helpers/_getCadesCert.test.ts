@@ -10,6 +10,7 @@ const certificateMock = {
   Thumbprint: 'some thumbprint',
   ValidFromDate: 'whatever',
   ValidToDate: 'whatever',
+  HasPrivateKey: () => true,
 };
 
 const executionSteps = [Symbol('step 0'), Symbol('step 1'), Symbol('step 2'), Symbol('step 3'), Symbol('step 4')];
@@ -35,6 +36,7 @@ const executionFlow = {
     Thumbprint: certificateMock.Thumbprint,
     ValidFromDate: certificateMock.ValidFromDate,
     ValidToDate: certificateMock.ValidToDate,
+    HasPrivateKey: certificateMock.HasPrivateKey,
   },
 };
 

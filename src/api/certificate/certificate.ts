@@ -20,6 +20,7 @@ export class Certificate {
     public thumbprint: string,
     public validFrom: string,
     public validTo: string,
+    public hasPrivateKey: boolean,
   ) {}
 
   public getOwnerInfo(): Promise<TagTranslation[]> {

@@ -27,6 +27,7 @@ export const rawCertificates = [
     Thumbprint: '1C6838E1316C5F0C6A126D58D081D2435A3CFC7B',
     ValidFromDate: '2019-12-06T11:58:21.000Z',
     ValidToDate: '2020-12-06T12:08:21.000Z',
+    HasPrivateKey: (): boolean => true,
   },
 ];
 
@@ -38,5 +39,6 @@ export const parsedCertificates = [
     thumbprint: rawCertificates[0].Thumbprint,
     validFrom: rawCertificates[0].ValidFromDate,
     validTo: rawCertificates[0].ValidToDate,
+    hasPrivateKey: rawCertificates[0].HasPrivateKey(),
   },
 ];

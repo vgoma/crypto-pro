@@ -17,6 +17,7 @@ const executionSteps = [
   Symbol('step 8'),
   Symbol('step 9'),
   Symbol('step 10'),
+  Symbol('step 11'),
 ];
 
 const executionFlow = {
@@ -42,12 +43,14 @@ const executionFlow = {
     Thumbprint: executionSteps[6],
     ValidFromDate: executionSteps[9],
     ValidToDate: executionSteps[10],
+    HasPrivateKey: () => executionSteps[11],
   },
   [executionSteps[8]]: rawCertificateMock.IssuerName,
   [executionSteps[7]]: rawCertificateMock.SubjectName,
   [executionSteps[6]]: rawCertificateMock.Thumbprint,
   [executionSteps[9]]: rawCertificateMock.ValidFromDate,
   [executionSteps[10]]: rawCertificateMock.ValidToDate,
+  [executionSteps[11]]: rawCertificateMock.HasPrivateKey(),
 };
 
 window.cadesplugin.__defineExecutionFlow(executionFlow);
