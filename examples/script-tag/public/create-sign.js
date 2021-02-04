@@ -37,20 +37,27 @@
 
   function createSignature(message, hash) {
     var thumbprint = $certificate.value,
-      detachedSignature = document.querySelector('input[name="signatureType"]:checked').value,
+      signatureType = document.querySelector('input[name="signatureType"]:checked').value,
       signaturePromise;
-
-    detachedSignature = Boolean(Number(detachedSignature));
 
     $hash.value = hash;
 
     $signature.placeholder = 'Создается...';
     $signature.value = '';
 
-    if (detachedSignature) {
-      signaturePromise = window.cryptoPro.createDetachedSignature(thumbprint, hash);
-    } else {
-      signaturePromise = window.cryptoPro.createAttachedSignature(thumbprint, message);
+    switch (signatureType) {
+      case 'attached':
+        signaturePromise = window.cryptoPro.createAttachedSignature(thumbprint, message);
+
+        break;
+      case 'xml':
+        signaturePromise = window.cryptoPro.createXMLSignature(thumbprint, message);
+
+        break;
+      case 'detached':
+        signaturePromise = window.cryptoPro.createDetachedSignature(thumbprint, hash);
+
+        break;
     }
 
     signaturePromise.then(function (signature) {

@@ -116,6 +116,7 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 - [getCertificate](src/api/getCertificate.ts) - возвращает [сертификат](#api-certificate) по отпечатку
 - [createAttachedSignature](src/api/createAttachedSignature.ts) - создает совмещенную (присоединенную) подпись сообщения
 - [createDetachedSignature](src/api/createDetachedSignature.ts) - создает отсоединенную (открепленную) подпись сообщения
+- [createXMLSignature](src/api/createXMLSignature.ts) - создает XML подпись для документа в формате XML
 - [createHash](src/api/createHash.ts) - создает хеш сообщения по ГОСТ Р 34.11-2012 256 бит
 - [createSignature](src/api/createSignature.ts) - создает подпись сообщения
     > Является устаревшим и будет убран из будущих версий.
