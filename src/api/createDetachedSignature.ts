@@ -13,7 +13,7 @@ import { _getDateObj } from '../helpers/_getDateObj';
  * @returns подпись в формате PKCS#7
  */
 export const createDetachedSignature = _afterPluginsLoaded(
-  async (thumbprint: string, messageHash: string): Promise<string> => {
+  async (thumbprint: string, messageHash: string, dt: Date = new Date()): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = await _getCadesCert(thumbprint);
 
@@ -35,7 +35,7 @@ export const createDetachedSignature = _afterPluginsLoaded(
           throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при инициализации подписи');
         }
 
-        const currentTime = _getDateObj(new Date());
+        const currentTime = _getDateObj(dt ?? new Date());
 
         try {
           void (__cadesAsyncToken__ + cadesAttrs.propset_Name(CADESCOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME));

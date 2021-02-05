@@ -5,4 +5,4 @@
  * @param message - подписываемое сообщение
  * @returns подпись в формате PKCS#7
  */
-export declare const createAttachedSignature: (thumbprint: string, unencryptedMessage: string | ArrayBuffer) => Promise<string>;
+export declare const createAttachedSignature: (thumbprint: string, unencryptedMessage: string | ArrayBuffer, dt?: Date) => Promise<string>;
