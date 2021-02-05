@@ -10,6 +10,7 @@ import { _getDateObj } from '../helpers/_getDateObj';
  *
  * @param thumbprint - отпечаток сертификата
  * @param message - подписываемое сообщение
+ * @param dt - Дата подписи, не обязательный параметр
  * @returns подпись в формате PKCS#7
  */
 export const createAttachedSignature = _afterPluginsLoaded(

@@ -10,6 +10,7 @@ import { _getDateObj } from '../helpers/_getDateObj';
  *
  * @param thumbprint - отпечаток сертификата
  * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
+ * @param dt - Дата подписи, не обязательный параметр
  * @returns подпись в формате PKCS#7
  */
 export const createDetachedSignature = _afterPluginsLoaded(

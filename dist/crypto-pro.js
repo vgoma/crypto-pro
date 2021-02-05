@@ -2786,6 +2786,7 @@ var _getDateObj_1 = __webpack_require__(/*! ../helpers/_getDateObj */ "./helpers
  *
  * @param thumbprint - отпечаток сертификата
  * @param message - подписываемое сообщение
+ * @param dt - Дата подписи, не обязательный параметр
  * @returns подпись в формате PKCS#7
  */
 exports.createAttachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function (thumbprint, unencryptedMessage, dt) {
@@ -2918,6 +2919,7 @@ var _getDateObj_1 = __webpack_require__(/*! ../helpers/_getDateObj */ "./helpers
  *
  * @param thumbprint - отпечаток сертификата
  * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
+ * @param dt - Дата подписи, не обязательный параметр
  * @returns подпись в формате PKCS#7
  */
 exports.createDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function (thumbprint, messageHash, dt) {
