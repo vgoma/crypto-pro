@@ -1,3 +1,4 @@
+export * from './getAttachedSignatureCertificates';
 export * from './getCertificate';
 export * from './getUserCertificates';
 export * from './getSystemInfo';
@@ -8,3 +9,4 @@ export * from './createDetachedSignature';
 export * from './createAttachedSignature';
 export * from './createHash';
 export * from './certificate';
+export * from './verifyAttachedSignature';
