@@ -15,7 +15,7 @@ export const _extractMeaningfulErrorMessage = (error: Error): string | null => {
     return null;
   }
 
-  const searchResult = errorContainer.message.match(/^(.*?)(?:(?:\.?\s?\(?0x)|(?:\.?$))/);
+  const searchResult = errorContainer.message.match(/^(.*?)(?:(?:\.?\s?\(?(0x[0-9a-zA-Z]{1,8})\))|(?:\.?$))/);
 
-  return searchResult ? searchResult[1] : null;
+  return (searchResult ? searchResult[1] + (searchResult[2] ? '. Код ошибки: ' + searchResult[2] : '') : null);
 };

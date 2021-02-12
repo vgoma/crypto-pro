@@ -4116,8 +4116,8 @@ exports._extractMeaningfulErrorMessage = function (error) {
     if (!containsRussianLetters) {
         return null;
     }
-    var searchResult = errorContainer.message.match(/^(.*?)(?:(?:\.?\s?\(?0x)|(?:\.?$))/);
-    return searchResult ? searchResult[1] : null;
+    var searchResult = errorContainer.message.match(/^(.*?)(?:(?:\.?\s?\(?(0x[0-9a-zA-Z]{1,8})\))|(?:\.?$))/);
+    return (searchResult ? searchResult[1] + (searchResult[2] ? '. Код ошибки: ' + searchResult[2] : '') : null);
 };
 
 
