@@ -5,15 +5,15 @@ describe('_extractMeaningfulErrorMessage', () => {
   test("returns meaningful message provided by vendor if it's possible", () => {
     expect(
       _extractMeaningfulErrorMessage(new Error('Какое-то более-менее подробное сообщение об ошибке. (0x8010006E)')),
-    ).toBe('Какое-то более-менее подробное сообщение об ошибке');
+    ).toBe('Какое-то более-менее подробное сообщение об ошибке (Код ошибки: 0x8010006E)');
     expect(
       _extractMeaningfulErrorMessage(new Error('Какое-то более-менее подробное сообщение об ошибке. (0x801')),
-    ).toBe('Какое-то более-менее подробное сообщение об ошибке');
+    ).toBe('Какое-то более-менее подробное сообщение об ошибке (Код ошибки: 0x801)');
     expect(_extractMeaningfulErrorMessage(new Error('Какое-то более-менее подробное сообщение об ошибке.(0x801'))).toBe(
-      'Какое-то более-менее подробное сообщение об ошибке',
+      'Какое-то более-менее подробное сообщение об ошибке (Код ошибки: 0x801)',
     );
     expect(_extractMeaningfulErrorMessage(new Error('Какое-то более-менее подробное сообщение об ошибке(0x801'))).toBe(
-      'Какое-то более-менее подробное сообщение об ошибке',
+      'Какое-то более-менее подробное сообщение об ошибке (Код ошибки: 0x801)',
     );
     expect(_extractMeaningfulErrorMessage(new Error('Какое-то более-менее подробное сообщение об ошибке.'))).toBe(
       'Какое-то более-менее подробное сообщение об ошибке',
@@ -28,9 +28,11 @@ describe('_extractMeaningfulErrorMessage', () => {
       'Какое-то более-менее. Подробное сообщение об ошибке',
     );
     expect(_extractMeaningfulErrorMessage(new Error('Какая-то error случилась, по причине 666 (0x801'))).toBe(
-      'Какая-то error случилась, по причине 666',
+      'Какая-то error случилась, по причине 666 (Код ошибки: 0x801)',
     );
-    expect(_extractMeaningfulErrorMessage(new Error('Не удалось. 0x8010006E'))).toBe('Не удалось');
+    expect(_extractMeaningfulErrorMessage(new Error('Не удалось. 0x8010006E'))).toBe(
+      'Не удалось (Код ошибки: 0x8010006E)',
+    );
   });
 
   test("returns null if can't extract meaningful error message", () => {
