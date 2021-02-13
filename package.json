@@ -2,8 +2,8 @@
   "name": "crypto-pro-custom",
   "version": "2.2.0",
   "description": "Кастомизированный API для взаимодействия с КриптоПро",
-  "main": "./lib/crypto-pro.js",
-  "types": "./lib/crypto-pro.d.ts",
+  "main": "./lib/crypto-pro-custom.js",
+  "types": "./lib/crypto-pro-custom.d.ts",
   "files": [
     "lib/**/*",
     "dist/**/*",
