@@ -24,6 +24,6 @@ describe('_extractCommonName', () => {
       ', ',
     );
 
-    expect(_extractCommonName(string)).toBe('"ООО ""Сампо-Сервис"""');
+    expect(_extractCommonName(string)).toBe('ООО "Сампо-Сервис"');
   });
 });
