@@ -4088,7 +4088,7 @@ exports._afterPluginsLoaded = function (fn) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports._extractCommonName = function (subjectName) { var _a; return (_a = subjectName.match(/CN=(.+?)(?:,|$)/)) === null || _a === void 0 ? void 0 : _a[1]; };
+exports._extractCommonName = function (subjectName) { var _a, _b; return (_b = (_a = subjectName.match(/CN="?(.+?)"?(?:,|$)/)) === null || _a === void 0 ? void 0 : _a[1]) === null || _b === void 0 ? void 0 : _b.replace(/"{2}/g, '"'); };
 
 
 /***/ }),
