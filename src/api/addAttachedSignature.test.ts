@@ -31,6 +31,7 @@ const executionFlow = {
     propset_ContentEncoding: jest.fn(),
     propset_Content: jest.fn(),
     SignCades: jest.fn(() => executionSteps[4]),
+    VerifyCades: jest.fn(),
     CoSignCades: jest.fn(() => executionSteps[5]),
   },
   [executionSteps[2]]: {

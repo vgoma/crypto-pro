@@ -74,6 +74,7 @@ export const addDetachedSignature = _afterPluginsLoaded(
         let signature: string;
 
         try {
+          void (__cadesAsyncToken__ + cadesSignedData.VerifyCades(cadesHashedData, cadesplugin.CADESCOM_PKCS7_TYPE));
           signature =
             __cadesAsyncToken__ +
             cadesSignedData.CoSignHash(cadesHashedData, cadesSigner, cadesplugin.CADESCOM_PKCS7_TYPE);
