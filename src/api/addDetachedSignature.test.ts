@@ -2,7 +2,7 @@ import 'cadesplugin';
 import { rawCertificates, parsedCertificates } from '../__mocks__/certificates';
 import { createDetachedSignature } from './createDetachedSignature';
 import { _getCadesCert } from '../helpers/_getCadesCert';
-import { addDetachedSignature } from "./addDetachedSignature";
+import { addDetachedSignature } from './addDetachedSignature';
 
 const [rawCertificateMock] = rawCertificates;
 const [parsedCertificateMock] = parsedCertificates;
