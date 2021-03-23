@@ -6,14 +6,15 @@ import { _getCadesCert } from '../helpers/_getCadesCert';
 import { _getDateObj } from '../helpers/_getDateObj';
 
 /**
- * Создает отсоединенную подпись хеша по отпечатку сертификата
+ * Добавляет отсоединенную подпись хеша к подписанному сообщению по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
+ * @param signedMessage - подписанное сообщение
+ * @param messageHash - хеш подписанного сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
  * @returns подпись в формате PKCS#7
  */
 export const addDetachedSignature = _afterPluginsLoaded(
-  async (thumbprint: string, messageHash: string): Promise<string> => {
+  async (thumbprint: string, signedMessage: string | ArrayBuffer, messageHash: string): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = await _getCadesCert(thumbprint);
 
@@ -74,7 +75,10 @@ export const addDetachedSignature = _afterPluginsLoaded(
         let signature: string;
 
         try {
-          void (__cadesAsyncToken__ + cadesSignedData.VerifyCades(cadesHashedData, cadesplugin.CADESCOM_PKCS7_TYPE));
+          void (
+            __cadesAsyncToken__ +
+            cadesSignedData.VerifyHash(cadesHashedData, signedMessage, cadesplugin.CADESCOM_PKCS7_TYPE)
+          );
           signature =
             __cadesAsyncToken__ +
             cadesSignedData.CoSignHash(cadesHashedData, cadesSigner, cadesplugin.CADESCOM_PKCS7_TYPE);

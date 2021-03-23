@@ -6,14 +6,14 @@ import { _getCadesCert } from '../helpers/_getCadesCert';
 import { _getDateObj } from '../helpers/_getDateObj';
 
 /**
- * Создает присоединенную подпись сообщения по отпечатку сертификата
+ * Добавляет присоединенную подпись к подписанному сообщению по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param message - подписываемое сообщение
+ * @param signedMessage - подписанное сообщение
  * @returns подпись в формате PKCS#7
  */
 export const addAttachedSignature = _afterPluginsLoaded(
-  async (thumbprint: string, unencryptedMessage: string | ArrayBuffer): Promise<string> => {
+  async (thumbprint: string, signedMessage: string | ArrayBuffer): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = await _getCadesCert(thumbprint);
 
@@ -47,7 +47,7 @@ export const addAttachedSignature = _afterPluginsLoaded(
         let messageBase64;
 
         try {
-          messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+          messageBase64 = Buffer.from(signedMessage).toString('base64');
         } catch (error) {
           console.error(error);
 
@@ -72,7 +72,7 @@ export const addAttachedSignature = _afterPluginsLoaded(
         let signature: string;
 
         try {
-          void (__cadesAsyncToken__ + cadesSignedData.VerifyCades(messageBase64, cadesplugin.CADESCOM_PKCS7_TYPE));
+          void (__cadesAsyncToken__ + cadesSignedData.VerifyCades(signedMessage, cadesplugin.CADESCOM_PKCS7_TYPE));
           signature = __cadesAsyncToken__ + cadesSignedData.CoSignCades(cadesSigner, cadesplugin.CADESCOM_PKCS7_TYPE);
         } catch (error) {
           console.error(error);
