@@ -53,7 +53,7 @@ const executionFlow = {
 window.cadesplugin.__defineExecutionFlow(executionFlow);
 window.cadesplugin.CreateObjectAsync.mockImplementation(() => executionSteps[0]);
 
-describe('getUserCertificates', () => {
+describe('getAllUserCertificates', () => {
   test('returns certificates list', async () => {
     const certificates = await getAllUserCertificates();
 
