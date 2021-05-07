@@ -1,5 +1,5 @@
 {
-  "name": "crypto-pro",
+  "name": "@gaarutyunov/crypto-pro-fork",
   "version": "2.2.2",
   "description": "API для взаимодействия с КриптоПро",
   "main": "./lib/crypto-pro.js",

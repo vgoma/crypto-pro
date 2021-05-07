@@ -15,8 +15,6 @@ const executionSteps = [
   Symbol('step 6'),
   Symbol('step 7'),
   Symbol('step 8'),
-  Symbol('step 9'),
-  Symbol('step 10'),
 ];
 
 const executionFlow = {
@@ -26,34 +24,28 @@ const executionFlow = {
     Open: jest.fn(),
   },
   [executionSteps[1]]: {
-    Find: jest.fn(() => executionSteps[2]),
+    Count: executionSteps[2],
+    Item: jest.fn(() => executionSteps[3]),
   },
-  [executionSteps[2]]: {
-    Find: jest.fn(() => executionSteps[3]),
-  },
+  [executionSteps[2]]: 1,
   [executionSteps[3]]: {
-    Count: executionSteps[4],
-    Item: jest.fn(() => executionSteps[5]),
+    IssuerName: executionSteps[6],
+    SubjectName: executionSteps[5],
+    Thumbprint: executionSteps[4],
+    ValidFromDate: executionSteps[7],
+    ValidToDate: executionSteps[8],
   },
-  [executionSteps[4]]: 1,
-  [executionSteps[5]]: {
-    IssuerName: executionSteps[8],
-    SubjectName: executionSteps[7],
-    Thumbprint: executionSteps[6],
-    ValidFromDate: executionSteps[9],
-    ValidToDate: executionSteps[10],
-  },
-  [executionSteps[8]]: rawCertificateMock.IssuerName,
-  [executionSteps[7]]: rawCertificateMock.SubjectName,
-  [executionSteps[6]]: rawCertificateMock.Thumbprint,
-  [executionSteps[9]]: rawCertificateMock.ValidFromDate,
-  [executionSteps[10]]: rawCertificateMock.ValidToDate,
+  [executionSteps[6]]: rawCertificateMock.IssuerName,
+  [executionSteps[5]]: rawCertificateMock.SubjectName,
+  [executionSteps[4]]: rawCertificateMock.Thumbprint,
+  [executionSteps[7]]: rawCertificateMock.ValidFromDate,
+  [executionSteps[8]]: rawCertificateMock.ValidToDate,
 };
 
 window.cadesplugin.__defineExecutionFlow(executionFlow);
 window.cadesplugin.CreateObjectAsync.mockImplementation(() => executionSteps[0]);
 
-describe('getAllUserCertificates', () => {
+describe('getUserCertificates', () => {
   test('returns certificates list', async () => {
     const certificates = await getAllUserCertificates();
 

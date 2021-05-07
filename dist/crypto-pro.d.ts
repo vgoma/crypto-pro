@@ -1,4 +1,4 @@
-// Type definitions for crypto-pro 2.2.0
+// Type definitions for crypto-pro 2.2.2
 // Project: crypto-pro
 // Definitions by: Vitalii Goma https://github.com/vgoma
 
