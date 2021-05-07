@@ -20,7 +20,7 @@ export const getAllUserCertificates = _afterPluginsLoaded((resetCache: boolean =
   }
 
   return eval(
-    _generateCadesFn(function getUserCertificates(): Certificate[] {
+    _generateCadesFn(function getAllUserCertificates(): Certificate[] {
       let cadesStore;
 
       try {
