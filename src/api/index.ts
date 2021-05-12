@@ -10,3 +10,5 @@ export * from './createAttachedSignature';
 export * from './addAttachedSignature';
 export * from './createHash';
 export * from './certificate';
+export * from './getCspVersion';
+export * from './getPluginVersion';
