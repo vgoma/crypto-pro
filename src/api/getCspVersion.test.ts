@@ -1,14 +1,7 @@
 import 'cadesplugin';
 import { getCspVersion } from './getCspVersion';
 
-const executionSteps = [
-  Symbol('step 0'),
-  Symbol('step 1'),
-  Symbol('step 2'),
-  Symbol('step 3'),
-  Symbol('step 4'),
-  Symbol('step 5'),
-];
+const executionSteps = [Symbol('step 0'), Symbol('step 1'), Symbol('step 2')];
 
 // "any" because of using toString on the literal
 const executionFlow: any = {
@@ -22,9 +15,7 @@ const executionFlow: any = {
 };
 
 window.cadesplugin.__defineExecutionFlow(executionFlow);
-window.cadesplugin.CreateObjectAsync.mockImplementation(
-  () => executionSteps[0],
-);
+window.cadesplugin.CreateObjectAsync.mockImplementation(() => executionSteps[0]);
 
 describe('getCspVersion', () => {
   test('returns information about CSP', async () => {
