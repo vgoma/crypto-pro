@@ -1,5 +1,6 @@
 export * from './getCertificate';
 export * from './getUserCertificates';
+export * from './getAllUserCertificates';
 export * from './getSystemInfo';
 export * from './isValidSystemSetup';
 export * from './createSignature';
