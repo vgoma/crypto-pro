@@ -1,9 +1,9 @@
 {
-  "name": "crypto-pro-custom",
-  "version": "2.2.2",
-  "description": "Кастомизированный API для взаимодействия с КриптоПро",
-  "main": "./lib/crypto-pro-custom.js",
-  "types": "./lib/crypto-pro-custom.d.ts",
+  "name": "crypto-pro-js",
+  "version": "2.3.0",
+  "description": "API для работы с КриптоПро. Forked from https://github.com/vgoma/crypto-pro",
+  "main": "./lib/crypto-pro-js.js",
+  "types": "./lib/crypto-pro-js.d.ts",
   "files": [
     "lib/**/*",
     "dist/**/*",
@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kernusr/crypto-pro"
+    "url": "https://github.com/kernusr/crypto-pro-js"
   },
   "author": {
     "name": "Artem Vasilev",
@@ -47,12 +47,18 @@
       "name": "Vitalii Goma",
       "email": "vgoma@yandex.ru",
       "url": "https://github.com/vgoma"
+    },
+    {
+      "name": "German Arutyunov",
+      "email": "germanarutyunov@gmail.com",
+      "url": "https://github.com/gaarutyunov"
     }
   ],
   "keywords": [
     "crypto",
     "cryptopro",
     "crypto-pro",
+    "crypto-pro-js",
     "cades",
     "КриптоПро",
     "Крипто ПРО"
