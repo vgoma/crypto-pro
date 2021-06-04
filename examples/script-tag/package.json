@@ -13,6 +13,6 @@
     "symlink-dir": "3.1.2"
   },
   "dependencies": {
-    "crypto-pro": "2.2.0"
+    "crypto-pro": "^2.2.0"
   }
 }
