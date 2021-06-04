@@ -13,14 +13,9 @@ export const _generateCadesFn = (callback: Function): string => {
   const callbackLiteral = String(callback);
   const callbackArguments = callbackLiteral.match(/^function[\s\w]*?\((.*?)\)/)?.[1] || '';
   const callbackBody = callbackLiteral.replace(/^.*?{([\s\S]*?)}$/, '$1');
-  let crossEnvCallbackLiteral;
-  if (callbackArguments) {
-    crossEnvCallbackLiteral = String(
-      new (cadesGeneratorsAPI ? getGeneratorConstructor() : Function)(callbackArguments, callbackBody),
-    );
-  } else {
-    crossEnvCallbackLiteral = String(new (cadesGeneratorsAPI ? getGeneratorConstructor() : Function)(callbackBody));
-  }
+  let crossEnvCallbackLiteral = String(
+    new (cadesGeneratorsAPI ? getGeneratorConstructor() : Function)(callbackArguments, callbackBody),
+  );
 
   crossEnvCallbackLiteral = crossEnvCallbackLiteral.replace(
     /\w+?\.__createCadesPluginObject__(\([\s\S]*?\))/gm,

@@ -1,10 +1,6 @@
 import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
-import {
-  __cadesAsyncToken__,
-  __createCadesPluginObject__,
-  _generateCadesFn,
-} from '../helpers/_generateCadesFn';
+import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
 
 /**
  * Предоставляет информацию о системе
@@ -19,8 +15,7 @@ export const getCspVersion = _afterPluginsLoaded((): string => {
       let cadesAbout;
 
       try {
-        cadesAbout =
-          __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.About');
+        cadesAbout = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.About');
 
         cspVersion = __cadesAsyncToken__ + cadesAbout.CSPVersion();
 
@@ -28,10 +23,7 @@ export const getCspVersion = _afterPluginsLoaded((): string => {
       } catch (error) {
         console.error(error);
 
-        throw new Error(
-          _extractMeaningfulErrorMessage(error) ||
-            'Ошибка при получении версии системы',
-        );
+        throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при получении версии системы');
       }
 
       return cspVersion;

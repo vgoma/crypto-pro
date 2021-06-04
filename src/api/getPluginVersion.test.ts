@@ -1,12 +1,7 @@
 import 'cadesplugin';
 import { getPluginVersion } from './getPluginVersion';
 
-const executionSteps = [
-  Symbol('step 0'),
-  Symbol('step 1'),
-  Symbol('step 2'),
-  Symbol('step 3'),
-];
+const executionSteps = [Symbol('step 0'), Symbol('step 1'), Symbol('step 2'), Symbol('step 3')];
 
 // "any" because of using toString on the literal
 const executionFlow: any = {
@@ -22,9 +17,7 @@ const executionFlow: any = {
 };
 
 window.cadesplugin.__defineExecutionFlow(executionFlow);
-window.cadesplugin.CreateObjectAsync.mockImplementation(
-  () => executionSteps[0],
-);
+window.cadesplugin.CreateObjectAsync.mockImplementation(() => executionSteps[0]);
 
 describe('getPluginVersion', () => {
   test('returns information about plugin', async () => {

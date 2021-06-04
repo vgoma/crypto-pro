@@ -1,50 +1,88 @@
-// @ts-ignore
-import * as sinon from 'sinon';
 import 'cadesplugin';
-import { CadesCertificate } from '../api/certificate';
-import { _getCadesCert } from './_getCadesCert';
+import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from './_generateCadesFn';
 
-const certificateMock = {
-  IssuerName: 'no matter',
-  SubjectName: 'no matter',
-  Thumbprint: 'some thumbprint',
-  ValidFromDate: 'whatever',
-  ValidToDate: 'whatever',
-};
+const CreateObjectAsync = window.cadesplugin.CreateObjectAsync;
 
-const executionSteps = [Symbol('step 0'), Symbol('step 1'), Symbol('step 2'), Symbol('step 3'), Symbol('step 4')];
+describe('_generateCadesFn', () => {
+  describe('synchronous environment', () => {
+    beforeEach(() => {
+      delete window.cadesplugin.CreateObjectAsync;
+    });
 
-const executionFlow = {
-  [executionSteps[0]]: {
-    Certificates: executionSteps[1],
-    Close: sinon.stub(),
-    Open: sinon.stub(),
-  },
-  [executionSteps[1]]: {
-    Count: executionSteps[3],
-    Find: sinon.stub().returns(executionSteps[2]),
-  },
-  [executionSteps[2]]: {
-    Count: executionSteps[3],
-    Item: sinon.stub().returns(executionSteps[4]),
-  },
-  [executionSteps[3]]: 1,
-  [executionSteps[4]]: {
-    IssuerName: certificateMock.IssuerName,
-    SubjectName: certificateMock.SubjectName,
-    Thumbprint: certificateMock.Thumbprint,
-    ValidFromDate: certificateMock.ValidFromDate,
-    ValidToDate: certificateMock.ValidToDate,
-  },
-};
+    test('generates function body from named function callback', () => {
+      expect(
+        _generateCadesFn(function namedFunction() {
+          console.log('hello from named function');
+        }),
+      ).toEqual(
+        `(function anonymous(
+) {
 
-window.cadesplugin.__defineExecutionFlow(executionFlow);
-window.cadesplugin.CreateObjectAsync.mockImplementation(() => executionSteps[0]);
+                console.log('hello from named function');
+            
+})();//# sourceURL=crypto-pro_namedFunction.js`,
+      );
+    });
 
-describe('_getCadesCert', () => {
-  test('returns certificate by a thumbprint', async () => {
-    const certificate: CadesCertificate = await _getCadesCert(certificateMock.Thumbprint);
+    test('generates function body from arrow function callback', () => {
+      expect(_generateCadesFn(() => console.log('hello from arrow function'))).toEqual(
+        `(function anonymous(
+) {
+ return console.log('hello from arrow function'); 
+})();//# sourceURL=crypto-pro_dynamicFn.js`,
+      );
+    });
 
-    expect(certificate).toStrictEqual(certificateMock);
+    test('generates function body with synchronous vendor library references', () => {
+      expect(
+        _generateCadesFn(function methodInSyncEnvironment() {
+          const cadesFoo = __cadesAsyncToken__ + __createCadesPluginObject__('CADESCOM.Foo');
+          const cadesBar = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.Bar');
+          const cadesBarNoMatterWhat = __cadesAsyncToken__ + cadesBar.NoMatterWhat;
+          void (__cadesAsyncToken__ + cadesFoo.propset_WhateverProperty('whatever value'));
+          void (__cadesAsyncToken__ + cadesBarNoMatterWhat.whateverMethod(cadesFoo));
+        }),
+      ).toEqual(
+        `(function anonymous(
+) {
+
+                var cadesFoo = cadesplugin.CreateObject('CADESCOM.Foo');
+                var cadesBar = cadesplugin.CreateObject('CAdESCOM.Bar');
+                var cadesBarNoMatterWhat = cadesBar.NoMatterWhat;
+                void (cadesFoo.WhateverProperty = 'whatever value');
+                void (cadesBarNoMatterWhat.whateverMethod(cadesFoo));
+            
+})();//# sourceURL=crypto-pro_methodInSyncEnvironment.js`,
+      );
+    });
+  });
+
+  describe('synchronous environment', () => {
+    beforeEach(() => {
+      window.cadesplugin.CreateObjectAsync = CreateObjectAsync;
+    });
+
+    test('generates function body with asynchronous vendor library references', () => {
+      expect(
+        _generateCadesFn(function methodInAsyncEnvironment() {
+          const cadesFoo = __cadesAsyncToken__ + __createCadesPluginObject__('CADESCOM.Foo');
+          const cadesBar = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.Bar');
+          const cadesBarNoMatterWhat = __cadesAsyncToken__ + cadesBar.NoMatterWhat;
+          void (__cadesAsyncToken__ + cadesFoo.propset_WhateverProperty('whatever value'));
+          void (__cadesAsyncToken__ + cadesBarNoMatterWhat.whateverMethod(cadesFoo));
+        }),
+      ).toEqual(
+        `cadesplugin.async_spawn(function* anonymous(
+) {
+
+                var cadesFoo = yield cadesplugin.CreateObjectAsync('CADESCOM.Foo');
+                var cadesBar = yield cadesplugin.CreateObjectAsync('CAdESCOM.Bar');
+                var cadesBarNoMatterWhat = yield cadesBar.NoMatterWhat;
+                void (yield cadesFoo.propset_WhateverProperty('whatever value'));
+                void (yield cadesBarNoMatterWhat.whateverMethod(cadesFoo));
+            
+});//# sourceURL=crypto-pro_methodInAsyncEnvironment.js`,
+      );
+    });
   });
 });
