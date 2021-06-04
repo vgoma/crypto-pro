@@ -15,8 +15,7 @@ describe('_generateCadesFn', () => {
           console.log('hello from named function');
         }),
       ).toEqual(
-        `(function anonymous(
-) {
+        `(function anonymous() {
 
                 console.log('hello from named function');
             
@@ -26,8 +25,7 @@ describe('_generateCadesFn', () => {
 
     test('generates function body from arrow function callback', () => {
       expect(_generateCadesFn(() => console.log('hello from arrow function'))).toEqual(
-        `(function anonymous(
-) {
+        `(function anonymous() {
  return console.log('hello from arrow function'); 
 })();//# sourceURL=crypto-pro_dynamicFn.js`,
       );
@@ -43,8 +41,7 @@ describe('_generateCadesFn', () => {
           void (__cadesAsyncToken__ + cadesBarNoMatterWhat.whateverMethod(cadesFoo));
         }),
       ).toEqual(
-        `(function anonymous(
-) {
+        `(function anonymous() {
 
                 var cadesFoo = cadesplugin.CreateObject('CADESCOM.Foo');
                 var cadesBar = cadesplugin.CreateObject('CAdESCOM.Bar');
@@ -72,8 +69,7 @@ describe('_generateCadesFn', () => {
           void (__cadesAsyncToken__ + cadesBarNoMatterWhat.whateverMethod(cadesFoo));
         }),
       ).toEqual(
-        `cadesplugin.async_spawn(function* anonymous(
-) {
+        `cadesplugin.async_spawn(function* anonymous() {
 
                 var cadesFoo = yield cadesplugin.CreateObjectAsync('CADESCOM.Foo');
                 var cadesBar = yield cadesplugin.CreateObjectAsync('CAdESCOM.Bar');
