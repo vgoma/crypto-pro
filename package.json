@@ -1,9 +1,9 @@
 {
-  "name": "crypto-pro",
-  "version": "2.2.0",
-  "description": "API для взаимодействия с КриптоПро",
-  "main": "./lib/crypto-pro.js",
-  "types": "./lib/crypto-pro.d.ts",
+  "name": "crypto-pro-custom",
+  "version": "2.2.2",
+  "description": "Кастомизированный API для взаимодействия с КриптоПро",
+  "main": "./lib/crypto-pro-custom.js",
+  "types": "./lib/crypto-pro-custom.d.ts",
   "files": [
     "lib/**/*",
     "dist/**/*",
@@ -20,29 +20,35 @@
     "build:definition-header:esm": "cross-env TS_CONFIG=tsconfig-esm.json node definition-header.js",
     "build:esm": "npm run build:uncompressed:esm && npm run build:definition-header:esm",
     "build": "npm run clean && npm run build:es5 && npm run build:esm",
-    "pack:clean": "cross-env-shell rimraf $npm_package_name-$npm_package_version.tgz",
-    "pack:uncompress": "cross-env-shell tar xopf $npm_package_name-$npm_package_version.tgz",
+    "pack:clean": "cross-env rimraf %npm_package_name%-%npm_package_version%.tgz",
+    "pack:uncompress": "cross-env tar xopf %npm_package_name%-%npm_package_version%.tgz",
     "test": "jest --coverage && coveralls < coverage/lcov.info",
-    "lint": "eslint --config .eslintrc.js './src/**/*'",
-    "lint:fix": "eslint --fix --config .eslintrc.js './src/**/*'",
+    "lint": "eslint --config .eslintrc.js --ext .ts --ext .js src",
+    "lint:fix": "eslint --fix --config .eslintrc.js --ext .ts --ext .js src",
     "examples-update": "npm run examples-update:script-tag && npm run examples-update:angular && npm run examples-update:react",
     "examples-update:script-tag": "npm --prefix ./examples/script-tag r crypto-pro && npm --prefix ./examples/script-tag i crypto-pro",
     "examples-update:angular": "npm --prefix ./examples/angular r crypto-pro && npm --prefix ./examples/angular i crypto-pro",
     "examples-update:react": "npm --prefix ./examples/react r crypto-pro && npm --prefix ./examples/react i crypto-pro",
     "prepack": "npm run build",
-    "postpack": "npm run pack:uncompress && npm run pack:clean",
     "prepublishOnly": "npm run lint && jest && npm run build",
     "postpublish": "npm run examples-update"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vgoma/crypto-pro"
+    "url": "https://github.com/kernusr/crypto-pro"
   },
   "author": {
-    "name": "Vitalii Goma",
-    "email": "vgoma@yandex.ru",
-    "url": "https://github.com/vgoma"
+    "name": "Artem Vasilev",
+    "email": "kern.usr@gmail.com",
+    "url": "https://github.com/kernusr"
   },
+  "contributors": [
+    {
+      "name": "Vitalii Goma",
+      "email": "vgoma@yandex.ru",
+      "url": "https://github.com/vgoma"
+    }
+  ],
   "keywords": [
     "crypto",
     "cryptopro",
@@ -59,7 +65,7 @@
     "@typescript-eslint/eslint-plugin": "2.25.0",
     "@typescript-eslint/parser": "2.25.0",
     "coveralls": "3.0.11",
-    "cross-env": "7.0.2",
+    "cross-env": "^7.0.2",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.1",
     "eslint-plugin-prettier": "3.1.2",
