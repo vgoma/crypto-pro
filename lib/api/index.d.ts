@@ -5,6 +5,8 @@ export * from './isValidSystemSetup';
 export * from './createSignature';
 export * from './createXMLSignature';
 export * from './createDetachedSignature';
+export * from './addDetachedSignature';
 export * from './createAttachedSignature';
+export * from './addAttachedSignature';
 export * from './createHash';
 export * from './certificate';
