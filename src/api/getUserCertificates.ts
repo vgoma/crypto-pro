@@ -37,12 +37,7 @@ export const getUserCertificates = _afterPluginsLoaded(
         try {
           void (
             __cadesAsyncToken__ +
-            cadesStore.Open(
-              cadesplugin.CAPICOM_LOCAL_MACHINE_STORE,
-              cadesplugin.CAPICOM_CURRENT_USER_STORE,
-              cadesplugin.CAPICOM_MY_STORE,
-              cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED,
-            )
+            cadesStore.Open()
           );
         } catch (error) {
           console.error(error);
