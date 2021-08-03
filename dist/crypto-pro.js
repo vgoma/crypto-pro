@@ -4000,6 +4000,7 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
     }
     return eval(_generateCadesFn_1._generateCadesFn(function getUserCertificates() {
         var cadesStore;
+        var abCadesStore;
         try {
             cadesStore = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.Store');
         }
@@ -4009,14 +4010,52 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
         }
         try {
             void (_generateCadesFn_1.__cadesAsyncToken__ +
-                cadesStore.Open());
+                cadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, cadesplugin.CAPICOM_MY_STORE, cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
         }
         catch (error) {
             console.error(error);
             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при открытии хранилища');
         }
+        try {
+            abCadesStore = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.Store');
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при попытке доступа к хранилищу');
+        }
+        try {
+            void (_generateCadesFn_1.__cadesAsyncToken__ +
+                abCadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, 'AddressBook', cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
+        }
+        catch (error) {
+            console.error(error);
+            //throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при открытии хранилища');
+        }
         var cadesCertificates;
         var cadesCertificatesCount;
+        var abCadesCertificates;
+        var abCadesCertificatesCount;
+        try {
+            abCadesCertificates = _generateCadesFn_1.__cadesAsyncToken__ + abCadesStore.Certificates;
+            if (abCadesCertificates) {
+                abCadesCertificates =
+                    _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificates.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_TIME_VALID);
+                if (!skipCheck) {
+                    /**
+                     * Не рассматриваются сертификаты, в которых отсутствует закрытый ключ
+                     * или не действительны на данный момент
+                     */
+                    abCadesCertificates =
+                        _generateCadesFn_1.__cadesAsyncToken__ +
+                            abCadesCertificates.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY, constants_1.CAPICOM_PROPID_KEY_PROV_INFO);
+                }
+                abCadesCertificatesCount = _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificates.Count;
+            }
+        }
+        catch (error) {
+            console.error(error);
+            //throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка получения списка сертификатов');
+        }
         try {
             cadesCertificates = _generateCadesFn_1.__cadesAsyncToken__ + cadesStore.Certificates;
             if (cadesCertificates) {
@@ -4038,10 +4077,22 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
             console.error(error);
             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка получения списка сертификатов');
         }
-        if (!cadesCertificatesCount) {
+        if (!cadesCertificatesCount && !abCadesCertificatesCount) {
             throw new Error('Нет доступных сертификатов');
         }
         var certificateList = [];
+        var abCertificateList = [];
+        try {
+            while (abCadesCertificatesCount) {
+                var abCadesCertificate = _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificates.Item(abCadesCertificatesCount);
+                certificateList.push(new certificate_1.Certificate(abCadesCertificate, _extractCommonName_1._extractCommonName(_generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificate.SubjectName), _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificate.IssuerName, _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificate.SubjectName, _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificate.Thumbprint, _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificate.ValidFromDate, _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificate.ValidToDate, _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificate.HasPrivateKey()));
+                abCadesCertificatesCount--;
+            }
+        }
+        catch (error) {
+            console.error(error);
+            //          throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка обработки сертификатов');
+        }
         try {
             while (cadesCertificatesCount) {
                 var cadesCertificate = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Item(cadesCertificatesCount);
@@ -4054,6 +4105,7 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка обработки сертификатов');
         }
         cadesStore.Close();
+        abCadesStore.Close();
         certificatesCache = certificateList;
         return certificatesCache;
     }));
@@ -4818,6 +4870,17 @@ exports._getCadesCert = _afterPluginsLoaded_1._afterPluginsLoaded(function (thum
     var cadesplugin = window.cadesplugin;
     return eval(_generateCadesFn_1._generateCadesFn(function _getCadesCert() {
         var cadesStore;
+        var aBcadesStore;
+        try {
+            aBcadesStore = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.Store');
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при попытке доступа к хранилищу');
+        }
+        if (!aBcadesStore) {
+            throw new Error('Не удалось получить доступ к хранилищу сертификатов');
+        }
         try {
             cadesStore = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.Store');
         }
@@ -4830,12 +4893,22 @@ exports._getCadesCert = _afterPluginsLoaded_1._afterPluginsLoaded(function (thum
         }
         try {
             void (_generateCadesFn_1.__cadesAsyncToken__ +
-                cadesStore.Open());
+                cadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, cadesplugin.CAPICOM_MY_STORE, cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
         }
         catch (error) {
             console.error(error);
             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при открытии хранилища');
         }
+        try {
+            void (_generateCadesFn_1.__cadesAsyncToken__ +
+                aBcadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, 'AddressBook', cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
+        }
+        catch (error) {
+            console.error(error);
+            //throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при открытии хранилища');
+        }
+        var abCadesCertificateList;
+        var abCertificatesCount;
         var cadesCertificateList;
         var certificatesCount;
         try {
@@ -4849,21 +4922,46 @@ exports._getCadesCert = _afterPluginsLoaded_1._afterPluginsLoaded(function (thum
         if (!certificatesCount) {
             throw new Error('Нет доступных сертификатов');
         }
+        try {
+            abCadesCertificateList = _generateCadesFn_1.__cadesAsyncToken__ + cadesStore.Certificates;
+            abCertificatesCount = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificateList.Count;
+        }
+        catch (error) {
+            console.error(error);
+            //throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка получения списка сертификатов');
+        }
+        var abCadesCertificate;
         var cadesCertificate;
         try {
-            cadesCertificateList =
-                _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificateList.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_SHA1_HASH, thumbprint);
-            var count = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificateList.Count;
-            if (!count) {
-                throw new Error("\u0421\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0442 \u0441 \u043E\u0442\u043F\u0435\u0447\u0430\u0442\u043A\u043E\u043C: \"" + thumbprint + "\" \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D");
-            }
+            abCadesCertificateList =
+                _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificateList.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_SHA1_HASH, thumbprint);
+            var count = _generateCadesFn_1.__cadesAsyncToken__ + abCadesCertificateList.Count;
+            // if (!count) {
+            //   throw new Error(`Сертификат с отпечатком: "${thumbprint}" не найден`);
+            // }
             cadesCertificate = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificateList.Item(1);
         }
         catch (error) {
             console.error(error);
-            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при получении сертификата');
+            //throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при получении сертификата');
+        }
+        if (!cadesCertificate) {
+            try {
+                cadesCertificateList =
+                    _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificateList.Find(cadesplugin.CAPICOM_CERTIFICATE_FIND_SHA1_HASH, thumbprint);
+                var count = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificateList.Count;
+                if (!count) {
+                    throw new Error("\u0421\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0442 \u0441 \u043E\u0442\u043F\u0435\u0447\u0430\u0442\u043A\u043E\u043C: \"" + thumbprint + "\" \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D");
+                }
+                cadesCertificate = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificateList.Item(1);
+            }
+            catch (error) {
+                console.error(error);
+                throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при получении сертификата');
+            }
         }
         cadesStore.Close();
+        aBcadesStore.Close();
         return cadesCertificate;
     }));
 });
