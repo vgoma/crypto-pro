@@ -4025,7 +4025,7 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
         }
         try {
             void (_generateCadesFn_1.__cadesAsyncToken__ +
-                abCadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, 'AddressBook', cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
+                abCadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, 'Addressbook', cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
         }
         catch (error) {
             console.error(error);
@@ -4901,7 +4901,7 @@ exports._getCadesCert = _afterPluginsLoaded_1._afterPluginsLoaded(function (thum
         }
         try {
             void (_generateCadesFn_1.__cadesAsyncToken__ +
-                aBcadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, 'AddressBook', cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
+                aBcadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, 'Addressbook', cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
         }
         catch (error) {
             console.error(error);

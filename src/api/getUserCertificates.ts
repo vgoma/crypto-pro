@@ -63,7 +63,7 @@ export const getUserCertificates = _afterPluginsLoaded(
             __cadesAsyncToken__ +
             abCadesStore.Open(
               cadesplugin.CAPICOM_CURRENT_USER_STORE,
-              'AddressBook',
+              'Addressbook',
               cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED,
             )
           );
