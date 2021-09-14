@@ -25,12 +25,9 @@
     - [Поддерживаемые СКЗИ](#supported-cist)
     - [Примеры](#examples)
         - [Тэг script (UMD)](#example-script-tag)
-        - [Angular (ES Modules + Typescript)](#example-angular)
-        - [React (ES Modules + JavaScript)](#example-react)
 - [Тем, кто хочет помочь](#developers)
     - [Запуск режима разработки](#dev-mode)
     - [Запуск тестов](#tests-execution)
-    - [Проверка работы примеров с React и Angular](#examples-testing)
     - [Проверка пакета перед публикацией в NPM](#final-check)
 - [Лицензия](#lisense)
 
