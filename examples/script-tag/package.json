@@ -4,7 +4,7 @@
   "description": "Пример использования пакета crypto-pro через тэг script",
   "private": true,
   "scripts": {
-    "link-library": "symlink-dir ./node_modules/crypto-pro/dist ./public/dist",
+    "link-library": "symlink-dir ./node_modules/crypto-pro-js/dist ./public/dist",
     "serve": "static --host-address localhost --port 8080 public",
     "start": "npm run link-library && npm run serve"
   },
