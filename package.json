@@ -1,7 +1,7 @@
 {
   "name": "crypto-pro-js",
   "version": "2.3.0",
-  "description": "API для работы с КриптоПро. Forked from https://github.com/vgoma/crypto-pro",
+  "description": "Асинхронный JavaScript API для работы с КриптоПРО ЭЦП Browser Plug-In. Forked from https://github.com/vgoma/crypto-pro",
   "main": "./lib/crypto-pro-js.js",
   "types": "./lib/crypto-pro-js.d.ts",
   "files": [
