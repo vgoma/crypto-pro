@@ -25,10 +25,8 @@
     "test": "jest --coverage && coveralls < coverage/lcov.info",
     "lint": "eslint --config .eslintrc.js --ext .ts --ext .js src",
     "lint:fix": "eslint --fix --config .eslintrc.js --ext .ts --ext .js src",
-    "examples-update": "npm run examples-update:script-tag && npm run examples-update:angular && npm run examples-update:react",
+    "examples-update": "npm run examples-update:script-tag",
     "examples-update:script-tag": "npm --prefix ./examples/script-tag r crypto-pro && npm --prefix ./examples/script-tag i crypto-pro",
-    "examples-update:angular": "npm --prefix ./examples/angular r crypto-pro && npm --prefix ./examples/angular i crypto-pro",
-    "examples-update:react": "npm --prefix ./examples/react r crypto-pro && npm --prefix ./examples/react i crypto-pro",
     "prepack": "npm run build",
     "prepublishOnly": "npm run lint && jest && npm run build",
     "postpublish": "npm run examples-update"
