@@ -1,6 +1,6 @@
 {
   "name": "crypto-pro-js",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Асинхронный JavaScript API для работы с КриптоПРО ЭЦП Browser Plug-In. Forked from https://github.com/vgoma/crypto-pro",
   "main": "./lib/crypto-pro-js.js",
   "types": "./lib/crypto-pro-js.d.ts",
@@ -26,7 +26,7 @@
     "lint": "eslint --config .eslintrc.js --ext .ts --ext .js src",
     "lint:fix": "eslint --fix --config .eslintrc.js --ext .ts --ext .js src",
     "examples-update": "npm run examples-update:script-tag",
-    "examples-update:script-tag": "npm --prefix ./examples/script-tag r crypto-pro && npm --prefix ./examples/script-tag i crypto-pro",
+    "examples-update:script-tag": "npm --prefix ./examples/script-tag r crypto-pro-js && npm --prefix ./examples/script-tag i crypto-pro-js",
     "prepack": "npm run build",
     "prepublishOnly": "npm run lint && jest && npm run build",
     "postpublish": "npm run examples-update"
