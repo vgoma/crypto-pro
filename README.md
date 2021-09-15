@@ -5,16 +5,18 @@
 
 <a name="cryptopro"></a>
 # cryptoPro
-Единое, асинхронное API для взаимодействия с КриптоПРО ЭЦП Browser Plug-In
+Асинхронный JavaScript API для работы с КриптоПРО ЭЦП Browser Plug-In
 
-> :warning: **Это форк проекта [vgoma/crypto-pro](https://github.com/vgoma/crypto-pro)**
+> **Это форк проекта [vgoma/crypto-pro](https://github.com/vgoma/crypto-pro)**
 >
-> :warning: **API форка отличается от оригинала**: внимательно читайте README
+> **API форка отличается от оригинала**: внимательно читайте README
 
 | [![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/62.2.25/src/chrome/chrome_64x64.png)](https://www.chromium.org/getting-involved/download-chromium#TOC-Downloading-old-builds-of-Chrome-Chromium)       | [![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/62.2.25/src/firefox/firefox_64x64.png)](https://ftp.mozilla.org/pub/firefox/releases/)                                     | [![IE](https://raw.githubusercontent.com/alrra/browser-logos/62.2.25/src/archive/internet-explorer_9-11/internet-explorer_9-11_64x64.png)](https://www.microsoft.com/ru-ru/download/details.aspx?id=43374)     | [![Opera](https://raw.githubusercontent.com/alrra/browser-logos/62.2.25/src/opera/opera_64x64.png)](http://get.opera.com/ftp/pub/opera/desktop/)                      |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | __v45+__ с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://chrome.google.com/webstore/detail/cryptopro-extension-for-c/iifchhfnnmpdbibifmljnfjhpififfog?utm_source=chrome-app-launcher-info-dialog) | __v43+__. Начиная с версии 52, с [расширением](https://www.cryptopro.ru/sites/default/files/products/cades/extensions/cryptopro_extension_for_cades_browser_plug_in-1.1.1-an+fx-windows.xpi) | __v9+__ с установленным [КриптоПро ЭЦП Browser plug-in](https://www.cryptopro.ru/products/cades/plugin)                                                                                                        | __v40+__ с расширением [CryptoPro Extension for CAdES Browser Plug-in](https://addons.opera.com/en/extensions/details/cryptopro-extension-for-cades-browser-plug-in/) |
 
+## Ошибка `Параметр задан неверно. (0x80070057)`
+Если при попытке подписать сообщение с использованием PKCS#7 подписи падает такая ошибка, то читайте [этот issue](https://github.com/webmasterskaya/crypto-pro-js/issues/20) 
 
 - [cryptoPro](#cryptopro)
     - [Зачем мне этот пакет?](#why)
@@ -25,12 +27,9 @@
     - [Поддерживаемые СКЗИ](#supported-cist)
     - [Примеры](#examples)
         - [Тэг script (UMD)](#example-script-tag)
-        - [Angular (ES Modules + Typescript)](#example-angular)
-        - [React (ES Modules + JavaScript)](#example-react)
 - [Тем, кто хочет помочь](#developers)
     - [Запуск режима разработки](#dev-mode)
     - [Запуск тестов](#tests-execution)
-    - [Проверка работы примеров с React и Angular](#examples-testing)
     - [Проверка пакета перед публикацией в NPM](#final-check)
 - [Лицензия](#lisense)
 
@@ -44,22 +43,22 @@
 ## Установка
 Для NPM:
 ```bash
-npm install crypto-pro
+npm install crypto-pro-js
 ```
 
 Для Yarn:
 ```bash
-yarn add crypto-pro
+yarn add crypto-pro-js
 ```
 
 Для Bower:
 ```bash
-bower install crypto-pro
+bower install webmasterskaya/crypto-pro-js
 ```
 
 Подключение пакета как UMD модуля через тэг script:
 ```html
-<script src="crypto-pro/dist/crypto-pro.min.js"></script>
+<script src="crypto-pro-js/dist/crypto-pro.min.js"></script>
 <script>
 window.cryptoPro.getUserCertificates()
   .then(function (certificates) {
@@ -73,7 +72,7 @@ window.cryptoPro.getUserCertificates()
 
 Подключение пакета как ES модуля с Typescript или JavaScript:
 ```typescript
-import { getUserCertificates, Certificate } from 'crypto-pro';
+import { getUserCertificates, Certificate } from 'crypto-pro-js';
 
 (async () => {
   let certificates: Certificate[];
@@ -135,43 +134,6 @@ npm i
 npm start
 ```
 
-<a name="example-angular"></a>
-### Angular (ES Modules + Typescript)
-```bash
-cd examples/angular
-npm i
-```
-
-Запуск в режиме разработки:
-```bash
-npm start
-```
-
-Запуск в продакшн режиме:
-```bash
-npm run build
-npm run serve
-```
-
-<a name="example-react"></a>
-### React (ES Modules + JavaScript)
-```bash
-cd examples/react
-npm i
-```
-
-Запуск в режиме разработки:
-```bash
-npm start
-```
-
-Запуск в продакшн режиме:
-```bash
-npm run build
-npm run serve
-```
-
-
 <a name="developers"></a>
 # Тем, кто хочет помочь
 Буду благодарен за расширение/улучшение/доработку API.
@@ -200,7 +162,7 @@ npm i
 npm link ../../
 npm start
 ```
-> После выполнения `npm link ../../` в директории `examples/script-tag/node_modules` папка `crypto-pro` станет ярлыком,
+> После выполнения `npm link ../../` в директории `examples/script-tag/node_modules` папка `crypto-pro-js` станет ярлыком,
 > указывающим на папку содержащую локально собранный пакет.
 
 <a name="tests-execution"></a>
@@ -208,32 +170,6 @@ npm start
 Тесты написаны с использованием [Jest](https://jestjs.io/docs/en/configuration#testpathignorepatterns-arraystring):
 ```bash
 npm test
-```
-
-<a name="examples-testing"></a>
-## Проверка работы примеров с React и Angular
-React и Angular используют версию сборки пакета в формате ES модулей из директории `lib/`.
-Для их запуска необходимо сначала собрать пакет выполнив:
-```bash
-npm run build
-```
-
-После этого из папки `examples/angular` или `examples/react` залинковать пакет:
-```bash
-cd examples/angular
-npm i
-npm link ../../
-```
-
-И запустить пример в одном из двух режимов. В режиме разработки:
-```bash
-npm start
-```
-
-или в режиме продакшн:
-```bash
-npm run build
-npm run serve
 ```
 
 <a name="final-check"></a>
@@ -268,7 +204,7 @@ npm unlink
 [npm-version-image]: https://img.shields.io/npm/v/crypto-pro-js.svg?style=flat
 [npm-downloads-image]: http://img.shields.io/npm/dm/crypto-pro-js.svg?style=flat
 [downloads-url]: https://npmcharts.com/compare/crypto-pro-js?minimal=true
-[travis-url]: https://www.travis-ci.com/kernusr/crypto-pro-js
-[travis-image]: http://img.shields.io/travis/kernusr/crypto-pro-js/master.svg?style=flat
-[coveralls-image]: https://coveralls.io/repos/github/kernusr/crypto-pro-js/badge.svg?branch=master
-[coveralls-url]: https://coveralls.io/github/kernusr/crypto-pro-js?branch=master
+[travis-url]: https://www.travis-ci.com/webmasterskaya/crypto-pro-js
+[travis-image]: http://img.shields.io/travis/webmasterskaya/crypto-pro-js/master.svg?style=flat
+[coveralls-image]: https://coveralls.io/repos/github/webmasterskaya/crypto-pro-js/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/webmasterskaya/crypto-pro-js?branch=master
