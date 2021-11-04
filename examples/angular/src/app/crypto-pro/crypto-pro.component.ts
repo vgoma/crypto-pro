@@ -7,6 +7,7 @@ import {
   createHash,
   createDetachedSignature,
   createAttachedSignature,
+  execute,
   SystemInfo,
   Certificate
 } from 'crypto-pro';
@@ -25,6 +26,8 @@ export class CryptoProComponent implements OnInit {
   public thumbprint: string = null;
   public signature: string = null;
   public signatureStatus = 'Не создана';
+  public customSystemInfo: string = null;
+  public customSystemInfoError: string = null;
   public systemInfo: SystemInfo & {
     isValidSystemSetup: boolean;
   };
@@ -39,6 +42,7 @@ export class CryptoProComponent implements OnInit {
 
   public ngOnInit(): void {
     this.displayCertificates();
+    this.displayCustomSystemInfo();
     this.displaySystemInfo();
   }
 
@@ -139,6 +143,45 @@ export class CryptoProComponent implements OnInit {
       };
     } catch (error) {
       this.systemInfoError = error.message;
+    }
+  }
+
+  private async displayCustomSystemInfo() {
+    this.customSystemInfoError = null;
+
+    // Crypto-Pro GOST R 34.10-2001 Cryptographic Service Provider
+    const providerType = 75;
+
+    try {
+      this.customSystemInfo = await execute(function (utils) {
+        return eval(
+          utils._generateCadesFn(function getVersion() {
+            var cadesAbout, cadesVersion, minor, major, build, version, providerName;
+
+            try {
+              cadesAbout = utils.__cadesAsyncToken__ + utils.__createCadesPluginObject__('CAdESCOM.About');
+              providerName = utils.__cadesAsyncToken__ + cadesAbout.CSPName();
+              cadesVersion = utils.__cadesAsyncToken__ + cadesAbout.CSPVersion(providerName, providerType);
+              minor = utils.__cadesAsyncToken__ + cadesVersion.MinorVersion;
+              major = utils.__cadesAsyncToken__ + cadesVersion.MajorVersion;
+              build = utils.__cadesAsyncToken__ + cadesVersion.BuildVersion;
+              version = utils.__cadesAsyncToken__ + cadesVersion.toString();
+            } catch (error) {
+              console.error(error);
+
+              throw new Error(utils._extractMeaningfulErrorMessage(error) || 'Ошибка при извлечении информации');
+            }
+
+            return [
+              providerName,
+              [major, minor, build].join('.'),
+              version
+            ].join(', ');
+          })
+        );
+      });
+    } catch (error) {
+      this.customSystemInfoError = error.message;
     }
   }
 }

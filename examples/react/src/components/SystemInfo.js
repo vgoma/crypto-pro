@@ -19,17 +19,13 @@ function SystemInfo() {
   });
 
   return (
-    <>
-      <legend>Информация о системе</legend>
-
-      <pre>
-        {systemInfo ? (
-          JSON.stringify(systemInfo, null, '  ')
-        ) : (
-          systemInfoError || null
-        )}
-      </pre>
-    </>
+    <pre>
+      {systemInfo ? (
+        JSON.stringify(systemInfo, null, '  ')
+      ) : (
+        systemInfoError || null
+      )}
+    </pre>
   );
 }
 

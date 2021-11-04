@@ -123,6 +123,7 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
     Используйте "createAttachedSignature" и "createDetachedSignature".
 - [getSystemInfo](src/api/getSystemInfo.ts) - возвращает информацию о CSP и плагине
 - [isValidSystemSetup](src/api/isValidSystemSetup.ts) - возвращает флаг корректности настроек ЭП на машине
+- [execute](src/api/execute.ts) - компилирует и выполняет переданную функцию для доступной браузерной среды (синхронной/асинхронной)
 
 <a name="api-certificate"></a>
 ### Методы объекта сертификата

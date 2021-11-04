@@ -18,12 +18,12 @@ export const _generateCadesFn = (callback: Function): string => {
   );
 
   crossEnvCallbackLiteral = crossEnvCallbackLiteral.replace(
-    /\w+?\.__createCadesPluginObject__(\([\s\S]*?\))/gm,
+    /(?:\w+?\.)?__createCadesPluginObject__(\([\s\S]*?\))/gm,
     `cadesplugin.CreateObject${cadesGeneratorsAPI ? 'Async' : ''}$1`,
   );
 
   crossEnvCallbackLiteral = crossEnvCallbackLiteral.replace(
-    /\w+?\.__cadesAsyncToken__\s*?\+\s*?\b/gm,
+    /(?:\w+?\.)?__cadesAsyncToken__\s*?\+\s*?\b/gm,
     cadesGeneratorsAPI ? 'yield ' : '',
   );
 
