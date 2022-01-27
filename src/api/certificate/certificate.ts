@@ -1,7 +1,7 @@
 import { ISSUER_TAGS_TRANSLATIONS, SUBJECT_TAGS_TRANSLATIONS } from '../../constants';
 import { TagTranslation } from '../../helpers/_parseCertInfo';
 import { exportBase64 } from './exportBase64';
-import { getAlgorithm } from './getAlgorithm';
+import { getAlgorithm, AlgorithmInfo } from './getAlgorithm';
 import { getCadesProp } from './getCadesProp';
 import { getDecodedExtendedKeyUsage, ExtendedKeysTranslations } from './getDecodedExtendedKeyUsage';
 import { getExtendedKeyUsage } from './getExtendedKeyUsage';
@@ -38,7 +38,7 @@ export class Certificate {
     return getDecodedExtendedKeyUsage.call(this);
   }
 
-  public getAlgorithm(): Promise<string> {
+  public getAlgorithm(): Promise<AlgorithmInfo> {
     return getAlgorithm.call(this);
   }
 

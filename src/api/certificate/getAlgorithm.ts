@@ -3,7 +3,7 @@ import { _extractMeaningfulErrorMessage } from '../../helpers/_extractMeaningful
 import { __cadesAsyncToken__, _generateCadesFn } from '../../helpers/_generateCadesFn';
 import { Certificate } from './certificate';
 
-interface AlgorithmInfo {
+export interface AlgorithmInfo {
   algorithm: string;
   oid: string;
 }
