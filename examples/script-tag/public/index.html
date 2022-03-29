@@ -13,12 +13,22 @@
             <textarea id="message" cols="80" rows="5" placeholder="Введите сообщение" autofocus required>Привет мир!</textarea>
             <br><br>
 
-            <!--[if gte IE 10]><!-->
+            <label for="signedMessage">Подписанное сообщение:</label>
+            <br>
+            <textarea id="signedMessage" cols="80" rows="5" placeholder="Введите сообщение" autofocus></textarea>
+            <br><br>
+
             <label for="messageFile">Или файл для подписи:</label>
             <br/>
             <input id="messageFile" type="file">
             <pre id="messageFileError"></pre>
-            <!--<![endif]-->
+
+            <br><br>
+
+
+            <label for="signatureFile">Файл отсоединенной подписи</label>
+            <input type="file" id="signatureFile">
+            <pre id="signatureFileError"></pre>
             <hr>
 
             <label for="certificate">Сертификат: *</label>
@@ -58,6 +68,7 @@
             <textarea id="signature" cols="80" rows="30" placeholder="Не создана"></textarea>
             <pre id="signatureError"></pre>
 
+            <button disabled id="downloadSignature">Файл подпись (PKCS7)</button>
             <p>
                 Для
                 <a href="https://www.gosuslugi.ru/pgu/eds/"

@@ -4,7 +4,7 @@ const tsConfig = require(`./${process.env.TS_CONFIG}`);
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  entry: `./${packageJson.name}.ts`,
+  entry: `./${packageJson.entryPoint}.ts`,
   module: {
     rules: [{
       test: /\.ts$/,
@@ -22,7 +22,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, tsConfig.compilerOptions.outDir),
-    filename: process.env.NODE_ENV === 'production' ? `${packageJson.name}.min.js` : `${packageJson.name}.js`,
+    filename: process.env.NODE_ENV === 'production' ? `${packageJson.entryPoint}.min.js` : `${packageJson.entryPoint}.js`,
     libraryTarget: 'umd',
     library: 'cryptoPro',
     umdNamedDefine: true

@@ -9,7 +9,7 @@ import { _getDateObj } from '../helpers/_getDateObj';
  * Создает присоединенную подпись сообщения по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param message - подписываемое сообщение
+ * @param unencryptedMessage - подписываемое сообщение
  * @returns подпись в формате PKCS#7
  */
 export const createAttachedSignature = _afterPluginsLoaded(

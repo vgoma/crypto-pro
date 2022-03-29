@@ -2342,7 +2342,7 @@ exports.addAttachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(functio
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(Buffer) {
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2391,10 +2391,10 @@ var _getDateObj_1 = __webpack_require__(/*! ../helpers/_getDateObj */ "./helpers
  *
  * @param thumbprint - отпечаток сертификата
  * @param signedMessage - подписанное сообщение
- * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
+ * @param unencryptedMessage - подписываемое сообщение
  * @returns подпись в формате PKCS#7
  */
-exports.addDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function (thumbprint, signedMessage, messageHash) { return __awaiter(void 0, void 0, void 0, function () {
+exports.addDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function (thumbprint, signedMessage, unencryptedMessage) { return __awaiter(void 0, void 0, void 0, function () {
     var cadesplugin, cadesCertificate;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -2405,12 +2405,10 @@ exports.addDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(functio
                 cadesCertificate = _a.sent();
                 return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function addDetachedSignature() {
                         var cadesAttrs;
-                        var cadesHashedData;
                         var cadesSignedData;
                         var cadesSigner;
                         try {
                             cadesAttrs = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CADESCOM.CPAttribute');
-                            cadesHashedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.HashedData');
                             cadesSignedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.CadesSignedData');
                             cadesSigner = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.CPSigner');
                         }
@@ -2438,22 +2436,34 @@ exports.addDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(functio
                             console.error(error);
                             throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при установке сертификата');
                         }
+                        var signatureBase64;
                         try {
-                            void (_generateCadesFn_1.__cadesAsyncToken__ +
-                                cadesHashedData.propset_Algorithm(cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256));
-                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.SetHashValue(messageHash));
+                            signatureBase64 = Buffer.from(signedMessage).toString('base64');
                         }
                         catch (error) {
                             console.error(error);
-                            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при установке хеша');
+                            throw new Error('Ошибка при преобразовании подписи в Base64');
+                        }
+                        var messageBase64;
+                        try {
+                            messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+                        }
+                        catch (error) {
+                            console.error(error);
+                            throw new Error('Ошибка при преобразовании сообщения в Base64');
+                        }
+                        try {
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.propset_Content(messageBase64));
+                        }
+                        catch (error) {
+                            console.error(error);
+                            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при указании данных для подписи');
                         }
                         var signature;
                         try {
-                            void (_generateCadesFn_1.__cadesAsyncToken__ +
-                                cadesSignedData.VerifyHash(cadesHashedData, signedMessage, cadesplugin.CADESCOM_PKCS7_TYPE));
-                            signature =
-                                _generateCadesFn_1.__cadesAsyncToken__ +
-                                    cadesSignedData.CoSignHash(cadesHashedData, cadesSigner, cadesplugin.CADESCOM_PKCS7_TYPE);
+                            void (_generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.VerifyCades(signatureBase64, cadesplugin.CADESCOM_PKCS7_TYPE, true));
+                            signature = _generateCadesFn_1.__cadesAsyncToken__ + cadesSignedData.CoSignCades(cadesSigner, cadesplugin.CADESCOM_PKCS7_TYPE);
                         }
                         catch (error) {
                             console.error(error);
@@ -2465,6 +2475,7 @@ exports.addDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(functio
     });
 }); });
 
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/buffer/index.js */ "../node_modules/buffer/index.js").Buffer))
 
 /***/ }),
 
@@ -3049,7 +3060,7 @@ var _getDateObj_1 = __webpack_require__(/*! ../helpers/_getDateObj */ "./helpers
  * Создает присоединенную подпись сообщения по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param message - подписываемое сообщение
+ * @param unencryptedMessage - подписываемое сообщение
  * @returns подпись в формате PKCS#7
  */
 exports.createAttachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function (thumbprint, unencryptedMessage) { return __awaiter(void 0, void 0, void 0, function () {
@@ -3590,6 +3601,85 @@ exports.createXMLSignature = _afterPluginsLoaded_1._afterPluginsLoaded(function 
 
 /***/ }),
 
+/***/ "./api/getAllUserCertificates.ts":
+/*!***************************************!*\
+  !*** ./api/getAllUserCertificates.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var certificate_1 = __webpack_require__(/*! ./certificate */ "./api/certificate/index.ts");
+var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
+var _extractCommonName_1 = __webpack_require__(/*! ../helpers/_extractCommonName */ "./helpers/_extractCommonName.ts");
+var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
+var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
+var certificatesCache;
+/**
+ * Возвращает все сертификаты без фильтрации по дате и наличию приватного ключа
+ *
+ * @param resetCache = false - позволяет сбросить кэш ранее полученных сертификатов
+ * @returns список сертификатов
+ */
+exports.getAllUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function (resetCache) {
+    if (resetCache === void 0) { resetCache = false; }
+    var cadesplugin = window.cadesplugin;
+    if (!resetCache && certificatesCache) {
+        return certificatesCache;
+    }
+    return eval(_generateCadesFn_1._generateCadesFn(function getAllUserCertificates() {
+        var cadesStore;
+        try {
+            cadesStore = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.Store');
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при попытке доступа к хранилищу');
+        }
+        try {
+            void (_generateCadesFn_1.__cadesAsyncToken__ +
+                cadesStore.Open(cadesplugin.CAPICOM_CURRENT_USER_STORE, cadesplugin.CAPICOM_MY_STORE, cadesplugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED));
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при открытии хранилища');
+        }
+        var cadesCertificates;
+        var cadesCertificatesCount;
+        try {
+            cadesCertificates = _generateCadesFn_1.__cadesAsyncToken__ + cadesStore.Certificates;
+            cadesCertificatesCount = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Count;
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка получения списка сертификатов');
+        }
+        if (!cadesCertificatesCount) {
+            throw new Error('Нет доступных сертификатов');
+        }
+        var certificateList = [];
+        try {
+            while (cadesCertificatesCount) {
+                var cadesCertificate = _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificates.Item(cadesCertificatesCount);
+                certificateList.push(new certificate_1.Certificate(cadesCertificate, _extractCommonName_1._extractCommonName(_generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.SubjectName), _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.IssuerName, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.SubjectName, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.Thumbprint, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.ValidFromDate, _generateCadesFn_1.__cadesAsyncToken__ + cadesCertificate.ValidToDate));
+                cadesCertificatesCount--;
+            }
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка обработки сертификатов');
+        }
+        cadesStore.Close();
+        certificatesCache = certificateList;
+        return certificatesCache;
+    }));
+});
+
+
+/***/ }),
+
 /***/ "./api/getCertificate.ts":
 /*!*******************************!*\
   !*** ./api/getCertificate.ts ***!
@@ -3663,6 +3753,85 @@ exports.getCertificate = _afterPluginsLoaded_1._afterPluginsLoaded(function (thu
         }
     });
 }); });
+
+
+/***/ }),
+
+/***/ "./api/getCspVersion.ts":
+/*!******************************!*\
+  !*** ./api/getCspVersion.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
+var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
+var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
+/**
+ * Предоставляет информацию о системе
+ *
+ * @returns информацию о CSP
+ */
+exports.getCspVersion = _afterPluginsLoaded_1._afterPluginsLoaded(function () {
+    var cspVersion = null;
+    return eval(_generateCadesFn_1._generateCadesFn(function getCspVersion() {
+        var cadesAbout;
+        try {
+            cadesAbout = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.About');
+            cspVersion = _generateCadesFn_1.__cadesAsyncToken__ + cadesAbout.CSPVersion();
+            cspVersion = _generateCadesFn_1.__cadesAsyncToken__ + cspVersion.toString();
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при получении версии системы');
+        }
+        return cspVersion;
+    }));
+});
+
+
+/***/ }),
+
+/***/ "./api/getPluginVersion.ts":
+/*!*********************************!*\
+  !*** ./api/getPluginVersion.ts ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
+var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
+var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
+/**
+ * Предоставляет информацию о системе
+ *
+ * @returns информацию о плагине
+ */
+exports.getPluginVersion = _afterPluginsLoaded_1._afterPluginsLoaded(function () {
+    var cadesVersion = null;
+    return eval(_generateCadesFn_1._generateCadesFn(function getPluginVersion() {
+        var cadesAbout;
+        try {
+            cadesAbout = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.About');
+            cadesVersion = _generateCadesFn_1.__cadesAsyncToken__ + cadesAbout.PluginVersion;
+            if (!cadesVersion) {
+                cadesVersion = _generateCadesFn_1.__cadesAsyncToken__ + cadesAbout.Version;
+            }
+            cadesVersion = _generateCadesFn_1.__cadesAsyncToken__ + cadesVersion.toString();
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при получении информации о плагине');
+        }
+        return cadesVersion;
+    }));
+});
 
 
 /***/ }),
@@ -3819,6 +3988,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(/*! ./getCertificate */ "./api/getCertificate.ts"));
 __export(__webpack_require__(/*! ./getUserCertificates */ "./api/getUserCertificates.ts"));
+__export(__webpack_require__(/*! ./getAllUserCertificates */ "./api/getAllUserCertificates.ts"));
 __export(__webpack_require__(/*! ./getSystemInfo */ "./api/getSystemInfo.ts"));
 __export(__webpack_require__(/*! ./isValidSystemSetup */ "./api/isValidSystemSetup.ts"));
 __export(__webpack_require__(/*! ./createSignature */ "./api/createSignature.ts"));
@@ -3829,6 +3999,8 @@ __export(__webpack_require__(/*! ./createAttachedSignature */ "./api/createAttac
 __export(__webpack_require__(/*! ./addAttachedSignature */ "./api/addAttachedSignature.ts"));
 __export(__webpack_require__(/*! ./createHash */ "./api/createHash.ts"));
 __export(__webpack_require__(/*! ./certificate */ "./api/certificate/index.ts"));
+__export(__webpack_require__(/*! ./getCspVersion */ "./api/getCspVersion.ts"));
+__export(__webpack_require__(/*! ./getPluginVersion */ "./api/getPluginVersion.ts"));
 
 
 /***/ }),
@@ -4146,6 +4318,7 @@ exports.OIDS_DICTIONARY = {
     '1.2.643.2.2.34.6': 'Пользователь Центра Регистрации',
     '1.2.643.2.39.1.1': 'Использование в программных продуктах системы "1С:Предприятие 8"',
     '1.2.643.3.131.1.1': 'ИНН',
+    '1.2.643.100.4': 'ИНН ЮЛ',
     '1.2.643.3.141.1.1': 'РНС ФСС',
     '1.2.643.3.141.1.2': 'КП ФСС',
     '1.2.643.3.2.100.65.13.11': 'Использование в системе АИС "Госзакупки" Сахалинской области.',
@@ -4215,6 +4388,7 @@ exports.SUBJECT_TAGS_TRANSLATIONS = [
     { possibleNames: ['ОГРНИП', 'OGRNIP'], translation: 'ОГРНИП' },
     { possibleNames: ['СНИЛС', 'SNILS'], translation: 'СНИЛС' },
     { possibleNames: ['ИНН', 'INN', 'ИНН организации'], translation: 'ИНН' },
+    { possibleNames: ['ИНН ЮЛ', 'INNLE'], translation: 'ИНН ЮЛ' },
     { possibleNames: ['E'], translation: 'Email' },
     { possibleNames: ['L'], translation: 'Город' },
 ];

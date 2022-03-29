@@ -3,7 +3,7 @@
  *
  * @param thumbprint - отпечаток сертификата
  * @param signedMessage - подписанное сообщение
- * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
+ * @param unencryptedMessage - подписываемое сообщение
  * @returns подпись в формате PKCS#7
  */
-export declare const addDetachedSignature: (thumbprint: string, signedMessage: string | ArrayBuffer, messageHash: string) => Promise<string>;
+export declare const addDetachedSignature: (thumbprint: string, signedMessage: string | ArrayBuffer, unencryptedMessage: string | ArrayBuffer) => Promise<string>;

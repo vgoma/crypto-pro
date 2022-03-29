@@ -10,24 +10,26 @@ import { _getDateObj } from '../helpers/_getDateObj';
  *
  * @param thumbprint - отпечаток сертификата
  * @param signedMessage - подписанное сообщение
- * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
+ * @param unencryptedMessage - подписываемое сообщение
  * @returns подпись в формате PKCS#7
  */
 export const addDetachedSignature = _afterPluginsLoaded(
-  async (thumbprint: string, signedMessage: string | ArrayBuffer, messageHash: string): Promise<string> => {
+  async (
+    thumbprint: string,
+    signedMessage: string | ArrayBuffer,
+    unencryptedMessage: string | ArrayBuffer,
+  ): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = await _getCadesCert(thumbprint);
 
     return eval(
       _generateCadesFn(function addDetachedSignature(): string {
         let cadesAttrs;
-        let cadesHashedData;
         let cadesSignedData;
         let cadesSigner;
 
         try {
           cadesAttrs = __cadesAsyncToken__ + __createCadesPluginObject__('CADESCOM.CPAttribute');
-          cadesHashedData = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.HashedData');
           cadesSignedData = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.CadesSignedData');
           cadesSigner = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.CPSigner');
         } catch (error) {
@@ -60,28 +62,42 @@ export const addDetachedSignature = _afterPluginsLoaded(
           throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при установке сертификата');
         }
 
+        let signatureBase64;
+
         try {
-          void (
-            __cadesAsyncToken__ +
-            cadesHashedData.propset_Algorithm(cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256)
-          );
-          void (__cadesAsyncToken__ + cadesHashedData.SetHashValue(messageHash));
+          signatureBase64 = Buffer.from(signedMessage).toString('base64');
         } catch (error) {
           console.error(error);
 
-          throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при установке хеша');
+          throw new Error('Ошибка при преобразовании подписи в Base64');
+        }
+
+        let messageBase64;
+
+        try {
+          messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+        } catch (error) {
+          console.error(error);
+
+          throw new Error('Ошибка при преобразовании сообщения в Base64');
+        }
+
+        try {
+          void (__cadesAsyncToken__ + cadesSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
+          void (__cadesAsyncToken__ + cadesSignedData.propset_Content(messageBase64));
+        } catch (error) {
+          console.error(error);
+
+          throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при указании данных для подписи');
         }
 
         let signature: string;
 
         try {
           void (
-            __cadesAsyncToken__ +
-            cadesSignedData.VerifyHash(cadesHashedData, signedMessage, cadesplugin.CADESCOM_PKCS7_TYPE)
+            __cadesAsyncToken__ + cadesSignedData.VerifyCades(signatureBase64, cadesplugin.CADESCOM_PKCS7_TYPE, true)
           );
-          signature =
-            __cadesAsyncToken__ +
-            cadesSignedData.CoSignHash(cadesHashedData, cadesSigner, cadesplugin.CADESCOM_PKCS7_TYPE);
+          signature = __cadesAsyncToken__ + cadesSignedData.CoSignCades(cadesSigner, cadesplugin.CADESCOM_PKCS7_TYPE);
         } catch (error) {
           console.error(error);
 

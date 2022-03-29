@@ -2,3 +2,5 @@
 node_modules/
 package/
 coverage/
+
+.DS_Store
