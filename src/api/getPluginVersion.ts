@@ -1,9 +1,5 @@
 import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
-import {
-  __cadesAsyncToken__,
-  __createCadesPluginObject__,
-  _generateCadesFn,
-} from '../helpers/_generateCadesFn';
+import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
 
 /**
@@ -19,8 +15,7 @@ export const getPluginVersion = _afterPluginsLoaded((): string => {
       let cadesAbout;
 
       try {
-        cadesAbout =
-          __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.About');
+        cadesAbout = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.About');
 
         cadesVersion = __cadesAsyncToken__ + cadesAbout.PluginVersion;
 
@@ -32,10 +27,7 @@ export const getPluginVersion = _afterPluginsLoaded((): string => {
       } catch (error) {
         console.error(error);
 
-        throw new Error(
-          _extractMeaningfulErrorMessage(error) ||
-            'Ошибка при получении информации о плагине',
-        );
+        throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при получении информации о плагине');
       }
 
       return cadesVersion;

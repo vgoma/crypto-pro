@@ -15,6 +15,7 @@ export const SUBJECT_TAGS_TRANSLATIONS: TagsTranslations[] = [
   { possibleNames: ['ОГРНИП', 'OGRNIP'], translation: 'ОГРНИП' },
   { possibleNames: ['СНИЛС', 'SNILS'], translation: 'СНИЛС' },
   { possibleNames: ['ИНН', 'INN', 'ИНН организации'], translation: 'ИНН' },
+  { possibleNames: ['ИНН ЮЛ', 'INNLE'], translation: 'ИНН ЮЛ' },
   { possibleNames: ['E'], translation: 'Email' },
   { possibleNames: ['L'], translation: 'Город' },
 ];

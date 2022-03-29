@@ -1,7 +1,7 @@
 {
   "name": "@gaarutyunov/crypto-pro-fork",
   "entryPoint": "crypto-pro",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "API для взаимодействия с КриптоПро",
   "main": "./lib/crypto-pro.js",
   "types": "./lib/crypto-pro.d.ts",

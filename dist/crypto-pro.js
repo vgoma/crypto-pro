@@ -4001,6 +4001,7 @@ __export(__webpack_require__(/*! ./createHash */ "./api/createHash.ts"));
 __export(__webpack_require__(/*! ./certificate */ "./api/certificate/index.ts"));
 __export(__webpack_require__(/*! ./getCspVersion */ "./api/getCspVersion.ts"));
 __export(__webpack_require__(/*! ./getPluginVersion */ "./api/getPluginVersion.ts"));
+__export(__webpack_require__(/*! ./setLogLevel */ "./api/setLogLevel.ts"));
 
 
 /***/ }),
@@ -4086,6 +4087,27 @@ exports.isValidSystemSetup = _afterPluginsLoaded_1._afterPluginsLoaded(function 
         }
     });
 }); });
+
+
+/***/ }),
+
+/***/ "./api/setLogLevel.ts":
+/*!****************************!*\
+  !*** ./api/setLogLevel.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
+/**
+ * Устанавливает уровень логирование для плагина Крипто-ПРО
+ */
+exports.setLogLevel = _afterPluginsLoaded_1._afterPluginsLoaded(function (level) {
+    cadesplugin.set_log_level(level);
+});
 
 
 /***/ }),
@@ -4297,6 +4319,7 @@ exports.ISSUER_TAGS_TRANSLATIONS = [
     { possibleNames: ['ОГРНИП', 'OGRNIP'], translation: 'ОГРНИП' },
     { possibleNames: ['СНИЛС', 'SNILS'], translation: 'СНИЛС' },
     { possibleNames: ['ИНН', 'INN', 'ИНН организации'], translation: 'ИНН' },
+    { possibleNames: ['ИНН ЮЛ', 'INNLE'], translation: 'ИНН ЮЛ' },
     { possibleNames: ['E'], translation: 'Email' },
     { possibleNames: ['L'], translation: 'Город' },
 ];

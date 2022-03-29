@@ -13,3 +13,4 @@ export * from './createHash';
 export * from './certificate';
 export * from './getCspVersion';
 export * from './getPluginVersion';
+export * from './setLogLevel';

@@ -2,6 +2,7 @@ export declare const OIDS_DICTIONARY: {
     '1.2.643.2.2.34.6': string;
     '1.2.643.2.39.1.1': string;
     '1.2.643.3.131.1.1': string;
+    '1.2.643.100.4': string;
     '1.2.643.3.141.1.1': string;
     '1.2.643.3.141.1.2': string;
     '1.2.643.3.2.100.65.13.11': string;
