@@ -13,6 +13,7 @@
   var isYandex = 0;
   var canPromise = !!window.Promise;
   var cadesplugin_loaded_event_recieved = false;
+  var isFireFoxExtensionLoaded = false;
   var cadesplugin;
 
   if(canPromise)
@@ -236,6 +237,14 @@
     cadesplugin.XCN_CRYPT_STRING_BASE64HEADER = 0;
     cadesplugin.AT_KEYEXCHANGE = 1;
     cadesplugin.AT_SIGNATURE = 2;
+
+    cadesplugin.CARRIER_FLAG_REMOVABLE = 1;
+    cadesplugin.CARRIER_FLAG_UNIQUE = 2;
+    cadesplugin.CARRIER_FLAG_PROTECTED = 4;
+    cadesplugin.CARRIER_FLAG_FUNCTIONAL_CARRIER = 8;
+    cadesplugin.CARRIER_FLAG_SECURE_MESSAGING = 16;
+    cadesplugin.CARRIER_FLAG_ABLE_VISUALISE_SIGNATURE = 64;
+    cadesplugin.CARRIER_FLAG_VIRTUAL = 128;
   }
 
   function async_spawn(generatorFunc) {
@@ -482,10 +491,17 @@
     }
   }
   function firefox_or_safari_nmcades_onload() {
+    if (window.cadesplugin_extension_loaded_callback)
+      window.cadesplugin_extension_loaded_callback();
+    isFireFoxExtensionLoaded = true;
     cpcsp_chrome_nmcades.check_chrome_plugin(plugin_loaded, plugin_loaded_error);
   }
 
-  function nmcades_api_onload () {
+  function nmcades_api_onload() {
+    if (!isIE() && !isFireFox && !isSafari) {
+      if (window.cadesplugin_extension_loaded_callback)
+        window.cadesplugin_extension_loaded_callback();
+    }
     window.postMessage("cadesplugin_echo_request", "*");
     window.addEventListener("message", function (event){
       if (typeof(event.data) !== "string" || !event.data.match("cadesplugin_loaded"))
@@ -600,7 +616,8 @@
       return;
     if(isFireFox)
     {
-      show_firefox_missing_extension_dialog();
+      if (!isFireFoxExtensionLoaded)
+        show_firefox_missing_extension_dialog();
     }
     plugin_resolved = 1;
     if(canPromise)
@@ -692,7 +709,7 @@
   };
 
   //Export
-  cadesplugin.JSModuleVersion = "2.3.1";
+  cadesplugin.JSModuleVersion = "2.3.2";
   cadesplugin.async_spawn = async_spawn;
   cadesplugin.set = set_pluginObject;
   cadesplugin.set_log_level = set_log_level;
