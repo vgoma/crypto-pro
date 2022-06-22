@@ -22,7 +22,7 @@
     "build": "npm run clean && npm run build:es5 && npm run build:esm",
     "pack:clean": "cross-env rimraf %npm_package_name%-%npm_package_version%.tgz",
     "pack:uncompress": "cross-env tar xopf %npm_package_name%-%npm_package_version%.tgz",
-    "test": "jest --coverage && coveralls < coverage/lcov.info",
+    "test": "jest --coverage",
     "lint": "eslint --config .eslintrc.js --ext .ts --ext .js src",
     "lint:fix": "eslint --fix --config .eslintrc.js --ext .ts --ext .js src",
     "examples-update": "npm run examples-update:script-tag",

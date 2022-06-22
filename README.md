@@ -1,7 +1,8 @@
+[![License][license-image]][license-url]
 [![NPM version][npm-version-image]][npm-url]
 [![NPM downloads][npm-downloads-image]][downloads-url]
-[![Build Status][travis-image]][travis-url]
-[![Coverage Status][coveralls-image]][coveralls-url]
+[![Build Status][actions-image]][actions-url]
+
 
 <a name="cryptopro"></a>
 # cryptoPro
@@ -200,11 +201,11 @@ npm unlink
 # Лицензия
 [MIT](/LICENSE)
 
+[license-url]: /LICENSE
+[license-image]: https://img.shields.io/github/license/webmasterskaya/crypto-pro-js
 [npm-url]: https://npmjs.org/package/crypto-pro-js
 [npm-version-image]: https://img.shields.io/npm/v/crypto-pro-js.svg?style=flat
-[npm-downloads-image]: http://img.shields.io/npm/dm/crypto-pro-js.svg?style=flat
+[npm-downloads-image]: https://img.shields.io/npm/dm/crypto-pro-js.svg?style=flat
 [downloads-url]: https://npmcharts.com/compare/crypto-pro-js?minimal=true
-[travis-url]: https://www.travis-ci.com/webmasterskaya/crypto-pro-js
-[travis-image]: http://img.shields.io/travis/webmasterskaya/crypto-pro-js/master.svg?style=flat
-[coveralls-image]: https://coveralls.io/repos/github/webmasterskaya/crypto-pro-js/badge.svg?branch=master
-[coveralls-url]: https://coveralls.io/github/webmasterskaya/crypto-pro-js?branch=master
+[actions-url]: https://github.com/webmasterskaya/crypto-pro-js/actions
+[actions-image]: https://img.shields.io/github/workflow/status/webmasterskaya/crypto-pro-js/test?event=push
