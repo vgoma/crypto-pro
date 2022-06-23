@@ -1,20 +1,29 @@
 import { Certificate } from './certificate';
 import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
-import { getUserCertificates } from './getUserCertificates';
+import { getCertificates } from './getCertificates';
+import { getAllCertificates } from './getAllCertificates';
 
 /**
  * Возвращает сертификат по отпечатку
  *
  * @param thumbprint - отпечаток сертификата
+ * @param validOnly - проверять сертификаты по дате и наличию приватного ключа
  * @returns сертификат
  */
 export const getCertificate = _afterPluginsLoaded(
-  async (thumbprint: string): Promise<Certificate> => {
+  async (thumbprint: string, validOnly: boolean = true): Promise<Certificate> => {
     if (!thumbprint) {
       throw new Error('Отпечаток не указан');
     }
 
-    const availableCertificates: Certificate[] = await getUserCertificates();
+    let availableCertificates: Certificate[];
+
+    if (validOnly) {
+      availableCertificates = await getCertificates();
+    } else {
+      availableCertificates = await getAllCertificates();
+    }
+
     const foundCertificate: Certificate = availableCertificates.find((cert) => cert.thumbprint === thumbprint);
 
     if (!foundCertificate) {

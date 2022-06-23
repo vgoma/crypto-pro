@@ -96,6 +96,9 @@ import { getUserCertificates, Certificate } from 'crypto-pro-js';
 <a name="api-cryptopro"></a>
 ### Методы объекта cryptoPro
 - [getUserCertificates](src/api/getUserCertificates.ts) - возвращает список [сертификатов](#api-certificate), доступных пользователю в системе
+- [getAllUserCertificates](src/api/getAllUserCertificates.ts) - возвращает список [сертификатов](#api-certificate), доступных пользователю в системе, в том числе просроченные и без закрытого ключа
+- [getContainerCertificates](src/api/getContainerCertificates.ts) - возвращает список [сертификатов](#api-certificate), из закрытых ключей и/или сертификаты не установленные всистеме*
+- [getAllContainerCertificates](src/api/getAllContainerCertificates.ts) - возвращает список [сертификатов](#api-certificate), из закрытых ключей и/или сертификаты не установленные всистеме*, в том числе просроченные и без закрытого ключа
 - [getCertificate](src/api/getCertificate.ts) - возвращает [сертификат](#api-certificate) по отпечатку
 - [createAttachedSignature](src/api/createAttachedSignature.ts) - создает совмещенную (присоединенную) подпись сообщения
 - [createDetachedSignature](src/api/createDetachedSignature.ts) - создает отсоединенную (открепленную) подпись сообщения
@@ -105,6 +108,8 @@ import { getUserCertificates, Certificate } from 'crypto-pro-js';
 - [createHash](src/api/createHash.ts) - создает хеш сообщения по ГОСТ Р 34.11-2012 256 бит
 - [getSystemInfo](src/api/getSystemInfo.ts) - возвращает информацию о CSP и плагине
 - [isValidSystemSetup](src/api/isValidSystemSetup.ts) - возвращает флаг корректности настроек ЭП на машине
+
+> *Методы `getContainerCertificates` и `getAllContainerCertificates` позволяют получить сертификаты из закрытых ключей, записанных на обыкновенную флэшку 
 
 <a name="api-certificate"></a>
 ### Методы объекта сертификата

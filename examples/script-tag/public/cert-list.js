@@ -16,7 +16,7 @@
     $certificateDetails.style.display = thumbprint ? 'block' : 'none';
   });
 
-  window.cryptoPro.getUserCertificates().then(function (certificateList) {
+  window.cryptoPro.getCertificates().then(function (certificateList) {
     certificateList.forEach(function (certificate) {
       var $certOption = document.createElement('option');
 
