@@ -5012,7 +5012,8 @@ exports._getCadesContainerCert = _afterPluginsLoaded_1._afterPluginsLoaded(funct
         }
         catch (error) {
             console.error(error);
-            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка получения списка сертификатов из хранилища закрытого ключа');
+            throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) ||
+                'Ошибка получения списка сертификатов из хранилища закрытого ключа');
         }
         if (!certificatesCount) {
             throw new Error('Нет доступных сертификатов в хранилище закрытого ключа');
