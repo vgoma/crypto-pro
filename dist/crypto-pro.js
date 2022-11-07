@@ -3396,12 +3396,6 @@ exports.decryptEnvelopedData = _afterPluginsLoaded_1._afterPluginsLoaded(functio
                 var cadesEnvelopedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.CPEnvelopedData');
                 try {
                     void (_generateCadesFn_1.__cadesAsyncToken__ + cadesEnvelopedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
-                }
-                catch (error) {
-                    console.error(error);
-                    throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error) || 'Ошибка при инициализации расшифрования');
-                }
-                try {
                     void (_generateCadesFn_1.__cadesAsyncToken__ + cadesEnvelopedData.Decrypt(envelopedData));
                     decryptedMessage = cadesEnvelopedData.Content;
                 }

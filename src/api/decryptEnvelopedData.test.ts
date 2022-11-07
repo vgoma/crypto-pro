@@ -2,7 +2,7 @@ import 'cadesplugin';
 import { decryptEnvelopedData } from './decryptEnvelopedData';
 import { _getCadesCert } from '../helpers/_getCadesCert';
 
-const executionSteps = [Symbol('step 0'), Symbol('step 1')];
+const executionSteps = [Symbol('step 0')];
 
 const executionFlow = {
   [executionSteps[0]]: {

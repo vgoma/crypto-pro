@@ -21,13 +21,6 @@ export const decryptEnvelopedData = _afterPluginsLoaded(
           void (
             __cadesAsyncToken__ + cadesEnvelopedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY)
           );
-        } catch (error) {
-          console.error(error);
-
-          throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при инициализации расшифрования');
-        }
-
-        try {
           void (__cadesAsyncToken__ + cadesEnvelopedData.Decrypt(envelopedData));
           decryptedMessage = cadesEnvelopedData.Content;
         } catch (error) {
