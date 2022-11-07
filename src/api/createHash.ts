@@ -1,3 +1,4 @@
+import { TranscodeEncoding } from 'buffer';
 import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
 import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
@@ -7,11 +8,12 @@ import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } fr
  * https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%80%D0%B8%D0%B1%D0%BE%D0%B3_(%D1%85%D0%B5%D1%88-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F)
  *
  * @param unencryptedMessage - сообщение для хеширования
+ * @param encoding - кодировка
  *
  * @returns хеш
  */
 export const createHash = _afterPluginsLoaded(
-  async (unencryptedMessage: string | ArrayBuffer): Promise<string> => {
+  async (unencryptedMessage: string | ArrayBuffer, encoding?: TranscodeEncoding): Promise<string> => {
     const { cadesplugin } = window;
 
     return eval(
@@ -21,7 +23,11 @@ export const createHash = _afterPluginsLoaded(
         let hash;
 
         try {
-          messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+          if (encoding && typeof unencryptedMessage === 'string') {
+            messageBase64 = Buffer.from(unencryptedMessage, encoding).toString('base64');
+          } else {
+            messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+          }
         } catch (error) {
           console.error(error);
 

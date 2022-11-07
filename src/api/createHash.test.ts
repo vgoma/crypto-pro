@@ -41,4 +41,10 @@ describe('createHash', () => {
 
     expect(hash).toEqual('hash');
   });
+
+  test('returns created hash with specified encoding', async () => {
+    const hash = await createHash('message', 'binary');
+
+    expect(hash).toEqual('hash');
+  });
 });

@@ -9,3 +9,4 @@ export * from './createAttachedSignature';
 export * from './createHash';
 export * from './certificate';
 export * from './execute';
+export * from './decryptEnvelopedData';
