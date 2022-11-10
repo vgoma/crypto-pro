@@ -1,87 +1,90 @@
 {
-  "name": "crypto-pro-js",
-  "version": "2.3.2",
-  "description": "Асинхронный JavaScript API для работы с КриптоПРО ЭЦП Browser Plug-In. Forked from https://github.com/vgoma/crypto-pro",
-  "main": "./lib/crypto-pro-js.js",
-  "types": "./lib/crypto-pro-js.d.ts",
-  "files": [
-    "lib/**/*",
-    "dist/**/*",
-    "bower.json"
-  ],
-  "scripts": {
-    "clean": "rimraf dist lib package coverage",
-    "start": "cross-env TS_CONFIG=tsconfig-es5.json webpack --watch",
-    "build:uncompressed:es5": "cross-env TS_CONFIG=tsconfig-es5.json webpack",
-    "build:compressed:es5": "cross-env TS_CONFIG=tsconfig-es5.json NODE_ENV=production webpack",
-    "build:definition-header:es5": "cross-env TS_CONFIG=tsconfig-es5.json node definition-header.js",
-    "build:es5": "npm run build:uncompressed:es5 && npm run build:compressed:es5 && npm run build:definition-header:es5",
-    "build:uncompressed:esm": "cross-env TS_CONFIG=tsconfig-esm.json webpack",
-    "build:definition-header:esm": "cross-env TS_CONFIG=tsconfig-esm.json node definition-header.js",
-    "build:esm": "npm run build:uncompressed:esm && npm run build:definition-header:esm",
-    "build": "npm run clean && npm run build:es5 && npm run build:esm",
-    "pack:clean": "cross-env rimraf %npm_package_name%-%npm_package_version%.tgz",
-    "pack:uncompress": "cross-env tar xopf %npm_package_name%-%npm_package_version%.tgz",
-    "test": "jest --coverage",
-    "lint": "eslint --config .eslintrc.js --ext .ts --ext .js src",
-    "lint:fix": "eslint --fix --config .eslintrc.js --ext .ts --ext .js src",
-    "examples-update": "npm run examples-update:script-tag",
-    "examples-update:script-tag": "npm --prefix ./examples/script-tag r crypto-pro-js && npm --prefix ./examples/script-tag i crypto-pro-js",
-    "prepack": "npm run build",
-    "prepublishOnly": "npm run lint && jest && npm run build",
-    "postpublish": "npm run examples-update"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/webmasterskaya/crypto-pro-js"
-  },
-  "author": {
-    "name": "Artem Vasilev",
-    "email": "kern.usr@gmail.com",
-    "url": "https://github.com/kernusr"
-  },
-  "contributors": [
-    {
-      "name": "Vitalii Goma",
-      "email": "vgoma@yandex.ru",
-      "url": "https://github.com/vgoma"
-    },
-    {
-      "name": "German Arutyunov",
-      "email": "germanarutyunov@gmail.com",
-      "url": "https://github.com/gaarutyunov"
-    }
-  ],
-  "keywords": [
-    "crypto",
-    "cryptopro",
-    "crypto-pro",
-    "crypto-pro-js",
-    "cades",
-    "КриптоПро",
-    "Крипто ПРО"
-  ],
-  "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "25.1.4",
-    "@types/lodash": "4.14.149",
-    "@types/node": "13.9.5",
-    "@typescript-eslint/eslint-plugin": "2.25.0",
-    "@typescript-eslint/parser": "2.25.0",
-    "coveralls": "3.0.11",
-    "cross-env": "^7.0.2",
-    "eslint": "6.8.0",
-    "eslint-config-prettier": "6.10.1",
-    "eslint-plugin-prettier": "3.1.2",
-    "jest": "25.2.3",
-    "prettier": "2.0.2",
-    "rimraf": "3.0.2",
-    "sinon": "9.0.1",
-    "tar": "6.1.9",
-    "ts-jest": "^25.5.1",
-    "ts-loader": "6.2.2",
-    "typescript": "3.8.3",
-    "webpack": "4.42.1",
-    "webpack-cli": "3.3.11"
-  }
+	"name": "crypto-pro-js",
+	"version": "2.3.2",
+	"description": "Асинхронный JavaScript API для работы с КриптоПРО ЭЦП Browser Plug-In. Forked from https://github.com/vgoma/crypto-pro",
+	"main": "./lib/crypto-pro-js.js",
+	"types": "./lib/crypto-pro-js.d.ts",
+	"files": [
+		"lib/**/*",
+		"dist/**/*",
+		"bower.json"
+	],
+	"scripts": {
+		"clean": "rimraf dist lib package coverage",
+		"start": "cross-env TS_CONFIG=tsconfig-es5.json webpack --watch",
+		"build:uncompressed:es5": "cross-env TS_CONFIG=tsconfig-es5.json webpack",
+		"build:compressed:es5": "cross-env TS_CONFIG=tsconfig-es5.json NODE_ENV=production webpack",
+		"build:definition-header:es5": "cross-env TS_CONFIG=tsconfig-es5.json node definition-header.js",
+		"build:es5": "npm run build:uncompressed:es5 && npm run build:compressed:es5 && npm run build:definition-header:es5",
+		"build:uncompressed:esm": "cross-env TS_CONFIG=tsconfig-esm.json webpack",
+		"build:definition-header:esm": "cross-env TS_CONFIG=tsconfig-esm.json node definition-header.js",
+		"build:esm": "npm run build:uncompressed:esm && npm run build:definition-header:esm",
+		"build": "npm run clean && npm run build:es5 && npm run build:esm",
+		"pack:clean": "cross-env rimraf %npm_package_name%-%npm_package_version%.tgz",
+		"pack:uncompress": "cross-env tar xopf %npm_package_name%-%npm_package_version%.tgz",
+		"test": "jest --coverage",
+		"lint": "eslint --config .eslintrc.js --ext .ts --ext .js src",
+		"lint:fix": "eslint --fix --config .eslintrc.js --ext .ts --ext .js src",
+		"examples-update": "npm run examples-update:script-tag",
+		"examples-update:script-tag": "npm --prefix ./examples/script-tag r crypto-pro-js && npm --prefix ./examples/script-tag i crypto-pro-js",
+		"prepack": "npm run build",
+		"prepublishOnly": "npm run lint && jest && npm run build",
+		"postpublish": "npm run examples-update"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/webmasterskaya/crypto-pro-js"
+	},
+	"author": {
+		"name": "Artem Vasilev",
+		"email": "kern.usr@gmail.com",
+		"url": "https://github.com/kernusr"
+	},
+	"contributors": [
+		{
+			"name": "Vitalii Goma",
+			"email": "vgoma@yandex.ru",
+			"url": "https://github.com/vgoma"
+		},
+		{
+			"name": "German Arutyunov",
+			"email": "germanarutyunov@gmail.com",
+			"url": "https://github.com/gaarutyunov"
+		}
+	],
+	"keywords": [
+		"crypto",
+		"cryptopro",
+		"crypto-pro",
+		"crypto-pro-js",
+		"cades",
+		"КриптоПро",
+		"Крипто ПРО"
+	],
+	"license": "MIT",
+	"devDependencies": {
+		"@types/jest": "25.1.4",
+		"@types/lodash": "4.14.149",
+		"@types/node": "13.9.5",
+		"@typescript-eslint/eslint-plugin": "2.25.0",
+		"@typescript-eslint/parser": "2.25.0",
+		"coveralls": "3.0.11",
+		"cross-env": "^7.0.2",
+		"eslint": "6.8.0",
+		"eslint-config-prettier": "6.10.1",
+		"eslint-plugin-prettier": "3.1.2",
+		"jest": "25.2.3",
+		"prettier": "2.0.2",
+		"rimraf": "3.0.2",
+		"sinon": "9.0.1",
+		"tar": "6.1.9",
+		"ts-jest": "^25.5.1",
+		"ts-loader": "6.2.2",
+		"typescript": "3.8.3",
+		"webpack": "4.42.1",
+		"webpack-cli": "3.3.11"
+	},
+	"engines": {
+		"node": "~16"
+	}
 }

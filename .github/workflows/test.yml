@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ lts/* ]
+        node-version: [ 16 ]
 
     steps:
       - uses: actions/checkout@v3
@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          check-latest: true
 
       - name: Clean install, build, test
         run: |
@@ -33,10 +34,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js latest
+      - name: Use Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: latest
+          node-version: 16
+          check-latest: true
+
       - name: Clean install, lint
         run: |
           npm ci
