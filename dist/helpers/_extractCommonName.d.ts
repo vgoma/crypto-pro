@@ -1,1 +1,1 @@
-export declare const _extractCommonName: (subjectName: string) => string;
+export declare const _extractCommonName: (subjectName: string) => string | undefined;

@@ -2249,6 +2249,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.addAttachedSignature = void 0;
 var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
@@ -2379,6 +2380,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.addDetachedSignature = void 0;
 var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
@@ -2477,6 +2479,7 @@ exports.addDetachedSignature = _afterPluginsLoaded_1._afterPluginsLoaded(functio
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Certificate = void 0;
 var constants_1 = __webpack_require__(/*! ../../constants */ "./constants/index.ts");
 var exportBase64_1 = __webpack_require__(/*! ./exportBase64 */ "./api/certificate/exportBase64.ts");
 var getAlgorithm_1 = __webpack_require__(/*! ./getAlgorithm */ "./api/certificate/getAlgorithm.ts");
@@ -2540,6 +2543,7 @@ exports.Certificate = Certificate;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.exportBase64 = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -2576,6 +2580,7 @@ exports.exportBase64 = _afterPluginsLoaded_1._afterPluginsLoaded(function () {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAlgorithm = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -2619,6 +2624,7 @@ exports.getAlgorithm = _afterPluginsLoaded_1._afterPluginsLoaded(function () {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCadesProp = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -2703,6 +2709,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDecodedExtendedKeyUsage = void 0;
 var constants_1 = __webpack_require__(/*! ../../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 /**
@@ -2740,6 +2747,7 @@ exports.getDecodedExtendedKeyUsage = _afterPluginsLoaded_1._afterPluginsLoaded(f
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getExtendedKeyUsage = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -2826,6 +2834,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getInfo = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _parseCertInfo_1 = __webpack_require__(/*! ../../helpers/_parseCertInfo */ "./helpers/_parseCertInfo.ts");
@@ -2907,6 +2916,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.hasExtendedKeyUsage = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 /**
  * Проверяет наличие ОИД'а (ОИД'ов) у сертификата
@@ -2946,11 +2956,18 @@ exports.hasExtendedKeyUsage = _afterPluginsLoaded_1._afterPluginsLoaded(function
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(/*! ./certificate */ "./api/certificate/certificate.ts"));
+__exportStar(__webpack_require__(/*! ./certificate */ "./api/certificate/certificate.ts"), exports);
 
 
 /***/ }),
@@ -2965,6 +2982,7 @@ __export(__webpack_require__(/*! ./certificate */ "./api/certificate/certificate
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isValid = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -3038,6 +3056,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createAttachedSignature = void 0;
 var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
@@ -3167,6 +3186,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createDetachedSignature = void 0;
 var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
@@ -3298,6 +3318,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createHash = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -3396,6 +3417,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createXMLSignature = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -3505,6 +3527,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAllCertificates = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var getAllUserCertificates_1 = __webpack_require__(/*! ./getAllUserCertificates */ "./api/getAllUserCertificates.ts");
 var getAllContainerCertificates_1 = __webpack_require__(/*! ./getAllContainerCertificates */ "./api/getAllContainerCertificates.ts");
@@ -3585,6 +3608,7 @@ exports.getAllCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAllContainerCertificates = void 0;
 var certificate_1 = __webpack_require__(/*! ./certificate */ "./api/certificate/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractCommonName_1 = __webpack_require__(/*! ../helpers/_extractCommonName */ "./helpers/_extractCommonName.ts");
@@ -3665,6 +3689,7 @@ exports.getAllContainerCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAllUserCertificates = void 0;
 var certificate_1 = __webpack_require__(/*! ./certificate */ "./api/certificate/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractCommonName_1 = __webpack_require__(/*! ../helpers/_extractCommonName */ "./helpers/_extractCommonName.ts");
@@ -3780,6 +3805,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCertificate = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var getCertificates_1 = __webpack_require__(/*! ./getCertificates */ "./api/getCertificates.ts");
 var getAllCertificates_1 = __webpack_require__(/*! ./getAllCertificates */ "./api/getAllCertificates.ts");
@@ -3869,6 +3895,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCertificates = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var getUserCertificates_1 = __webpack_require__(/*! ./getUserCertificates */ "./api/getUserCertificates.ts");
 var getContainerCertificates_1 = __webpack_require__(/*! ./getContainerCertificates */ "./api/getContainerCertificates.ts");
@@ -3949,6 +3976,7 @@ exports.getCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function (re
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getContainerCertificates = void 0;
 var certificate_1 = __webpack_require__(/*! ./certificate */ "./api/certificate/index.ts");
 var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
@@ -4041,6 +4069,7 @@ exports.getContainerCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(fun
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCspVersion = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -4079,6 +4108,7 @@ exports.getCspVersion = _afterPluginsLoaded_1._afterPluginsLoaded(function () {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getPluginVersion = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
@@ -4120,6 +4150,7 @@ exports.getPluginVersion = _afterPluginsLoaded_1._afterPluginsLoaded(function ()
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getSystemInfo = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -4166,6 +4197,7 @@ exports.getSystemInfo = _afterPluginsLoaded_1._afterPluginsLoaded(function () {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUserCertificates = void 0;
 var certificate_1 = __webpack_require__(/*! ./certificate */ "./api/certificate/index.ts");
 var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
@@ -4256,28 +4288,35 @@ exports.getUserCertificates = _afterPluginsLoaded_1._afterPluginsLoaded(function
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(/*! ./getCertificate */ "./api/getCertificate.ts"));
-__export(__webpack_require__(/*! ./getUserCertificates */ "./api/getUserCertificates.ts"));
-__export(__webpack_require__(/*! ./getAllUserCertificates */ "./api/getAllUserCertificates.ts"));
-__export(__webpack_require__(/*! ./getContainerCertificates */ "./api/getContainerCertificates.ts"));
-__export(__webpack_require__(/*! ./getAllContainerCertificates */ "./api/getAllContainerCertificates.ts"));
-__export(__webpack_require__(/*! ./getCertificates */ "./api/getCertificates.ts"));
-__export(__webpack_require__(/*! ./getAllCertificates */ "./api/getAllCertificates.ts"));
-__export(__webpack_require__(/*! ./getSystemInfo */ "./api/getSystemInfo.ts"));
-__export(__webpack_require__(/*! ./isValidSystemSetup */ "./api/isValidSystemSetup.ts"));
-__export(__webpack_require__(/*! ./createXMLSignature */ "./api/createXMLSignature.ts"));
-__export(__webpack_require__(/*! ./createDetachedSignature */ "./api/createDetachedSignature.ts"));
-__export(__webpack_require__(/*! ./addDetachedSignature */ "./api/addDetachedSignature.ts"));
-__export(__webpack_require__(/*! ./createAttachedSignature */ "./api/createAttachedSignature.ts"));
-__export(__webpack_require__(/*! ./addAttachedSignature */ "./api/addAttachedSignature.ts"));
-__export(__webpack_require__(/*! ./createHash */ "./api/createHash.ts"));
-__export(__webpack_require__(/*! ./certificate */ "./api/certificate/index.ts"));
-__export(__webpack_require__(/*! ./getCspVersion */ "./api/getCspVersion.ts"));
-__export(__webpack_require__(/*! ./getPluginVersion */ "./api/getPluginVersion.ts"));
+__exportStar(__webpack_require__(/*! ./getCertificate */ "./api/getCertificate.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getUserCertificates */ "./api/getUserCertificates.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getAllUserCertificates */ "./api/getAllUserCertificates.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getContainerCertificates */ "./api/getContainerCertificates.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getAllContainerCertificates */ "./api/getAllContainerCertificates.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getCertificates */ "./api/getCertificates.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getAllCertificates */ "./api/getAllCertificates.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getSystemInfo */ "./api/getSystemInfo.ts"), exports);
+__exportStar(__webpack_require__(/*! ./isValidSystemSetup */ "./api/isValidSystemSetup.ts"), exports);
+__exportStar(__webpack_require__(/*! ./createXMLSignature */ "./api/createXMLSignature.ts"), exports);
+__exportStar(__webpack_require__(/*! ./createDetachedSignature */ "./api/createDetachedSignature.ts"), exports);
+__exportStar(__webpack_require__(/*! ./addDetachedSignature */ "./api/addDetachedSignature.ts"), exports);
+__exportStar(__webpack_require__(/*! ./createAttachedSignature */ "./api/createAttachedSignature.ts"), exports);
+__exportStar(__webpack_require__(/*! ./addAttachedSignature */ "./api/addAttachedSignature.ts"), exports);
+__exportStar(__webpack_require__(/*! ./createHash */ "./api/createHash.ts"), exports);
+__exportStar(__webpack_require__(/*! ./certificate */ "./api/certificate/index.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getCspVersion */ "./api/getCspVersion.ts"), exports);
+__exportStar(__webpack_require__(/*! ./getPluginVersion */ "./api/getPluginVersion.ts"), exports);
 
 
 /***/ }),
@@ -4328,6 +4367,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isValidSystemSetup = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _isSupportedCadesVersion_1 = __webpack_require__(/*! ../helpers/_isSupportedCadesVersion */ "./helpers/_isSupportedCadesVersion.ts");
@@ -4377,6 +4417,7 @@ exports.isValidSystemSetup = _afterPluginsLoaded_1._afterPluginsLoaded(function 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.XmlDsigGost3411UrlObsolete = exports.XmlDsigGost3411Url = exports.XmlDsigGost3410UrlObsolete = exports.XmlDsigGost3410Url = exports.TRUST_REVOCATION_STATUS_UNKNOWN = exports.TRUST_IS_UNTRUSTED_ROOT = exports.TRUST_IS_REVOKED = exports.TRUST_IS_PARTIAL_CHAIN = exports.TRUST_IS_NOT_VALID_FOR_USAGE = exports.TRUST_IS_NOT_TIME_VALID = exports.TRUST_IS_NOT_TIME_NESTED = exports.TRUST_IS_NOT_SIGNATURE_VALID = exports.TRUST_IS_CYCLIC = exports.TRUST_CTL_IS_NOT_VALID_FOR_USAGE = exports.TRUST_CTL_IS_NOT_TIME_VALID = exports.TRUST_CTL_IS_NOT_SIGNATURE_VALID = exports.LOG_LEVEL_INFO = exports.LOG_LEVEL_ERROR = exports.LOG_LEVEL_DEBUG = exports.CHECK_TRUSTED_ROOT = exports.CHECK_TIME_VALIDITY = exports.CHECK_SIGNATURE_VALIDITY = exports.CHECK_ONLINE_REVOCATION_STATUS = exports.CHECK_OFFLINE_REVOCATION_STATUS = exports.CHECK_NONE = exports.CAPICOM_STORE_OPEN_READ_WRITE = exports.CAPICOM_STORE_OPEN_READ_ONLY = exports.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED = exports.CAPICOM_STORE_OPEN_INCLUDE_ARCHIVED = exports.CAPICOM_STORE_OPEN_EXISTING_ONLY = exports.CAPICOM_SMART_CARD_USER_STORE = exports.CAPICOM_PROPID_UNKNOWN = exports.CAPICOM_PROPID_SUBJECT_PUBLIC_KEY_MD5_HASH = exports.CAPICOM_PROPID_SUBJECT_NAME_MD5_HASH = exports.CAPICOM_PROPID_SMART_CARD_DATA = exports.CAPICOM_PROPID_SIGNATURE_HASH = exports.CAPICOM_PROPID_SHA1_HASH = exports.CAPICOM_PROPID_RENEWAL = exports.CAPICOM_PROPID_PVK_FILE = exports.CAPICOM_PROPID_PUBKEY_HASH_RESERVED = exports.CAPICOM_PROPID_PUBKEY_ALG_PARA = exports.CAPICOM_PROPID_NEXT_UPDATE_LOCATION = exports.CAPICOM_PROPID_MD5_HASH = exports.CAPICOM_PROPID_LAST_USER = exports.CAPICOM_PROPID_LAST_RESERVED = exports.CAPICOM_PROPID_KEY_SPEC = exports.CAPICOM_PROPID_KEY_PROV_INFO = exports.CAPICOM_PROPID_KEY_PROV_HANDLE = exports.CAPICOM_PROPID_KEY_IDENTIFIER = exports.CAPICOM_PROPID_KEY_CONTEXT = exports.CAPICOM_PROPID_ISSUER_SERIAL_NUMBER_MD5_HASH = exports.CAPICOM_PROPID_ISSUER_PUBLIC_KEY_MD5_HASH = exports.CAPICOM_PROPID_IE30_RESERVED = exports.CAPICOM_PROPID_HASH_PROP = exports.CAPICOM_PROPID_FRIENDLY_NAME = exports.CAPICOM_PROPID_FORTEZZA_DATA = exports.CAPICOM_PROPID_FIRST_USER = exports.CAPICOM_PROPID_FIRST_RESERVED = exports.CAPICOM_PROPID_EXTENDED_ERROR_INFO = exports.CAPICOM_PROPID_ENROLLMENT = exports.CAPICOM_PROPID_ENHKEY_USAGE = exports.CAPICOM_PROPID_EFS = exports.CAPICOM_PROPID_DESCRIPTION = exports.CAPICOM_PROPID_DATE_STAMP = exports.CAPICOM_PROPID_CTL_USAGE = exports.CAPICOM_PROPID_CROSS_CERT_DIST_POINTS = exports.CAPICOM_PROPID_AUTO_ENROLL = exports.CAPICOM_PROPID_ARCHIVED_KEY_HASH = exports.CAPICOM_PROPID_ARCHIVED = exports.CAPICOM_PROPID_ACCESS_STATE = exports.CAPICOM_OID_OTHER = exports.CAPICOM_OID_KEY_USAGE_EXTENSION = exports.CAPICOM_MY_STORE = exports.CAPICOM_MEMORY_STORE = exports.CAPICOM_LOCAL_MACHINE_STORE = exports.CAPICOM_EKU_SMARTCARD_LOGON = exports.CAPICOM_EKU_OTHER = exports.CAPICOM_EKU_CLIENT_AUTH = exports.CAPICOM_DIGITAL_SIGNATURE_KEY_USAGE = exports.CAPICOM_CURRENT_USER_STORE = exports.CAPICOM_CERT_INFO_SUBJECT_SIMPLE_NAME = exports.CAPICOM_CERT_INFO_ISSUER_SIMPLE_NAME = exports.CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN = exports.CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY = exports.CAPICOM_CERTIFICATE_INCLUDE_CHAIN_EXCEPT_ROOT = exports.CAPICOM_CERTIFICATE_FIND_TIME_VALID = exports.CAPICOM_CERTIFICATE_FIND_TIME_NOT_YET_VALID = exports.CAPICOM_CERTIFICATE_FIND_TIME_EXPIRED = exports.CAPICOM_CERTIFICATE_FIND_TEMPLATE_NAME = exports.CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME = exports.CAPICOM_CERTIFICATE_FIND_SHA1_HASH = exports.CAPICOM_CERTIFICATE_FIND_ROOT_NAME = exports.CAPICOM_CERTIFICATE_FIND_KEY_USAGE = exports.CAPICOM_CERTIFICATE_FIND_ISSUER_NAME = exports.CAPICOM_CERTIFICATE_FIND_EXTENSION = exports.CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY = exports.CAPICOM_CERTIFICATE_FIND_CERTIFICATE_POLICY = exports.CAPICOM_CERTIFICATE_FIND_APPLICATION_POLICY = exports.CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME = exports.CAPICOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_NAME = exports.CAPICOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_DESCRIPTION = exports.CAPICOM_ACTIVE_DIRECTORY_USER_STORE = exports.CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE = exports.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPING = exports.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED = exports.CADESCOM_SkipInstallToStore = exports.CADESCOM_STRING_TO_UCS2LE = exports.CADESCOM_PKCS7_TYPE = exports.CADESCOM_LOCAL_MACHINE_STORE = exports.CADESCOM_HASH_ALGORITHM_SHA_512 = exports.CADESCOM_HASH_ALGORITHM_SHA_384 = exports.CADESCOM_HASH_ALGORITHM_SHA_256 = exports.CADESCOM_HASH_ALGORITHM_SHA1 = exports.CADESCOM_HASH_ALGORITHM_MD5 = exports.CADESCOM_HASH_ALGORITHM_MD4 = exports.CADESCOM_HASH_ALGORITHM_MD2 = exports.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_HMAC = exports.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_512_HMAC = exports.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_512 = exports.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256_HMAC = exports.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256 = exports.CADESCOM_HASH_ALGORITHM_CP_GOST_3411 = exports.CADESCOM_ENCRYPTION_ALGORITHM_RC4 = exports.CADESCOM_ENCRYPTION_ALGORITHM_RC2 = exports.CADESCOM_ENCRYPTION_ALGORITHM_GOST_28147_89 = exports.CADESCOM_ENCRYPTION_ALGORITHM_DES = exports.CADESCOM_ENCRYPTION_ALGORITHM_AES = exports.CADESCOM_ENCRYPTION_ALGORITHM_3DES = exports.CADESCOM_ENCODE_BINARY = exports.CADESCOM_ENCODE_BASE64 = exports.CADESCOM_ENCODE_ANY = exports.CADESCOM_DISPLAY_DATA_NONE = exports.CADESCOM_DISPLAY_DATA_CONTENT = exports.CADESCOM_DISPLAY_DATA_ATTRIBUTE = exports.CADESCOM_CURRENT_USER_STORE = exports.CADESCOM_CONTAINER_STORE = exports.CADESCOM_CADES_X_LONG_TYPE_1 = exports.CADESCOM_CADES_T = exports.CADESCOM_CADES_DEFAULT = exports.CADESCOM_CADES_BES = exports.CADESCOM_BASE64_TO_BINARY = exports.CADESCOM_AllowUntrustedRoot = exports.CADESCOM_AllowUntrustedCertificate = exports.CADESCOM_AllowNone = exports.CADESCOM_AllowNoOutstandingRequest = exports.CADESCOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME = exports.CADESCOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_NAME = exports.CADESCOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_DESCRIPTION = exports.CADESCOM_ATTRIBUTE_OTHER = void 0;
 exports.CADESCOM_ATTRIBUTE_OTHER = -1;
 exports.CADESCOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_DESCRIPTION = 2;
 exports.CADESCOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_NAME = 1;
@@ -4539,14 +4580,21 @@ exports.XmlDsigGost3411UrlObsolete = 'http://www.w3.org/2001/04/xmldsig-more#gos
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(/*! ./cades-constants */ "./constants/cades-constants.ts"));
-__export(__webpack_require__(/*! ./issuer-tags-translations */ "./constants/issuer-tags-translations.ts"));
-__export(__webpack_require__(/*! ./oids-dictionary */ "./constants/oids-dictionary.ts"));
-__export(__webpack_require__(/*! ./subject-tags-translations */ "./constants/subject-tags-translations.ts"));
+__exportStar(__webpack_require__(/*! ./cades-constants */ "./constants/cades-constants.ts"), exports);
+__exportStar(__webpack_require__(/*! ./issuer-tags-translations */ "./constants/issuer-tags-translations.ts"), exports);
+__exportStar(__webpack_require__(/*! ./oids-dictionary */ "./constants/oids-dictionary.ts"), exports);
+__exportStar(__webpack_require__(/*! ./subject-tags-translations */ "./constants/subject-tags-translations.ts"), exports);
 
 
 /***/ }),
@@ -4561,21 +4609,23 @@ __export(__webpack_require__(/*! ./subject-tags-translations */ "./constants/sub
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ISSUER_TAGS_TRANSLATIONS = void 0;
 exports.ISSUER_TAGS_TRANSLATIONS = [
-    { possibleNames: ['UnstructuredName'], translation: 'Неструктурированное имя' },
-    { possibleNames: ['CN'], translation: 'Удостоверяющий центр' },
-    { possibleNames: ['C'], translation: 'Страна' },
-    { possibleNames: ['S'], translation: 'Регион' },
-    { possibleNames: ['STREET'], translation: 'Адрес' },
-    { possibleNames: ['O'], translation: 'Компания' },
-    { possibleNames: ['OU'], translation: 'Тип' },
-    { possibleNames: ['T'], translation: 'Должность' },
+    { possibleNames: ['UN', 'UnstructuredName'], translation: 'Неструктурированное имя' },
+    { possibleNames: ['CN', 'commonName'], translation: 'Удостоверяющий центр' },
+    { possibleNames: ['C', 'countryName'], translation: 'Страна' },
+    { possibleNames: ['S', 'ST', 'stateOrProvinceName'], translation: 'Регион' },
+    { possibleNames: ['STREET', 'streetAddress'], translation: 'Адрес' },
+    { possibleNames: ['O', 'organizationName'], translation: 'Компания' },
+    { possibleNames: ['OU', 'organizationalUnitName'], translation: 'Тип' },
+    { possibleNames: ['T', 'TITLE'], translation: 'Должность' },
     { possibleNames: ['ОГРН', 'OGRN'], translation: 'ОГРН' },
     { possibleNames: ['ОГРНИП', 'OGRNIP'], translation: 'ОГРНИП' },
     { possibleNames: ['СНИЛС', 'SNILS'], translation: 'СНИЛС' },
-    { possibleNames: ['ИНН', 'INN', 'ИНН организации'], translation: 'ИНН' },
-    { possibleNames: ['E'], translation: 'Email' },
-    { possibleNames: ['L'], translation: 'Город' },
+    { possibleNames: ['ИНН', 'ИННФЛ', 'ИНН ФЛ', 'INN', 'ИНН физического лица'], translation: 'ИНН' },
+    { possibleNames: ['ИННЮЛ', 'ИНН ЮЛ', 'INN LE', 'INNLE', 'ИНН организации'], translation: 'ИНН организации' },
+    { possibleNames: ['E', 'email', 'emailAddress', 'pkcs9email'], translation: 'Email' },
+    { possibleNames: ['L', 'localityName'], translation: 'Город' },
 ];
 
 
@@ -4591,10 +4641,15 @@ exports.ISSUER_TAGS_TRANSLATIONS = [
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OIDS_DICTIONARY = void 0;
 exports.OIDS_DICTIONARY = {
     '1.2.643.2.2.34.6': 'Пользователь Центра Регистрации',
     '1.2.643.2.39.1.1': 'Использование в программных продуктах системы "1С:Предприятие 8"',
     '1.2.643.3.131.1.1': 'ИНН',
+    '1.2.643.100.4': 'ИНН организации',
+    '1.2.643.100.1': 'ОГРН',
+    '1.2.643.100.5': 'ОГРНИП',
+    '1.2.643.100.3': 'СНИЛС',
     '1.2.643.3.141.1.1': 'РНС ФСС',
     '1.2.643.3.141.1.2': 'КП ФСС',
     '1.2.643.3.2.100.65.13.11': 'Использование в системе АИС "Госзакупки" Сахалинской области.',
@@ -4649,23 +4704,25 @@ exports.OIDS_DICTIONARY = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SUBJECT_TAGS_TRANSLATIONS = void 0;
 exports.SUBJECT_TAGS_TRANSLATIONS = [
-    { possibleNames: ['UnstructuredName'], translation: 'Неструктурированное имя' },
-    { possibleNames: ['CN'], translation: 'Владелец' },
-    { possibleNames: ['SN'], translation: 'Фамилия' },
-    { possibleNames: ['G'], translation: 'Имя Отчество' },
-    { possibleNames: ['C'], translation: 'Страна' },
-    { possibleNames: ['S'], translation: 'Регион' },
-    { possibleNames: ['STREET'], translation: 'Адрес' },
-    { possibleNames: ['O'], translation: 'Компания' },
-    { possibleNames: ['OU'], translation: 'Отдел/подразделение' },
-    { possibleNames: ['T'], translation: 'Должность' },
+    { possibleNames: ['UN', 'UnstructuredName'], translation: 'Неструктурированное имя' },
+    { possibleNames: ['CN', 'commonName'], translation: 'Владелец' },
+    { possibleNames: ['SN', 'surname'], translation: 'Фамилия' },
+    { possibleNames: ['G', 'givenName', 'gn'], translation: 'Имя Отчество' },
+    { possibleNames: ['C', 'countryName'], translation: 'Страна' },
+    { possibleNames: ['S', 'ST', 'stateOrProvinceName'], translation: 'Регион' },
+    { possibleNames: ['STREET', 'streetAddress'], translation: 'Адрес' },
+    { possibleNames: ['O', 'organizationName'], translation: 'Компания' },
+    { possibleNames: ['OU', 'organizationalUnitName'], translation: 'Отдел/подразделение' },
+    { possibleNames: ['T', 'TITLE'], translation: 'Должность' },
     { possibleNames: ['ОГРН', 'OGRN'], translation: 'ОГРН' },
     { possibleNames: ['ОГРНИП', 'OGRNIP'], translation: 'ОГРНИП' },
     { possibleNames: ['СНИЛС', 'SNILS'], translation: 'СНИЛС' },
-    { possibleNames: ['ИНН', 'INN', 'ИНН организации'], translation: 'ИНН' },
-    { possibleNames: ['E'], translation: 'Email' },
-    { possibleNames: ['L'], translation: 'Город' },
+    { possibleNames: ['ИНН', 'ИННФЛ', 'ИНН ФЛ', 'INN', 'ИНН физического лица'], translation: 'ИНН' },
+    { possibleNames: ['ИННЮЛ', 'ИНН ЮЛ', 'INN LE', 'INNLE', 'ИНН организации'], translation: 'ИНН организации' },
+    { possibleNames: ['E', 'email', 'emailAddress', 'pkcs9email'], translation: 'Email' },
+    { possibleNames: ['L', 'localityName'], translation: 'Город' },
 ];
 
 
@@ -4680,11 +4737,18 @@ exports.SUBJECT_TAGS_TRANSLATIONS = [
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(/*! ./api */ "./api/index.ts"));
+__exportStar(__webpack_require__(/*! ./api */ "./api/index.ts"), exports);
 
 
 /***/ }),
@@ -4735,6 +4799,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._afterPluginsLoaded = void 0;
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ./_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var isSetLogLevel = false;
 var isPluginLoaded = false;
@@ -4803,6 +4868,7 @@ exports._afterPluginsLoaded = function (fn) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._extractCommonName = void 0;
 exports._extractCommonName = function (subjectName) { var _a, _b; return (_b = (_a = subjectName.match(/CN="?(.+?)"?(?:,|$)/)) === null || _a === void 0 ? void 0 : _a[1]) === null || _b === void 0 ? void 0 : _b.replace(/"{2}/g, '"'); };
 
 
@@ -4818,6 +4884,7 @@ exports._extractCommonName = function (subjectName) { var _a, _b; return (_b = (
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._extractMeaningfulErrorMessage = void 0;
 exports._extractMeaningfulErrorMessage = function (error) {
     var _a;
     var errorContainer = ((_a = window.cadesplugin) === null || _a === void 0 ? void 0 : _a.getLastError) && window.cadesplugin.getLastError(error);
@@ -4848,6 +4915,7 @@ exports._extractMeaningfulErrorMessage = function (error) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._generateCadesFn = exports.__createCadesPluginObject__ = exports.__cadesAsyncToken__ = void 0;
 // синтетические переменные, которые подменяются в рантайме
 exports.__cadesAsyncToken__ = {};
 exports.__createCadesPluginObject__ = function () {
@@ -4929,6 +4997,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._getCadesCert = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ./_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _getCadesUserCert_1 = __webpack_require__(/*! ./_getCadesUserCert */ "./helpers/_getCadesUserCert.ts");
 var _getCadesContainerCert_1 = __webpack_require__(/*! ./_getCadesContainerCert */ "./helpers/_getCadesContainerCert.ts");
@@ -4973,6 +5042,7 @@ exports._getCadesCert = _afterPluginsLoaded_1._afterPluginsLoaded(function (thum
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._getCadesContainerCert = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ./_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ./_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ./_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -5050,6 +5120,7 @@ exports._getCadesContainerCert = _afterPluginsLoaded_1._afterPluginsLoaded(funct
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._getCadesUserCert = void 0;
 var _afterPluginsLoaded_1 = __webpack_require__(/*! ./_afterPluginsLoaded */ "./helpers/_afterPluginsLoaded.ts");
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ./_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ./_generateCadesFn */ "./helpers/_generateCadesFn.ts");
@@ -5126,6 +5197,7 @@ exports._getCadesUserCert = _afterPluginsLoaded_1._afterPluginsLoaded(function (
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._getDateObj = void 0;
 /**
  * Возвращает объект даты, совместимый с Cades plugin'ом, зависящий от браузера.
  *
@@ -5147,6 +5219,7 @@ exports._getDateObj = function (dateObj) { return (dateObj.getVarDate ? dateObj.
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._isSupportedCSPVersion = void 0;
 var oldestSupportedCSPVersion = 4.0;
 exports._isSupportedCSPVersion = function (version) {
     var _a;
@@ -5167,6 +5240,7 @@ exports._isSupportedCSPVersion = function (version) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._isSupportedCadesVersion = void 0;
 exports._isSupportedCadesVersion = function (version) {
     var match = version.match(/(\d+)\.(\d+)\.(\d+)/);
     if (!match) {
@@ -5195,6 +5269,7 @@ exports._isSupportedCadesVersion = function (version) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports._parseCertInfo = void 0;
 var constants_1 = __webpack_require__(/*! ../constants */ "./constants/index.ts");
 /**
  * Парсит информацию из строки с информацией о сертификате

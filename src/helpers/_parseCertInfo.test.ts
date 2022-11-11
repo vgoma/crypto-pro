@@ -18,8 +18,8 @@ describe('_parseCertInfo', () => {
       'OID.1.2.643.6.3.1.4.1=Петров',
       'UNKNOWN=неизвестный тэг',
       'E=email@example.ru',
-      'INN=007811514257',
-      'ИНН организации=007811514257',
+      'INN=997811514257',
+      'ИНН ЮЛ=007811514257',
       'OGRN=1127847087885',
       'SNILS=11617693460',
     ].join(', ');
@@ -96,13 +96,13 @@ describe('_parseCertInfo', () => {
         isTranslated: true,
       },
       {
-        description: '007811514257',
+        description: '997811514257',
         title: 'ИНН',
         isTranslated: true,
       },
       {
         description: '007811514257',
-        title: 'ИНН',
+        title: 'ИНН организации',
         isTranslated: true,
       },
       {
@@ -128,8 +128,8 @@ describe('_parseCertInfo', () => {
       'L=Санкт-Петербург',
       'S=78 Санкт-Петербург',
       'C=RU',
-      'INN=007813317783',
-      'ИНН организации=007813317783',
+      'INN=997813317783',
+      'INNLE=007813317783',
       'OGRN=1057810150892',
       'E=uc@sampokey.ru',
     ].join(', ');
@@ -176,13 +176,13 @@ describe('_parseCertInfo', () => {
         isTranslated: true,
       },
       {
-        description: '007813317783',
+        description: '997813317783',
         title: 'ИНН',
         isTranslated: true,
       },
       {
         description: '007813317783',
-        title: 'ИНН',
+        title: 'ИНН организации',
         isTranslated: true,
       },
       {

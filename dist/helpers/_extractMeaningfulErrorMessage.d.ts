@@ -1,1 +1,1 @@
-export declare const _extractMeaningfulErrorMessage: (error: Error) => string;
+export declare const _extractMeaningfulErrorMessage: (error: Error) => string | null;

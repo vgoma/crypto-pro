@@ -1,6 +1,6 @@
 {
   "name": "crypto-pro-example-es5-script-tag",
-  "version": "0.0.0",
+  "version": "2.3.3",
   "description": "Пример использования пакета crypto-pro через тэг script",
   "private": true,
   "scripts": {
@@ -13,6 +13,6 @@
     "symlink-dir": "3.1.2"
   },
   "dependencies": {
-    "crypto-pro-js": "^2.3.2"
+    "crypto-pro-js": "^2.3.3"
   }
 }
