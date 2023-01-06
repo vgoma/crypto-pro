@@ -152,7 +152,7 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 
 <a name="examples"></a>
 ## Примеры
-Для их запуска необходим NodeJS LTS.
+Для их запуска необходим NodeJS версии, указанной в [.nvmrc](.nvmrc).
 
 <a name="example-script-tag"></a>
 ### Тэг script (UMD)
