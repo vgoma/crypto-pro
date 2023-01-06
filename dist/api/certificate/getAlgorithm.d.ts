@@ -1,4 +1,4 @@
-interface AlgorithmInfo {
+export interface AlgorithmInfo {
     algorithm: string;
     oid: string;
 }
@@ -8,4 +8,3 @@ interface AlgorithmInfo {
  * @returns информацию об алгоритме и его OID'е
  */
 export declare const getAlgorithm: () => Promise<AlgorithmInfo>;
-export {};

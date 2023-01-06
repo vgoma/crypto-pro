@@ -1,4 +1,5 @@
 import { TagTranslation } from '../../helpers/_parseCertInfo';
+import { AlgorithmInfo } from './getAlgorithm';
 import { ExtendedKeysTranslations } from './getDecodedExtendedKeyUsage';
 export declare type CadesCertificate = any;
 export declare class Certificate {
@@ -14,7 +15,7 @@ export declare class Certificate {
     getIssuerInfo(): Promise<TagTranslation[]>;
     getExtendedKeyUsage(): Promise<string[]>;
     getDecodedExtendedKeyUsage(): Promise<ExtendedKeysTranslations>;
-    getAlgorithm(): Promise<string>;
+    getAlgorithm(): Promise<AlgorithmInfo>;
     getCadesProp(propName: any): Promise<any>;
     isValid(): Promise<boolean>;
     exportBase64(): Promise<string>;
