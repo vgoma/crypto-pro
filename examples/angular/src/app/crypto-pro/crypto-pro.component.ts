@@ -20,23 +20,23 @@ import {
 export class CryptoProComponent implements OnInit {
   public message = 'Привет мир!';
   public certificateList: Certificate[] = [];
-  public hash: string = null;
+  public hash: string | null = null;
   public hashStatus = 'Не вычислен';
   public detachedSignature = true;
-  public thumbprint: string = null;
-  public signature: string = null;
+  public thumbprint: string | null = null;
+  public signature: string | null = null;
   public signatureStatus = 'Не создана';
-  public customSystemInfo: string = null;
-  public customSystemInfoError: string = null;
-  public systemInfo: SystemInfo & {
+  public customSystemInfo: string | null = null;
+  public customSystemInfoError: string | null = null;
+  public systemInfo: undefined | SystemInfo & {
     isValidSystemSetup: boolean;
   };
-  public certificateListError: string = null;
-  public certificateInfoError: string = null;
-  public hashError: string = null;
-  public signatureError: string = null;
-  public systemInfoError: string = null;
-  public certInfo = null;
+  public certificateListError: string | null = null;
+  public certificateInfoError: string | null = null;
+  public hashError: string | null = null;
+  public signatureError: string | null = null;
+  public systemInfoError: string | null = null;
+  public certInfo: { [key: string]: unknown } | null = null;
 
   constructor() { }
 
@@ -46,7 +46,11 @@ export class CryptoProComponent implements OnInit {
     this.displaySystemInfo();
   }
 
-  public async createSignature(thumbprint) {
+  public async createSignature(thumbprint: string | null) {
+    if (!thumbprint) {
+      return;
+    }
+
     this.hash = null;
     this.hashError = null;
     this.signature = null;
@@ -56,7 +60,7 @@ export class CryptoProComponent implements OnInit {
     try {
       this.hash = await createHash(this.message);
     } catch (error) {
-      this.hashError = error.message;
+      this.hashError = (error as Error).message;
 
       return;
     }
@@ -68,7 +72,7 @@ export class CryptoProComponent implements OnInit {
       try {
         this.signature = await createDetachedSignature(thumbprint, this.hash);
       } catch (error) {
-        this.signatureError = error.message;
+        this.signatureError = (error as Error).message;
       }
 
       this.signatureStatus = 'Не создана';
@@ -79,13 +83,17 @@ export class CryptoProComponent implements OnInit {
     try {
       this.signature = await createAttachedSignature(thumbprint, this.message);
     } catch (error) {
-      this.signatureError = error.message;
+      this.signatureError = (error as Error).message;
     }
 
     this.signatureStatus = 'Не создана';
   }
 
-  public async showCertInfo(thumbprint) {
+  public async showCertInfo(thumbprint: string | null) {
+    if (!thumbprint) {
+      return;
+    }
+
     this.certInfo = null;
     this.certificateInfoError = null;
 
@@ -119,7 +127,7 @@ export class CryptoProComponent implements OnInit {
         ]),
       };
     } catch (error) {
-      this.certificateInfoError = error.message;
+      this.certificateInfoError = (error as Error).message;
     }
   }
 
@@ -129,7 +137,7 @@ export class CryptoProComponent implements OnInit {
     try {
       this.certificateList = await getUserCertificates();
     } catch (error) {
-      this.certificateListError = error.message;
+      this.certificateListError = (error as Error).message;
     }
   }
 
@@ -142,7 +150,7 @@ export class CryptoProComponent implements OnInit {
         isValidSystemSetup: await isValidSystemSetup()
       };
     } catch (error) {
-      this.systemInfoError = error.message;
+      this.systemInfoError = (error as Error).message;
     }
   }
 
@@ -169,7 +177,7 @@ export class CryptoProComponent implements OnInit {
             } catch (error) {
               console.error(error);
 
-              throw new Error(utils._extractMeaningfulErrorMessage(error) || 'Ошибка при извлечении информации');
+              throw new Error(utils._extractMeaningfulErrorMessage(error as Error) || 'Ошибка при извлечении информации');
             }
 
             return [
@@ -181,7 +189,7 @@ export class CryptoProComponent implements OnInit {
         );
       });
     } catch (error) {
-      this.customSystemInfoError = error.message;
+      this.customSystemInfoError = (error as Error).message;
     }
   }
 }
