@@ -67,7 +67,7 @@
     "prettier": "2.0.2",
     "rimraf": "3.0.2",
     "sinon": "9.0.1",
-    "tar": "6.0.1",
+    "tar": "6.1.9",
     "ts-jest": "25.2.1",
     "ts-loader": "6.2.2",
     "typescript": "3.8.3",
