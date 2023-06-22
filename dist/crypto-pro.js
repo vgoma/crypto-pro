@@ -3047,16 +3047,22 @@ var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ 
  *
  * @returns хеш
  */
-exports.createHash = _afterPluginsLoaded_1._afterPluginsLoaded(function (unencryptedMessage, hashedAlgorithm) { return __awaiter(void 0, void 0, void 0, function () {
+exports.createHash = _afterPluginsLoaded_1._afterPluginsLoaded(function (unencryptedMessage, options) { return __awaiter(void 0, void 0, void 0, function () {
     var cadesplugin;
     return __generator(this, function (_a) {
         cadesplugin = window.cadesplugin;
         return [2 /*return*/, eval(_generateCadesFn_1._generateCadesFn(function createHash() {
+                var _a;
                 var cadesHashedData = _generateCadesFn_1.__cadesAsyncToken__ + _generateCadesFn_1.__createCadesPluginObject__('CAdESCOM.HashedData');
                 var messageBase64;
                 var hash;
                 try {
-                    messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+                    if ((options === null || options === void 0 ? void 0 : options.encoding) && typeof unencryptedMessage === 'string') {
+                        messageBase64 = Buffer.from(unencryptedMessage, options === null || options === void 0 ? void 0 : options.encoding).toString('base64');
+                    }
+                    else {
+                        messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+                    }
                 }
                 catch (error) {
                     console.error(error);
@@ -3064,7 +3070,7 @@ exports.createHash = _afterPluginsLoaded_1._afterPluginsLoaded(function (unencry
                 }
                 try {
                     void (_generateCadesFn_1.__cadesAsyncToken__ +
-                        cadesHashedData.propset_Algorithm(hashedAlgorithm !== null && hashedAlgorithm !== void 0 ? hashedAlgorithm : cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256));
+                        cadesHashedData.propset_Algorithm((_a = options === null || options === void 0 ? void 0 : options.hashedAlgorithm) !== null && _a !== void 0 ? _a : cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256));
                     void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.propset_DataEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
                     void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.Hash(messageBase64));
                 }
