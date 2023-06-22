@@ -1,6 +1,12 @@
+import { TranscodeEncoding } from 'buffer';
 import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
 import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
+
+type Options = {
+  hashedAlgorithm?: number;
+  encoding?: TranscodeEncoding;
+};
 
 /**
  * Создает хеш сообщения по ГОСТ Р 34.11-2012 (по умолчанию 256 бит)
@@ -12,7 +18,7 @@ import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } fr
  * @returns хеш
  */
 export const createHash = _afterPluginsLoaded(
-  async (unencryptedMessage: string | ArrayBuffer, hashedAlgorithm?: number): Promise<string> => {
+  async (unencryptedMessage: string | ArrayBuffer, options?: Options): Promise<string> => {
     const { cadesplugin } = window;
 
     return eval(
@@ -22,7 +28,11 @@ export const createHash = _afterPluginsLoaded(
         let hash;
 
         try {
-          messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+          if (options?.encoding && typeof unencryptedMessage === 'string') {
+            messageBase64 = Buffer.from(unencryptedMessage, options?.encoding).toString('base64');
+          } else {
+            messageBase64 = Buffer.from(unencryptedMessage).toString('base64');
+          }
         } catch (error) {
           console.error(error);
 
@@ -33,7 +43,7 @@ export const createHash = _afterPluginsLoaded(
           void (
             __cadesAsyncToken__ +
             cadesHashedData.propset_Algorithm(
-              hashedAlgorithm ?? cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256,
+              options?.hashedAlgorithm ?? cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256,
             )
           );
           void (__cadesAsyncToken__ + cadesHashedData.propset_DataEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
