@@ -3039,14 +3039,15 @@ var _afterPluginsLoaded_1 = __webpack_require__(/*! ../helpers/_afterPluginsLoad
 var _extractMeaningfulErrorMessage_1 = __webpack_require__(/*! ../helpers/_extractMeaningfulErrorMessage */ "./helpers/_extractMeaningfulErrorMessage.ts");
 var _generateCadesFn_1 = __webpack_require__(/*! ../helpers/_generateCadesFn */ "./helpers/_generateCadesFn.ts");
 /**
- * Создает хеш сообщения по ГОСТ Р 34.11-2012 256 бит
+ * Создает хеш сообщения по ГОСТ Р 34.11-2012 (по умолчанию 256 бит)
  * https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%80%D0%B8%D0%B1%D0%BE%D0%B3_(%D1%85%D0%B5%D1%88-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F)
  *
  * @param unencryptedMessage - сообщение для хеширования
+ * @hashedAlgorithm - алгоритм хеширования. По умолчанию - CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256.
  *
  * @returns хеш
  */
-exports.createHash = _afterPluginsLoaded_1._afterPluginsLoaded(function (unencryptedMessage) { return __awaiter(void 0, void 0, void 0, function () {
+exports.createHash = _afterPluginsLoaded_1._afterPluginsLoaded(function (unencryptedMessage, hashedAlgorithm) { return __awaiter(void 0, void 0, void 0, function () {
     var cadesplugin;
     return __generator(this, function (_a) {
         cadesplugin = window.cadesplugin;
@@ -3063,7 +3064,7 @@ exports.createHash = _afterPluginsLoaded_1._afterPluginsLoaded(function (unencry
                 }
                 try {
                     void (_generateCadesFn_1.__cadesAsyncToken__ +
-                        cadesHashedData.propset_Algorithm(cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256));
+                        cadesHashedData.propset_Algorithm(hashedAlgorithm !== null && hashedAlgorithm !== void 0 ? hashedAlgorithm : cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256));
                     void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.propset_DataEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY));
                     void (_generateCadesFn_1.__cadesAsyncToken__ + cadesHashedData.Hash(messageBase64));
                 }
