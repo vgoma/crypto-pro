@@ -3,8 +3,19 @@ import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
 import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
 
+/** Дополнительные настройки */
 type Options = {
+  /**
+   * Алгоритм хеширования
+   *
+   * @defaultValue `cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256`
+   */
   hashedAlgorithm?: number;
+  /**
+   * Кодировка сообщения для хеширования
+   *
+   * @defaultValue `utf8`
+   */
   encoding?: TranscodeEncoding;
 };
 
@@ -13,7 +24,7 @@ type Options = {
  * https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%80%D0%B8%D0%B1%D0%BE%D0%B3_(%D1%85%D0%B5%D1%88-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F)
  *
  * @param unencryptedMessage - сообщение для хеширования
- * @hashedAlgorithm - алгоритм хеширования. По умолчанию - CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256.
+ * @options - дополнительные настройки
  *
  * @returns хеш
  */

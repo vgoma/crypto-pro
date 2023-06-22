@@ -3,15 +3,33 @@ import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErr
 import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
 import { _getCadesCert } from '../helpers/_getCadesCert';
 
+/** Дополнительные настройки */
+type Options = {
+  /**
+   * Метод подписи
+   *
+   * @defaultValue `cadesplugin.XmlDsigGost3410Url2012256`
+   */
+  signatureMethod?: string;
+  /**
+   * Метод формирования дайджеста
+   *
+   * @defaultValue `cadesplugin.XmlDsigGost3411Url2012256`
+   */
+  digestMethod?: string;
+};
+
 /**
  * Создает XML подпись для документа в формате XML
  *
  * @param thumbprint - отпечаток сертификата
  * @param unencryptedMessage - подписываемое сообщение в формате XML
+ * @options - дополнительные настройки
+ *
  * @returns подпись
  */
 export const createXMLSignature = _afterPluginsLoaded(
-  async (thumbprint: string, unencryptedMessage: string): Promise<string> => {
+  async (thumbprint: string, unencryptedMessage: string, options?: Options): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = await _getCadesCert(thumbprint);
 
@@ -30,8 +48,8 @@ export const createXMLSignature = _afterPluginsLoaded(
         }
 
         try {
-          const signatureMethod = 'urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34102012-gostr34112012-256';
-          const digestMethod = 'urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256';
+          const signatureMethod = options?.signatureMethod ?? cadesplugin.XmlDsigGost3410Url2012256;
+          const digestMethod = options?.digestMethod ?? cadesplugin.XmlDsigGost3411Url2012256;
 
           void (__cadesAsyncToken__ + cadesSigner.propset_Certificate(cadesCertificate));
           void (__cadesAsyncToken__ + cadesSigner.propset_CheckCertificate(true));

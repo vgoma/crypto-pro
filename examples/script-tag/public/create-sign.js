@@ -35,7 +35,12 @@
     });
   }
 
-  function createSignature(message, hash) {
+  function createSignature(message, data) {
+    var hash = data.hash;
+    var hashedAlgorithm = data.is512bit ? window.cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_512 : null;
+    var signatureMethod = data.is512bit ? window.cadesplugin.XmlDsigGost3410Url2012512 : null;
+    var digestMethod = data.is512bit ? window.cadesplugin.XmlDsigGost3411Url2012512 : null;
+
     var thumbprint = $certificate.value,
       signatureType = document.querySelector('input[name="signatureType"]:checked').value,
       signaturePromise;
@@ -51,11 +56,11 @@
 
         break;
       case 'xml':
-        signaturePromise = window.cryptoPro.createXMLSignature(thumbprint, message);
+        signaturePromise = window.cryptoPro.createXMLSignature(thumbprint, message, { signatureMethod: signatureMethod, digestMethod: digestMethod });
 
         break;
       case 'detached':
-        signaturePromise = window.cryptoPro.createDetachedSignature(thumbprint, hash);
+        signaturePromise = window.cryptoPro.createDetachedSignature(thumbprint, hash, { hashedAlgorithm: hashedAlgorithm });
 
         break;
     }
@@ -81,7 +86,9 @@
 
   $createSignature.addEventListener('submit', function (event) {
     var messageFile = $messageFile && $messageFile.files.length && $messageFile.files[0],
-      messagePromise = Promise.resolve($message.value);
+      messagePromise = Promise.resolve($message.value),
+      thumbprint = $certificate.value,
+      is512bit = false;
 
     if (messageFile) {
       messagePromise = readFile(messageFile);
@@ -93,10 +100,25 @@
       $hash.placeholder = 'Вычисляется...';
       $hash.value = '';
 
-      window.cryptoPro.createHash(message).then(createSignature.bind(null, message), function (hashError) {
-        $hash.placeholder = 'Не вычислен';
-        $hashError.textContent = hashError.message;
-      });
+      // Определение алгоритма хеширования в зависимости от сертификата ЭП
+      window.cryptoPro.getCertificate(thumbprint)
+        .then(function (certificate) { return certificate.getAlgorithm(); })
+        .then(function (algorithm) {
+          // Замена алгоритма хеширования для 512 бит
+          if (algorithm.oid === '1.2.643.7.1.1.1.2')
+            is512bit = true;
+          
+          return window.cryptoPro.createHash(message, { hashedAlgorithm: is512bit ? window.cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_512 : null });
+        })
+        .then(
+          function (hash) {
+            createSignature(message, { hash: hash, is512bit: is512bit });
+          },
+          function (hashError) {
+            $hash.placeholder = 'Не вычислен';
+            $hashError.textContent = hashError.message;
+          }
+        );
     }, function (fileError) {
       $messageFileError.textContent = fileError;
     })
