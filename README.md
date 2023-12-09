@@ -249,6 +249,9 @@ getSystemInfo();
 Вам будут полезны [примеры](http://cpdn.cryptopro.ru/?url=/content/cades/plugin-samples-sign.html),
 предоставляемые Крипто ПРО.
 
+Необходима NodeJS версии, указанной в [.nvmrc](.nvmrc).
+На машине должен быть установлен Python 2.7.18.
+
 <a name="dev-mode"></a>
 ## Запуск режима разработки
 Устанавливаем зависимости:

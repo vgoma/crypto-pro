@@ -1,6 +1,6 @@
 {
   "name": "crypto-pro",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "API для взаимодействия с КриптоПро",
   "main": "./lib/crypto-pro.js",
   "types": "./lib/crypto-pro.d.ts",
@@ -58,6 +58,7 @@
     "@types/node": "13.9.5",
     "@typescript-eslint/eslint-plugin": "2.25.0",
     "@typescript-eslint/parser": "2.25.0",
+    "cadesplugin_api.js": "2.3.5",
     "coveralls": "3.0.11",
     "cross-env": "7.0.2",
     "eslint": "6.8.0",
