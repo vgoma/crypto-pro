@@ -5,15 +5,26 @@ import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } fr
 import { _getCadesCert } from '../helpers/_getCadesCert';
 import { _getDateObj } from '../helpers/_getDateObj';
 
+/** Дополнительные настройки */
+type Options = {
+  /**
+   * Алгоритм хеширования
+   *
+   * @defaultValue `cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256`
+   */
+  hashedAlgorithm?: number;
+};
+
 /**
  * Создает отсоединенную подпись хеша по отпечатку сертификата
  *
  * @param thumbprint - отпечаток сертификата
- * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 бит
+ * @param messageHash - хеш подписываемого сообщения, сгенерированный по ГОСТ Р 34.11-2012 256 или 512 бит в зависимости от алгоритма открытого ключа
+ * @param options - дополнительные настройки
  * @returns подпись в формате PKCS#7
  */
 export const createDetachedSignature = _afterPluginsLoaded(
-  async (thumbprint: string, messageHash: string): Promise<string> => {
+  async (thumbprint: string, messageHash: string, options?: Options): Promise<string> => {
     const { cadesplugin } = window;
     const cadesCertificate = await _getCadesCert(thumbprint);
 
@@ -62,7 +73,9 @@ export const createDetachedSignature = _afterPluginsLoaded(
         try {
           void (
             __cadesAsyncToken__ +
-            cadesHashedData.propset_Algorithm(cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256)
+            cadesHashedData.propset_Algorithm(
+              options?.hashedAlgorithm ?? cadesplugin.CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256,
+            )
           );
           void (__cadesAsyncToken__ + cadesHashedData.SetHashValue(messageHash));
         } catch (error) {
